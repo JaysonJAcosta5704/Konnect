@@ -118,6 +118,18 @@
         </Button>
 
     </LinearLayout>
+    <Button
+        android:id="@+id/signup_home_btn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="10dp"
+        android:text="Signup"
+        android:textSize="20sp"
+        android:textColor="#ffffff">
+
+    </Button>
+
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
