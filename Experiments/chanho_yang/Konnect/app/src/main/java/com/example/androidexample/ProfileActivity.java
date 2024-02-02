@@ -15,8 +15,7 @@ public class ProfileActivity extends AppCompatActivity {
     private EditText dob;
     private EditText hobby;
     private EditText address;
-
-    private Button homeButton;
+    private Button submitButton;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,9 +26,9 @@ public class ProfileActivity extends AppCompatActivity {
         dob = findViewById(R.id.profile_dob_edt);
         hobby = findViewById(R.id.profile_hobby_edt);
         address = findViewById(R.id.profile_address_edt);
-        homeButton = findViewById(R.id.profile_home_btn);
+        submitButton = findViewById(R.id.profile_submit_btn);
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(ProfileActivity.this, MainActivity.class);

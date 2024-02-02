@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private Button signupButton;    // define signup button variable
     private Button profileButton;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
