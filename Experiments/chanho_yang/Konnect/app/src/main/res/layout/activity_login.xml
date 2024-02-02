@@ -93,7 +93,20 @@
             android:textColor="#ffffff">
         </Button>
 
+
+
     </LinearLayout>
+    <Button
+        android:id="@+id/login_home_btn"
+        android:layout_width="150dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:text="Home"
+        android:textSize="20sp"
+        android:textColor="#ffffff">
+
+    </Button>
 
 
 </androidx.appcompat.widget.LinearLayoutCompat>
