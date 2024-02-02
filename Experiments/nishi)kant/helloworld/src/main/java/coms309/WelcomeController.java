@@ -13,7 +13,12 @@ class WelcomeController {
     }
 
     @GetMapping("/{name}")
+
     public String welcome(@PathVariable String name) {
         return "Hello and welcome to COMS 309: " + name;
+    }
+    @GetMapping("/greet/{name}")
+    public String greet(@PathVariable String name) {
+        return "Greetings from COMS 309: " + name;
     }
 }
