@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 class WelcomeController {
-
+    public String Name;
     @GetMapping("/")
     public String welcome() {
         return "Hello and welcome to COMS 309";
@@ -26,6 +26,27 @@ class WelcomeController {
             return "Email is not the default one.";
         }
     }
+
+    @GetMapping("/set-name/{newName}")
+    public String setEmail(@PathVariable String newName) {
+        this.Name= newName;
+        return "New name set" + newName;
+    }
+
+    @GetMapping ("/check-name/{userName}")
+    public String CheckName(@PathVariable String userName){
+        if(this.Name==null){
+            return "Name has not been set";
+        }
+        else if(this.Name.compareTo(userName) == 0){
+            return "The name " + userName + " matches our the name" ;
+        }
+        else{
+            return "Name " + userName +" does not match " + this.Name;
+        }
+    }
+
+
 
     @GetMapping("/add/{num1}/{num2}")
     public String addNumbers(@PathVariable int num1, @PathVariable int num2) {
