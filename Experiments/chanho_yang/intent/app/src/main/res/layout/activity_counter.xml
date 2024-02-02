@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:layout_gravity="center"
-        android:textSize="150sp"
+        android:textSize="200sp"
         android:textColor="#E91E63"
         android:text="0" >
     </TextView>
@@ -24,7 +24,8 @@
         android:layout_height="80dp"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:text="Increase">
+        android:text="Increase"
+        android:textSize="30dp">
     </Button>
 
     <Button
@@ -33,7 +34,8 @@
         android:layout_height="80dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Decrease">
+        android:text="Decrease"
+        android:textSize="30dp">
     </Button>
 
     <Button
@@ -42,7 +44,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:text="Back to Main" >
+        android:text="Back to Main"
+        android:textSize="20dp">
 
     </Button>
 
