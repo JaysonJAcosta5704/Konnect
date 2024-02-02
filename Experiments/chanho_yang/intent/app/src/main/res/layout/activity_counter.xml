@@ -24,7 +24,7 @@
         android:layout_height="80dp"
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
-        android:text="Increase"
+        android:text="+"
         android:textSize="30dp">
     </Button>
 
@@ -34,7 +34,7 @@
         android:layout_height="80dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Decrease"
+        android:text="-"
         android:textSize="30dp">
     </Button>
 
@@ -44,8 +44,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="50dp"
-        android:text="Back to Main"
-        android:textSize="20dp">
+        android:text="Back"
+        android:textSize="40dp"
+        android:fontFamily="cursive">
 
     </Button>
 

@@ -15,7 +15,8 @@
         android:layout_gravity="center"
         android:layout_marginTop="200dp"
         android:textSize="40dp"
-        android:textColor="#000080">
+        android:textColor="#000080"
+        android:fontFamily="cursive">
     </TextView>
 
     <Button
@@ -26,7 +27,8 @@
         android:layout_gravity="center"
         android:text="To the Counter Activity"
         android:textSize="30sp"
-        android:textColor="#ffffff">
+        android:textColor="#ffffff"
+        android:fontFamily="sans-serif-smallcaps">
     </Button>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
