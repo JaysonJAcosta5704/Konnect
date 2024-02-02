@@ -26,12 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* extract data passed into this activity from another activity */
         Bundle extras = getIntent().getExtras();
-        if(extras == null) {
-            messageText.setText("Intent Example");
-        } else {
-            String number = extras.getString("NUM");  // this will come from LoginActivity
-            messageText.setText("The number was " + number);
-        }
+        messageText.setText("Konnect");
 
         /* click listener on counter button pressed */
         counterButton.setOnClickListener(new View.OnClickListener() {
@@ -39,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 /* when counter button is pressed, use intent to switch to Counter Activity */
-                Intent intent = new Intent(MainActivity.this, CounterActivity.class);
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
         });
