@@ -15,7 +15,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="200dp"
         android:textSize="40dp"
-        android:textColor="#8B0000">
+        android:textColor="#000080">
     </TextView>
 
     <Button
