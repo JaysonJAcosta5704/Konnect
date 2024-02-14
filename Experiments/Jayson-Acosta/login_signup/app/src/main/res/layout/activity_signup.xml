@@ -98,7 +98,7 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/login_login_btn"
+            android:id="@+id/signup_login_btn"
             android:layout_width="250dp"
             android:layout_height="75dp"
             android:text="Login"
@@ -107,7 +107,7 @@
         </Button>
 
         <Button
-            android:id="@+id/login_signup_btn"
+            android:id="@+id/signup_signup_btn"
             android:layout_width="250dp"
             android:layout_height="75dp"
             android:text="Signup"
