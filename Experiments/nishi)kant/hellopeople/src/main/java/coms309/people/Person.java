@@ -1,37 +1,30 @@
 //package coms309.people;
 //
-//
-///**
-// * Provides the Definition/Structure for the people row
-// *
-// * @author Vivek Bengre
-// */
-//
 //public class Person {
 //
 //    private String firstName;
-//
 //    private String lastName;
-//
 //    private String address;
-//
 //    private String telephone;
+//    private String gender; // Added gender field
+//    private String eyeColor; // Added eyeColor field
 //
-//
-//
-//    public Person(){
-//
+//    public Person() {
+//        // Default constructor
 //    }
 //
-//    public Person(String firstName, String lastName, String address, String telephone){
+//    public Person(String firstName, String lastName, String address, String telephone, String gender, String eyeColor) {
 //        this.firstName = firstName;
 //        this.lastName = lastName;
 //        this.address = address;
 //        this.telephone = telephone;
+//        this.gender = gender;
+//        this.eyeColor = eyeColor;
 //    }
 //
+//    // Getters and Setters for new fields along with the existing ones
 //    public String getFirstName() {
-//        return this.firstName;
+//        return firstName;
 //    }
 //
 //    public void setFirstName(String firstName) {
@@ -39,7 +32,7 @@
 //    }
 //
 //    public String getLastName() {
-//        return this.lastName;
+//        return lastName;
 //    }
 //
 //    public void setLastName(String lastName) {
@@ -47,7 +40,7 @@
 //    }
 //
 //    public String getAddress() {
-//        return this.address;
+//        return address;
 //    }
 //
 //    public void setAddress(String address) {
@@ -55,20 +48,39 @@
 //    }
 //
 //    public String getTelephone() {
-//        return this.telephone;
+//        return telephone;
 //    }
 //
 //    public void setTelephone(String telephone) {
 //        this.telephone = telephone;
 //    }
 //
+//    public String getGender() {
+//        return gender;
+//    }
+//
+//    public void setGender(String gender) {
+//        this.gender = gender;
+//    }
+//
+//    public String getEyeColor() {
+//        return eyeColor;
+//    }
+//
+//    public void setEyeColor(String eyeColor) {
+//        this.eyeColor = eyeColor;
+//    }
+//
 //    @Override
 //    public String toString() {
-//        return firstName + " "
-//               + lastName + " "
-//               + address + " "
-//               + telephone;
-//
+//        return "Person{" +
+//                "firstName='" + firstName + '\'' +
+//                ", lastName='" + lastName + '\'' +
+//                ", address='" + address + '\'' +
+//                ", telephone='" + telephone + '\'' +
+//                ", gender='" + gender + '\'' +
+//                ", eyeColor='" + eyeColor + '\'' +
+//                '}';
 //    }
 //}
 package coms309.people;
@@ -79,23 +91,29 @@ public class Person {
     private String lastName;
     private String address;
     private String telephone;
-    private String gender; // Added gender field
-    private String eyeColor; // Added eyeColor field
+    private String gender;
+    private String eyeColor;
+    private String hobby; // Added hobby field
+    private String profession; // Added profession field
 
+    // Default constructor
     public Person() {
-        // Default constructor
     }
 
-    public Person(String firstName, String lastName, String address, String telephone, String gender, String eyeColor) {
+    // Constructor with all fields
+    public Person(String firstName, String lastName, String address, String telephone,
+                  String gender, String eyeColor, String hobby, String profession) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.telephone = telephone;
         this.gender = gender;
         this.eyeColor = eyeColor;
+        this.hobby = hobby;
+        this.profession = profession;
     }
 
-    // Getters and Setters for new fields along with the existing ones
+    // Getters and setters
     public String getFirstName() {
         return firstName;
     }
@@ -144,6 +162,22 @@ public class Person {
         this.eyeColor = eyeColor;
     }
 
+    public String getHobby() {
+        return hobby;
+    }
+
+    public void setHobby(String hobby) {
+        this.hobby = hobby;
+    }
+
+    public String getProfession() {
+        return profession;
+    }
+
+    public void setProfession(String profession) {
+        this.profession = profession;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -153,6 +187,8 @@ public class Person {
                 ", telephone='" + telephone + '\'' +
                 ", gender='" + gender + '\'' +
                 ", eyeColor='" + eyeColor + '\'' +
+                ", hobby='" + hobby + '\'' +
+                ", profession='" + profession + '\'' +
                 '}';
     }
 }
