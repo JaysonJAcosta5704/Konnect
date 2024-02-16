@@ -1,3 +1,4 @@
+//
 //package coms309.people;
 //
 //public class Person {
@@ -6,23 +7,29 @@
 //    private String lastName;
 //    private String address;
 //    private String telephone;
-//    private String gender; // Added gender field
-//    private String eyeColor; // Added eyeColor field
+//    private String gender;
+//    private String eyeColor;
+//    private String hobby; // Added hobby field
+//    private String profession; // Added profession field
 //
+//    // Default constructor
 //    public Person() {
-//        // Default constructor
 //    }
 //
-//    public Person(String firstName, String lastName, String address, String telephone, String gender, String eyeColor) {
+//    // Constructor with all fields
+//    public Person(String firstName, String lastName, String address, String telephone,
+//                  String gender, String eyeColor, String hobby, String profession) {
 //        this.firstName = firstName;
 //        this.lastName = lastName;
 //        this.address = address;
 //        this.telephone = telephone;
 //        this.gender = gender;
 //        this.eyeColor = eyeColor;
+//        this.hobby = hobby;
+//        this.profession = profession;
 //    }
 //
-//    // Getters and Setters for new fields along with the existing ones
+//    // Getters and setters
 //    public String getFirstName() {
 //        return firstName;
 //    }
@@ -71,6 +78,22 @@
 //        this.eyeColor = eyeColor;
 //    }
 //
+//    public String getHobby() {
+//        return hobby;
+//    }
+//
+//    public void setHobby(String hobby) {
+//        this.hobby = hobby;
+//    }
+//
+//    public String getProfession() {
+//        return profession;
+//    }
+//
+//    public void setProfession(String profession) {
+//        this.profession = profession;
+//    }
+//
 //    @Override
 //    public String toString() {
 //        return "Person{" +
@@ -80,6 +103,8 @@
 //                ", telephone='" + telephone + '\'' +
 //                ", gender='" + gender + '\'' +
 //                ", eyeColor='" + eyeColor + '\'' +
+//                ", hobby='" + hobby + '\'' +
+//                ", profession='" + profession + '\'' +
 //                '}';
 //    }
 //}
@@ -93,16 +118,17 @@ public class Person {
     private String telephone;
     private String gender;
     private String eyeColor;
-    private String hobby; // Added hobby field
-    private String profession; // Added profession field
+    private String hobby;
+    private String profession;
+    private int age; // Declare the age field
 
     // Default constructor
     public Person() {
     }
 
-    // Constructor with all fields
+    // Constructor with all fields including age
     public Person(String firstName, String lastName, String address, String telephone,
-                  String gender, String eyeColor, String hobby, String profession) {
+                  String gender, String eyeColor, String hobby, String profession, int age) { // Add age parameter
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
@@ -111,6 +137,7 @@ public class Person {
         this.eyeColor = eyeColor;
         this.hobby = hobby;
         this.profession = profession;
+        this.age = age; // Initialize the age field
     }
 
     // Getters and setters
@@ -178,6 +205,14 @@ public class Person {
         this.profession = profession;
     }
 
+    public int getAge() { // Getter for age
+        return age;
+    }
+
+    public void setAge(int age) { // Setter for age
+        this.age = age;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
@@ -189,6 +224,7 @@ public class Person {
                 ", eyeColor='" + eyeColor + '\'' +
                 ", hobby='" + hobby + '\'' +
                 ", profession='" + profession + '\'' +
+                ", age=" + age + // Include age in the toString output
                 '}';
     }
 }
