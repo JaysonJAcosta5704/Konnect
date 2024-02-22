@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">Konnect</string>
-    <string name="log_in">Log In</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="Konnect_explanation">"Discover. Chat. Collaborate."</string>
+    <string name="app_name">AndroidExample</string>
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
 </resources>

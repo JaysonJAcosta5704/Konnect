@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Konnect"
+rootProject.name = "AndroidExample"
 include ':app'
