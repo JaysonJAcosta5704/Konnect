@@ -1,4 +1,4 @@
-package com.example.androidexample;
+package com.example.konnect;
 
 import org.junit.Test;
 
