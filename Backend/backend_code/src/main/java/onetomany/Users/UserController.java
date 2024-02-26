@@ -2,6 +2,7 @@ package onetomany.Users;
 
 import java.util.List;
 
+import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,8 +35,13 @@ public class UserController {
 
     @GetMapping(path = "/users")
     List<User> getAllUsers(){
+        for (User useer:userRepository.findAll()) {
+            useer.setLastLoggin();
+        }
         return userRepository.findAll();
     }
+
+
 
     @GetMapping(path = "/users/{id}")
     User getUserById( @PathVariable int id){
@@ -64,6 +70,19 @@ public class UserController {
     @DeleteMapping(path = "/users/{id}")
     String deleteLaptop(@PathVariable int id){
         userRepository.deleteById(id);
+        return success;
+    }
+
+
+    @PutMapping("/users/{userId}/Reports/{reportId}")
+    String assignLaptopToUser(@PathVariable int userId,@PathVariable int reportId){
+        User user = userRepository.findById(userId);
+        Reports report = reportsRepository.findById(reportId);
+        if(user == null || report == null)
+            return failure;
+        report.setUser(user);
+        user.setUserReports(report);
+        userRepository.save(user);
         return success;
     }
 }

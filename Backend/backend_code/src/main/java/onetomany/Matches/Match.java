@@ -37,5 +37,8 @@ public class Match {
     public void setId(int id) {
         this.id = id;
     }
+    public int getMatchedID(){
+        return this.matchedID;
+    }
 
 }

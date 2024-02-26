@@ -20,17 +20,17 @@ public class MatchesController {
     private String failure = "{\"message\":\"failure\"}";
 
 
-    @GetMapping(path = "/laptops")
+    @GetMapping(path = "/matches")
     List<Match> getAllMatches(){
         return  matchesRepository.findAll();
     }
 
-    @GetMapping(path = "/laptops/{id}")
+    @GetMapping(path = "/matches/{id}")
     Match getLaptopById(@PathVariable int id){
         return matchesRepository.findById(id);
     }
 
-    @PostMapping(path = "/laptops")
+    @PostMapping(path = "/matches")
     String createLaptop(@RequestBody Match match){
         if (match == null)
             return failure;
