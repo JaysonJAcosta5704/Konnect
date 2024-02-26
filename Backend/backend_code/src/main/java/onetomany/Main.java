@@ -36,9 +36,11 @@ class Main {
             reportsRepository.save(new Reports("Bad photo"));
             reportsRepository.save(new Reports("Weird Bio"));
             reportsRepository.save(new Reports("Agressive"));
+            reportsRepository.save(new Reports("Rude"));
             Reports r1 = reportsRepository.findById(1);
             Reports r2 = reportsRepository.findById(2);
             Reports r3 = reportsRepository.findById(3);
+            Reports r4= reportsRepository.findById(4);
 
 
 
@@ -46,13 +48,16 @@ class Main {
             r1.setUser(user1);
             r2.setUser(user1);
             r3.setUser(user2);
+            r4.setUser(user3);
 
             reportsRepository.save(r1);
             reportsRepository.save(r2);
             reportsRepository.save(r3);
+            reportsRepository.save(r4);
             user1.addReport(r1);
             user1.addReport(r2);
             user2.addReport(r3);
+            user3.addReport(r4);
 
 
             System.out.println(user1.getReports());
