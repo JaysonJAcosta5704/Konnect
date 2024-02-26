@@ -38,7 +38,7 @@ public class MatchesController {
         return success;
     }
 
-    @PutMapping(path = "/laptops/{id}")
+    @PutMapping(path = "/matches/{id}")
     Match updateLaptop(@PathVariable int id, @RequestBody Match request){
         Match match = matchesRepository.findById(id);
         if(match == null)
@@ -47,7 +47,7 @@ public class MatchesController {
         return matchesRepository.findById(id);
     }
 
-    @DeleteMapping(path = "/laptops/{id}")
+    @DeleteMapping(path = "/matches/{id}")
     String deleteLaptop(@PathVariable long id){
         matchesRepository.deleteById(id);
         return success;
