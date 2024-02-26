@@ -47,7 +47,7 @@ public class MatchesController {
         return matchesRepository.findById(id);
     }
 
-    @DeleteMapping(path = "/matches/{id}")
+    @DeleteMapping(path = "/matchess/{id}")
     String deleteLaptop(@PathVariable long id){
         matchesRepository.deleteById(id);
         return success;
