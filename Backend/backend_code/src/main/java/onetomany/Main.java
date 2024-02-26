@@ -25,14 +25,41 @@ class Main {
     @Bean
     CommandLineRunner initUser(UserRepository userRepository, MatchesRepository matchesRepository, ReportsRepository reportsRepository) {
         return args -> {
-            User user1 = new User("Daniel", "dmvp01@somemail.com", new Date());
-            User user2 = new User("Nishi", "Nishi@somemail.com", new Date());
-            User user3 = new User("Jason", "Jason@somemail.com", new Date());
-
-
-             userRepository.save(user1);
+            User user1 = new User("Daniel", "dmvp01@somemail.com", new Date(), "Daniel123");
+            User user2 = new User("Nishi", "Nishi@somemail.com", new Date(),"Nishi456");
+            User user3 = new User("Jayson", "Jayson@somemail.com", new Date(),"Jayson");
+            userRepository.save(user1);
             userRepository.save(user2);
-            userRepository.save(user3);
+
+
+            reportsRepository.save(new Reports("Bad photo"));
+            reportsRepository.save(new Reports("Weird Bio"));
+            reportsRepository.save(new Reports("Agressive"));
+            Reports r1 = reportsRepository.findById(1);
+            Reports r2 = reportsRepository.findById(2);
+            Reports r3 = reportsRepository.findById(3);
+
+
+
+
+            r1.setUser(user1);
+            r2.setUser(user1);
+            r3.setUser(user2);
+            reportsRepository.save(r1);
+            reportsRepository.save(r2);
+            reportsRepository.save(r3);
+            user1.addReport(r1);
+            user1.addReport(r2);
+            user2.addReport(r3);
+
+
+            System.out.println(user1.getReports());
+
+
+
+//            userRepository.save(user1);
+//            userRepository.save(user2);
+//            userRepository.save(user3);
         };
     }
 

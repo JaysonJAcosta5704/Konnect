@@ -12,6 +12,7 @@ import onetomany.Matches.Match;
 import onetomany.Reports.Reports;
 
 @Entity
+@Table(name="Users")
 public class User {
 
     /*
@@ -27,20 +28,21 @@ public class User {
     private boolean ifActive;
 
     private String UserPassword;
-    private String lastLoggin;
+    private Date lastLoggin;
 
     private String UserBio;
-    private int Views;
-    private int Slides;
+    private int viewCount;
+    private int acceptanceCount;
+    private String UserImagePath;
     @ElementCollection
     private List<Integer> UserHobbiesLists;
 
 
-    private int viewCount;
-    private int acceptanceCount;
 
 
-    private String UserImagePath;
+
+
+
 
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User), the cascade option tells springboot
@@ -54,24 +56,29 @@ public class User {
     /*
      * @OneToMany tells springboot that one instance of User can map to multiple instances of Phone OR one user row can map to multiple rows of the phone table
      */
-    @OneToMany    ///Initialize Hobbies  here  like  private List<Phone> phones;
-    List<Reports> UserReports;
+    @OneToMany  (mappedBy = "user")  ///Initialize Hobbies  here  like  private List<Phone> phones;
+    List<Reports> userReports;
+    @OneToMany
+    List<Match> UserMatches;
 
 
     // =============================== Constructors ================================== //
 
 
-    public User(String name, String emailId, Date joiningDate) {
+    public User(String name, String emailId, Date joiningDate, String userPassword) {
         this.name = name;
         this.emailId = emailId;
         this.joiningDate = joiningDate;
         this.ifActive = true;
-        UserReports = new ArrayList<>();
+        userReports = new ArrayList<>();
+        this.UserPassword= userPassword;
+        this.UserMatches= new ArrayList<>();
 
     }
 
+
     public User() {
-        UserReports = new ArrayList<>();
+        userReports = new ArrayList<>();
     }
 
 
@@ -81,6 +88,13 @@ public class User {
     public int getId(){
         return id;
     }
+    public String getUserPassword(){
+        return this.UserPassword;
+    }
+    public void setLastLoggin(){
+       lastLoggin= new Date();
+    }
+
 
     public void setId(int id){
         this.id = id;
@@ -110,31 +124,40 @@ public class User {
         this.joiningDate = joiningDate;
     }
 
-    public boolean getIsActive(){
-        return ifActive;
-    }
+
 
     public void setIfActive(boolean ifActive){
         this.ifActive = ifActive;
     }
 
-
+    public void setUserReports(Reports report){
+        userReports.add(report);
+    }
 
     public boolean isIfActive() {
         return ifActive;
     }
 
     public List<Reports> getReports() {
-        return UserReports;
+        return userReports;
     }
 
 
     public void setReports(List<Reports> reports) {
-        this.UserReports = reports;
+        this.userReports = reports;
     }
 
     public void addReport(Reports report){
-        this.UserReports.add(report);
+        this.userReports.add(report);
+    }
+    public void addUserMatch(Match match){
+    this.UserMatches.add(match);
+    }
+    public List<Match> getUserMatches(){
+        return this.UserMatches;
+    }
+    public Date getLastLoggin(){
+        return this.lastLoggin;
     }
 
 }
