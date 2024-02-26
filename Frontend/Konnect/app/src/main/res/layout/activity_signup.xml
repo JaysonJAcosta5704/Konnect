@@ -40,7 +40,8 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:hint="Enter Username Here"
-            android:textColorHint="#FFFFFF">
+            android:textColorHint="#FFFFFF"
+            android:textColor="#ffffff">
         </EditText>
 
     </LinearLayout>
@@ -65,7 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:hint="Enter Email Address Here"
-            android:textColorHint="#FFFFFF">
+            android:textColorHint="#FFFFFF"
+            android:textColor="#ffffff">
         </EditText>
 
     </LinearLayout>
@@ -90,7 +92,8 @@
             android:inputType="textPassword"
             android:layout_height="50dp"
             android:hint="Enter Password Here"
-            android:textColorHint="#FFFFFF">
+            android:textColorHint="#FFFFFF"
+            android:textColor="#ffffff">
         </EditText>
 
     </LinearLayout>
@@ -115,7 +118,8 @@
             android:inputType="textPassword"
             android:layout_height="70dp"
             android:hint="Confirm your Password Here"
-            android:textColorHint="#FFFFFF">
+            android:textColorHint="#FFFFFF"
+            android:textColor="#ffffff">
         </EditText>
 
     </LinearLayout>
