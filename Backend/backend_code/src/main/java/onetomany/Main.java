@@ -30,6 +30,7 @@ class Main {
             User user3 = new User("Jayson", "Jayson@somemail.com", new Date(),"Jayson");
             userRepository.save(user1);
             userRepository.save(user2);
+            userRepository.save(user3);
 
 
             reportsRepository.save(new Reports("Bad photo"));
@@ -45,6 +46,7 @@ class Main {
             r1.setUser(user1);
             r2.setUser(user1);
             r3.setUser(user2);
+
             reportsRepository.save(r1);
             reportsRepository.save(r2);
             reportsRepository.save(r3);
