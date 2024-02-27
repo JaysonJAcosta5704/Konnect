@@ -15,7 +15,7 @@ import onetomany.Users.User;
 import onetomany.Users.UserRepository;
 import onetomany.hobbies.Hobbies;
 import onetomany.hobbies.HobbiesRepository;
-
+import onetomany.hobbies.HobbyType;
 @SpringBootApplication
 class Main {
 
@@ -36,9 +36,12 @@ class Main {
             userRepository.save(user1);
             userRepository.save(user2);
             userRepository.save(user3);
-            Hobbies hobby1 = new Hobbies("Reading", user1);
-            Hobbies hobby2 = new Hobbies("Gaming", user2);
-            Hobbies hobby3 = new Hobbies("Hiking", user3);
+//            Hobbies hobby1 = new Hobbies("Reading", user1);
+//            Hobbies hobby2 = new Hobbies("Gaming", user2);
+//            Hobbies hobby3 = new Hobbies("Hiking", user3);
+            Hobbies hobby1 = new Hobbies("Reading", user1, HobbyType.INDOOR);
+            Hobbies hobby2 = new Hobbies("Soccer", user2, HobbyType.OUTDOOR);
+            Hobbies hobby3 = new Hobbies("Board Games", user3, HobbyType.GROUP);
 
             hobbiesRepository.save(hobby1);
             hobbiesRepository.save(hobby2);
@@ -73,6 +76,7 @@ class Main {
 
 
             System.out.println(user1.getReports());
+
 
 
 
