@@ -9,12 +9,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,36 +73,38 @@ public class SignupActivity extends AppCompatActivity {
                 if (password.equals(confirm)){
                     Toast.makeText(getApplicationContext(), "Signing up", Toast.LENGTH_LONG).show();
 
-                    RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
 
-                    String url = "";
+                    String url = "https://8fb80419-364b-4763-b5fe-f12af1f60707.mock.pstmn.io/post";
 
-                    StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                    JSONObject params = new JSONObject();
+                    try {
+                        params.put("username", username);
+                        params.put("email", email);
+                        params.put("password", password);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
-                            new Response.Listener<String>() {
+                    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+
+                            (Request.Method.POST, url, params, new Response.Listener<JSONObject>() {
+
                                 @Override
-                                public void onResponse(String response) {
-                                    // Handle response
+                                public void onResponse(JSONObject response) {
+                                    Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_LONG).show();
                                 }
-                            },
-                            new Response.ErrorListener() {
+                            }, new Response.ErrorListener() {
+
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    // Handle error
+                                    Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_LONG).show();
                                 }
-                            }
-                    ) {
-                        @Override
-                        protected Map<String, String> getParams() {
-                            Map<String, String> params = new HashMap<>();
-                            params.put("username", username);
-                            params.put("email", email);
-                            params.put("password", password);
-                            return params;
-                        }
-                    };
+                            });
 
-                    queue.add(postRequest);
+
+
+                    RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
+                    queue.add(jsonObjectRequest);
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Password don't match", Toast.LENGTH_LONG).show();
