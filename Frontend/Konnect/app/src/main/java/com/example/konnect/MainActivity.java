@@ -1,5 +1,6 @@
 package com.example.konnect;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -17,9 +18,8 @@ public class MainActivity extends AppCompatActivity {
         Button signupButton = findViewById(R.id.SignupButton);
 
         /* Set OnClick listeners for each button */
-        loginButton.setOnClickListener(v -> setContentView(R.layout.activity_login));
-        signupButton.setOnClickListener(v -> setContentView(R.layout.activity_signup));
-
+        loginButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), LoginActivity.class)));
+        signupButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), SignupActivity.class)));
 
     }
 }
