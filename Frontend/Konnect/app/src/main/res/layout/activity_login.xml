@@ -25,84 +25,61 @@
         tools:ignore="HardcodedText" />
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="150dp"
-        android:text="username: "
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/LoginUsername"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginTextView"
-        tools:ignore="HardcodedText"/>
-
     <EditText
         android:id="@+id/LoginUsername"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="95dp"
+        android:layout_marginTop="150dp"
         android:autofillHints="username"
-        android:hint="Enter Username Here"
+        android:hint="Username"
         android:inputType="text"
         android:textColor="@color/white"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toTopOf="@+id/textView"
-        tools:ignore="HardcodedText" />
-
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="3dp"
-        android:text="password: "
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/LoginPassword"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LoginUsername"
-        tools:ignore="HardcodedText"/>
+        app:layout_constraintTop_toBottomOf="@+id/LoginTextView"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        tools:ignore="HardcodedText" />
 
     <EditText
         android:id="@+id/LoginPassword"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="95dp"
         android:autofillHints="password"
-        android:hint="Enter Password Here"
+        android:hint="Password"
         android:inputType="textPassword"
         android:textColor="@color/white"
         android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LoginUsername"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
         tools:ignore="HardcodedText" />
-
 
     <Button
         android:id="@+id/login_login_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/cobalt_blue"
         android:text="Login"
-        android:textColor="#ffffff"
+        android:textColor="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/login_home_btn"
         app:layout_constraintStart_toStartOf="@+id/login_signup_btn"
         app:layout_constraintTop_toBottomOf="@+id/LoginPassword"
-        tools:ignore="HardcodedText"/>
+        tools:ignore="HardcodedText" />
 
 
     <Button
         android:id="@+id/login_signup_btn"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginEnd="5dp"
+        android:backgroundTint="#0047AB"
         android:text="Signup"
         android:textColor="#ffffff"
         android:textSize="20sp"
@@ -113,11 +90,12 @@
 
     <Button
         android:id="@+id/login_home_btn"
-        android:layout_width="0dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="56dp"
+        android:backgroundTint="@color/cobalt_blue"
         android:text="Home"
         android:textColor="#ffffff"
         android:textSize="20sp"
