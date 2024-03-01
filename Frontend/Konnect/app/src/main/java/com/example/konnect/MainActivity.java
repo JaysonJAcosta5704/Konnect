@@ -24,18 +24,5 @@ public class MainActivity extends AppCompatActivity {
         signupButton.setOnClickListener(v -> setContentView(R.layout.activity_signup));
 
 
-        /* click listener on signup button pressed */
-        signupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                /* when signup button is pressed, use intent to switch to Signup Activity */
-                Intent intent = new Intent(MainActivity.this, SignupActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-
     }
 }
