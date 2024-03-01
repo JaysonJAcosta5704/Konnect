@@ -115,10 +115,23 @@ public class SignupActivity extends AppCompatActivity {
 
                     RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
                     queue.add(jsonObjectRequest);
+
+                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                    startActivity(intent);
+
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Password don't match", Toast.LENGTH_LONG).show();
                 }
+
+
+                /* when login button is pressed, use intent to switch to Login Activity */
+                Intent intent = new Intent(SignupActivity.this, ChoosehobbiesActivity.class);
+                intent.putExtra("USERNAME", username);  // key-value to pass to the MainActivity
+                intent.putExtra("PASSWORD", password);  // key-value to pass to the MainActivity
+                startActivity(intent);  // go to MainActivity with the key-value data
+
+
             }
         });
 
