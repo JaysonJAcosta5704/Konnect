@@ -29,7 +29,9 @@
         android:id="@+id/LoginUsername"
         android:layout_width="match_parent"
         android:layout_height="95dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="150dp"
+        android:layout_marginEnd="20dp"
         android:autofillHints="username"
         android:hint="Username"
         android:inputType="text"
@@ -38,14 +40,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginTextView"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,TextContrastCheck" />
 
     <EditText
         android:id="@+id/LoginPassword"
         android:layout_width="match_parent"
         android:layout_height="95dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:autofillHints="password"
         android:hint="Password"
         android:inputType="textPassword"
@@ -54,12 +56,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/LoginUsername"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        tools:ignore="HardcodedText" />
+        tools:ignore="HardcodedText,TextContrastCheck" />
 
     <Button
-        android:id="@+id/login_login_btn"
+        android:id="@+id/L_LoginButton"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -67,14 +67,14 @@
         android:text="Login"
         android:textColor="@color/white"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/login_home_btn"
-        app:layout_constraintStart_toStartOf="@+id/login_signup_btn"
+        app:layout_constraintEnd_toEndOf="@+id/L_HomeButton"
+        app:layout_constraintStart_toStartOf="@+id/L_SignupButton"
         app:layout_constraintTop_toBottomOf="@+id/LoginPassword"
         tools:ignore="HardcodedText" />
 
 
     <Button
-        android:id="@+id/login_signup_btn"
+        android:id="@+id/L_SignupButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
@@ -83,13 +83,13 @@
         android:text="Signup"
         android:textColor="#ffffff"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/login_home_btn"
+        app:layout_constraintEnd_toStartOf="@+id/L_HomeButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/login_home_btn"
+        app:layout_constraintTop_toTopOf="@+id/L_HomeButton"
         tools:ignore="HardcodedText" />
 
     <Button
-        android:id="@+id/login_home_btn"
+        android:id="@+id/L_HomeButton"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -100,8 +100,8 @@
         android:textColor="#ffffff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/login_signup_btn"
-        app:layout_constraintTop_toBottomOf="@+id/login_login_btn"
+        app:layout_constraintStart_toEndOf="@+id/L_SignupButton"
+        app:layout_constraintTop_toBottomOf="@+id/L_LoginButton"
         tools:ignore="HardcodedText" />
 
 
