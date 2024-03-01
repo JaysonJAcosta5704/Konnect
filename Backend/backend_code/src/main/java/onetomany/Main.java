@@ -114,24 +114,43 @@ class Main {
             User user1 = new User("Daniel", "dmvp01@somemail.com", new Date(), "Daniel123");
             User user2 = new User("Nishi", "Nishi@somemail.com", new Date(),"Nishi456");
             User user3 = new User("Jayson", "Jayson@somemail.com", new Date(),"Jayson");
-            Hobbies painting = new Hobbies("Painting", HobbyType.INDOOR);
-            Hobbies football = new Hobbies("Football", HobbyType.OUTDOOR);
-            Hobbies bookClub = new Hobbies("Book Club", HobbyType.GROUP);
+//            Hobbies painting = new Hobbies("Painting", HobbyType.INDOOR);
+//            Hobbies football = new Hobbies("Football", HobbyType.OUTDOOR);
+//            Hobbies bookClub = new Hobbies("Book Club", HobbyType.GROUP);
+//
+//            hobbiesRepository.save(painting);
+//            hobbiesRepository.save(football);
+//            hobbiesRepository.save(bookClub);
+//            User updatedUser1 = userRepository.findById(user1.getId());
+//            User updatedUser2 = userRepository.findById(user2.getId());
+//            User updatedUser3 = userRepository.findById(user3.getId());
+//
+//
+//
+//            userRepository.save(user1);
+//            userRepository.save(user2);
+//            userRepository.save(user3);
 
-            hobbiesRepository.save(painting);
-            hobbiesRepository.save(football);
-            hobbiesRepository.save(bookClub);
-            User updatedUser1 = userRepository.findById(user1.getId());
-            User updatedUser2 = userRepository.findById(user2.getId());
-            User updatedUser3 = userRepository.findById(user3.getId());
 
+
+            user1 = userRepository.save(user1);
+            user2 = userRepository.save(user2);
+            user3 = userRepository.save(user3);
+
+            // Create and save hobbies
+            Hobbies painting = hobbiesRepository.save(new Hobbies("Painting", HobbyType.INDOOR));
+            Hobbies football = hobbiesRepository.save(new Hobbies("Football", HobbyType.OUTDOOR));
+            Hobbies bookClub = hobbiesRepository.save(new Hobbies("Book Club", HobbyType.GROUP));
+
+            // Associate hobbies with users
+            user1.getHobbies().add(painting); // Daniel likes Painting
+            user2.getHobbies().add(football); // Nishi likes Football
+            user3.getHobbies().add(bookClub); // Jayson likes Book Club
+
+            // Save the users again to update the relationship
             userRepository.save(user1);
             userRepository.save(user2);
             userRepository.save(user3);
-
-
-
-
 
             reportsRepository.save(new Reports("Bad photo"));
             reportsRepository.save(new Reports("Weird Bio"));
@@ -161,6 +180,7 @@ class Main {
 
 
             System.out.println(user1.getReports());
+
 
 
 

@@ -178,6 +178,7 @@ import onetomany.Matches.Match;
 
 import onetomany.Reports.Reports;
 import onetomany.hobbies.Hobbies;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -206,7 +207,8 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "hobby_id")
     )
-    private Set<Hobbies> hobbies;
+//    private Set<Hobbies> hobbies;
+    private Set<Hobbies> hobbies = new HashSet<>();
     private String UserBio;
     private int viewCount;
     private int acceptanceCount;
