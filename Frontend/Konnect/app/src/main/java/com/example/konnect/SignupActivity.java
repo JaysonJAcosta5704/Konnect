@@ -14,6 +14,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -74,7 +75,7 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Signing up", Toast.LENGTH_LONG).show();
 
 
-                    String url = "https://8fb80419-364b-4763-b5fe-f12af1f60707.mock.pstmn.io/post";
+                    String url = "https://2595f4d4-3316-4394-9382-bb459bb55e4a.mock.pstmn.io/signup";
 
                     JSONObject params = new JSONObject();
                     try {
@@ -91,7 +92,16 @@ public class SignupActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onResponse(JSONObject response) {
-                                    Toast.makeText(SignupActivity.this, "Success", Toast.LENGTH_LONG).show();
+                                    try {
+                                        String userid = response.getString("userid");
+                                        String email = response.getString("email");
+                                        String password = response.getString("password");
+
+                                        String message = "User ID: " + userid + "\nEmail: " + email + "\nPassword: " + password;
+                                        Toast.makeText(SignupActivity.this, "Server Response:\n" + message, Toast.LENGTH_LONG).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }, new Response.ErrorListener() {
 
