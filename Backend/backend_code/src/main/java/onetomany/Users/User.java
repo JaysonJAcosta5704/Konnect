@@ -9,7 +9,8 @@ import javax.persistence.*;
 
 import onetomany.Matches.Match;
 
-
+import java.util.HashSet;
+import java.util.Set;
 import onetomany.Reports.Reports;
 
 @Entity
@@ -162,5 +163,6 @@ public class User {
     public Date getLastLoggin(){
         return this.lastLoggin;
     }
+
 
 }

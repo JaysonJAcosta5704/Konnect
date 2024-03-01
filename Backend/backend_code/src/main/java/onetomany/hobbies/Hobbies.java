@@ -67,7 +67,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import onetomany.Users.User;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.*;
 @Entity
 public class Hobbies {
     @Id
@@ -75,24 +81,20 @@ public class Hobbies {
     private int id;
     private String name;
 
-    @Enumerated(EnumType.STRING) // This tells JPA to store the Enum as a String.
-    private HobbyType hobbyType; // This is the new field for the hobby type.
+    @Enumerated(EnumType.STRING)
+    private HobbyType hobbyType;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonIgnore
-    private User user;
+    @ManyToMany(mappedBy = "hobbies")
+    private Set<User> users = new HashSet<>();
 
+    public Hobbies() {}
 
-
-    // Updated constructor with hobbyType
-    public Hobbies(String name,User user, HobbyType hobbyType ) {
+    public Hobbies(String name, HobbyType hobbyType) {
         this.name = name;
         this.hobbyType = hobbyType;
-        this.user = user;
     }
 
-    // Getters and setters
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -117,11 +119,11 @@ public class Hobbies {
         this.hobbyType = hobbyType;
     }
 
-    public User getUser() {
-        return user;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 }

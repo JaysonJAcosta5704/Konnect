@@ -39,9 +39,21 @@ class Main {
 //            Hobbies hobby1 = new Hobbies("Reading", user1);
 //            Hobbies hobby2 = new Hobbies("Gaming", user2);
 //            Hobbies hobby3 = new Hobbies("Hiking", user3);
-            Hobbies hobby1 = new Hobbies("Reading", user1, HobbyType.INDOOR);
-            Hobbies hobby2 = new Hobbies("Soccer", user2, HobbyType.OUTDOOR);
-            Hobbies hobby3 = new Hobbies("Board Games", user3, HobbyType.GROUP);
+            Hobbies hobby1 = new Hobbies("Reading", HobbyType.INDOOR);
+            Hobbies hobby2 = new Hobbies("Soccer", HobbyType.OUTDOOR);
+            Hobbies hobby3 = new Hobbies("Board Games", HobbyType.GROUP);
+
+            // Associate hobbies with users
+            hobby1.getUsers().add(user1);
+            hobby2.getUsers().add(user2);
+            hobby3.getUsers().add(user3);
+
+            // Save hobbies
+            hobbiesRepository.save(hobby1);
+            hobbiesRepository.save(hobby2);
+            hobbiesRepository.save(hobby3);
+            ;
+
 
             hobbiesRepository.save(hobby1);
             hobbiesRepository.save(hobby2);
