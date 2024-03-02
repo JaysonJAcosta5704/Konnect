@@ -18,4 +18,5 @@ public class Hobby {
     public String getType(){
         return type;
     }
+
 }

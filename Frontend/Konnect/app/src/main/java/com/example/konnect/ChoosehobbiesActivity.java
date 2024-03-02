@@ -33,6 +33,10 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
     private List<CheckBox> checkBoxes = new ArrayList<>();
     private String url = "https://localhost/hobby";
 
+    List<Hobby> hobbies = new ArrayList<>();
+
+
+
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -45,6 +49,20 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
         TextView usernameTextView = findViewById(R.id.usernameTextView);
         usernameTextView.setText(username_hobby + ", Choose your hobby!");
 
+        hobbies.add(new Hobby("Soccer", "OUTDOOR"));
+        hobbies.add(new Hobby("MOVIE", "INDIVIDUAL"));
+        hobbies.add(new Hobby("COOKING", "INDOOR"));
+        hobbies.add(new Hobby("READING", "INDOOR"));
+        hobbies.add(new Hobby("VIDEOGAME", "INDOOR"));
+        hobbies.add(new Hobby("Fishing", "OUTDOOR"));
+        hobbies.add(new Hobby("DRAWING", "INDIVIDUAL"));
+        hobbies.add(new Hobby("HIKING", "OUTDOOR"));
+        hobbies.add(new Hobby("TRAVELING", "INDIVIDUAL"));
+        hobbies.add(new Hobby("WORKING OUT", "INDIVIDUAL"));
+
+
+
+
         checkBoxes.add((CheckBox) findViewById(R.id.checkBox1));
         checkBoxes.add((CheckBox) findViewById(R.id.checkBox2));
         checkBoxes.add((CheckBox) findViewById(R.id.checkBox3));
@@ -55,6 +73,14 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
         checkBoxes.add((CheckBox) findViewById(R.id.checkBox8));
         checkBoxes.add((CheckBox) findViewById(R.id.checkBox9));
         checkBoxes.add((CheckBox) findViewById(R.id.checkBox10));
+
+
+        //assign Hobby value to each corresponding checkbox
+        for (int i = 0; i < checkBoxes.size(); i++) {
+            CheckBox checkBox = checkBoxes.get(i);
+            Hobby hobby = hobbies.get(i);
+            checkBox.setText(hobby.getName() + ", " + hobby.getType());
+        }
 
         Button submitButton = findViewById(R.id.hobby_choose_btn);
 
