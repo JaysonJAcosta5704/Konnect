@@ -3,6 +3,7 @@ package com.example.konnect;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.PixelCopy;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -50,11 +51,16 @@ public class ShowChosenHobbiesActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray hobbiesArray = response.getJSONArray("HOBBY");
+                    JSONArray hobbiesArray = response.getJSONArray("HOBBY");\
+                    LinearLayout hobbiesLayout = findViewById(R.id.hobbiesLayout);
                     for (int i = 0; i < hobbiesArray.length(); i++) {
                         JSONObject hobby = hobbiesArray.getJSONObject(i);
                         String name = hobby.getString("name");
                         String type = hobby.getString("type");
+
+                        TextView hobbyView = new TextView(ShowChosenHobbiesActivity.this);
+                        hobbyView.setText(name + ", " + type);
+                        hobbiesLayout.addView(hobbyView);
 
                     }
                 } catch (JSONException e) {
