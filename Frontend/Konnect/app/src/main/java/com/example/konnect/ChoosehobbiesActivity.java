@@ -42,6 +42,9 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
         Intent intent = getIntent();
         username_hobby = intent.getStringExtra("USERNAME");
 
+        TextView usernameTextView = findViewById(R.id.usernameTextView);
+        usernameTextView.setText(username_hobby + ", Choose your hobby!");
+
         checkBoxes.add((CheckBox) findViewById(R.id.checkBox1));
         checkBoxes.add((CheckBox) findViewById(R.id.checkBox2));
         checkBoxes.add((CheckBox) findViewById(R.id.checkBox3));

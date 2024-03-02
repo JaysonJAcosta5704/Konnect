@@ -15,9 +15,10 @@
         android:padding="16dp">
 
         <TextView
+            android:id="@+id/usernameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Choose your hobby/hobbies"
+            android:text="Username"
             android:textSize="30sp"
             android:textColor="#FFFFFF"
             android:fontFamily="@font/abril_fatface"/>
