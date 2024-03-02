@@ -31,7 +31,7 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
 
     private String username_hobby;
     private List<CheckBox> checkBoxes = new ArrayList<>();
-    private String url = "https://localhost/hobby";
+    private String url = "http://coms-309-001.class.las.iastate.edu:8080/hobbies";
 
     List<Hobby> hobbies = new ArrayList<>();
 

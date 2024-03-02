@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ShowChosenHobbiesActivity extends AppCompatActivity {
     private String username_hobby;
-    private String url = "https://localhost/hobby";
+    private String url = "http://coms-309-001.class.las.iastate.edu:8080/hobbies";
     List<Hobby> hobbies = new ArrayList<>();
 
     public void onCreate(Bundle savedInstanceState){
