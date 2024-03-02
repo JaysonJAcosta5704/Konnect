@@ -36,18 +36,18 @@ public class LoginActivity extends AppCompatActivity {
         homeButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), MainActivity.class)));
         loginButton.setOnClickListener(v -> {
             /* Start of OnClickListener for loginButton */
-            String url = "http://coms-309-001.class.las.iastate.edu:8080/users"; //TODO
+            String url = "http://coms-309-001.class.las.iastate.edu:8080/users/3";
 
-            String inputUsername = loginUsername.getText().toString();
+            String inputUsername = loginUsername.getText().toString().toLowerCase();
             String inputPassword = loginPassword.getText().toString();
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
             /* Beginning of response */
-                Log.d("Volley Response", response.toString());
+                Log.i("Volley Response", response.toString());
                 String responseUsername, responsePassword;
                 try {
-                     responseUsername = response.getString("username");
-                     responsePassword = response.getString("password");
+                     responseUsername = response.getString("emailId").toLowerCase();
+                     responsePassword = response.getString("userPassword");
                 } catch (JSONException e) {
                     Log.e("Volley error", e.toString());
                     toastLoginError(0);
@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 if(inputUsername.equals(responseUsername) && inputPassword.equals(responsePassword)){
                     Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(v.getContext(), ProfileActivity.class));
                 } else if (!inputUsername.equals(responseUsername)){
                     toastLoginError(1);
                 } else {
