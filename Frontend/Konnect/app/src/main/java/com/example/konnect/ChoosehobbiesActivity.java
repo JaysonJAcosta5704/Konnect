@@ -120,12 +120,19 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
         //JSON array for storing hobbies
         JSONArray hobbiesArray = new JSONArray();
 
-        for(CheckBox checkBox : checkBoxes){
-            if(checkBox.isChecked()){
-                hobbiesArray.put(checkBox.getText().toString());
-
+        for (int i = 0; i < checkBoxes.size(); i++) {
+            CheckBox checkBox = checkBoxes.get(i);
+            if (checkBox.isChecked()) {
+                Hobby hobby = hobbies.get(i);
+                JSONObject hobbyJson = new JSONObject();
+                try {
+                    hobbyJson.put("name", hobby.getName());
+                    hobbyJson.put("type", hobby.getType());
+                    hobbiesArray.put(hobbyJson);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
-
         }
 
         //checking if user choose at least one hobby from the list
