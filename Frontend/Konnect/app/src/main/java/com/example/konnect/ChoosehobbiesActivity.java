@@ -58,6 +58,27 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
 
         Button submitButton = findViewById(R.id.hobby_choose_btn);
 
+        //to check if user choose more than 5 hobbies
+        for (CheckBox checkBox : checkBoxes) {
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int checkedCount = 0;
+                    for (CheckBox cb : checkBoxes) {
+                        if (cb.isChecked()) {
+                            checkedCount++;
+                        }
+                    }
+
+                    if (checkedCount > 5) {
+                        checkBox.setChecked(false);
+                        Toast.makeText(ChoosehobbiesActivity.this, "You cannot choose more than 5 hobbies", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+
+
         submitButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
