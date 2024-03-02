@@ -99,7 +99,7 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Signing up", Toast.LENGTH_LONG).show();
 
 
-                    String url = "https://2595f4d4-3316-4394-9382-bb459bb55e4a.mock.pstmn.io/signup";
+                    String url = "http://coms-309-001.class.las.iastate.edu:8080/users";
 
                     JSONObject params = new JSONObject();
                     try {
