@@ -47,7 +47,7 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
         username_hobby = intent.getStringExtra("USERNAME");
 
         TextView usernameTextView = findViewById(R.id.usernameTextView);
-        usernameTextView.setText(username_hobby + ", Choose your hobby!");
+        usernameTextView.setText(username_hobby + "'s hobby");
 
         hobbies.add(new Hobby("Soccer", "OUTDOOR"));
         hobbies.add(new Hobby("MOVIE", "INDIVIDUAL"));
