@@ -151,6 +151,11 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
 
         sendPostRequest(url, postBody);
 
+        Intent intent = new Intent(ChoosehobbiesActivity.this, ShowChosenHobbiesActivity.class);
+        intent.putExtra("USERNAME", username_hobby);  // key-value to pass to the MainActivity
+        startActivity(intent);  // go to ChoosehobbiesActivity with the key-value data
+
+
 
     }
 
