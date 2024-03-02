@@ -1,58 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:background="@drawable/background">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose your hobby/hobbies"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:textSize="30dp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/abril_fatface">
-    </TextView>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Choose hobbies upto 5"
-        android:layout_gravity="center"
-        android:layout_marginBottom="80dp"
-        android:textSize="20dp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/raleway_thin">
-    </TextView>
-
-
-
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="100dp"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose your hobby/hobbies"
+            android:textSize="30sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/abril_fatface"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Choose hobbies upto 5"
+            android:layout_marginBottom="80dp"
+            android:textSize="20sp"
+            android:textColor="#FFFFFF"
+            android:fontFamily="@font/raleway_thin"/>
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Soccer" />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Movie" />
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cooking" />
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reading" />
+
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Video game" />
+
+        <CheckBox
+            android:id="@+id/checkBox6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fishing" />
+
+        <CheckBox
+            android:id="@+id/checkBox7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Drawing" />
+
+        <CheckBox
+            android:id="@+id/checkBox8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hiking" />
+
+        <CheckBox
+            android:id="@+id/checkBox9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Traveling" />
+
+        <CheckBox
+            android:id="@+id/checkBox10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Working out" />
 
         <Button
             android:id="@+id/hobby_choose_btn"
-            android:layout_width="150dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
             android:text="Submit"
             android:textSize="20sp"
-            android:textColor="#ffffff">
-        </Button>
-
-
+            android:textColor="#ffffff" />
 
     </LinearLayout>
 
 
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+
+</ScrollView>
