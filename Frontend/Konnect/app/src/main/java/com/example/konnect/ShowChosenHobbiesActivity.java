@@ -51,7 +51,7 @@ public class ShowChosenHobbiesActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray hobbiesArray = response.getJSONArray("HOBBY");\
+                    JSONArray hobbiesArray = response.getJSONArray("HOBBY");
                     LinearLayout hobbiesLayout = findViewById(R.id.hobbiesLayout);
                     for (int i = 0; i < hobbiesArray.length(); i++) {
                         JSONObject hobby = hobbiesArray.getJSONObject(i);
