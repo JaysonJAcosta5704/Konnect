@@ -81,6 +81,12 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
 
         }
 
+        //checking if user choose at least one hobby from the list
+        if (hobbiesArray.length() == 0) {
+            Toast.makeText(this, "Choose at least one hobby", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         JSONObject postBody = new JSONObject();
         try{
             postBody.put("HOBBY", hobbiesArray);
