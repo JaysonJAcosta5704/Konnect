@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         homeButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), MainActivity.class)));
         loginButton.setOnClickListener(v -> {
             /* Start of OnClickListener for loginButton */
-            String url = "https://jsonplaceholder.typicode.com/users/1";
+            String url = ""; //TODO
 
             String inputUsername = loginUsername.getText().toString();
             String inputPassword = loginPassword.getText().toString();
@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                 String responseUsername, responsePassword;
                 try {
                      responseUsername = response.getString("username");
-                     responsePassword = response.getString("id");
+                     responsePassword = response.getString("password");
                 } catch (JSONException e) {
                     Log.e("Volley error", e.toString());
                     toastLoginError(0);
