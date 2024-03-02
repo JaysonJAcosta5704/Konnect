@@ -35,61 +35,71 @@
             android:id="@+id/checkBox1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Soccer" />
+            android:text="Soccer"
+            android:textColor="#FFFFFF"/>
 
         <CheckBox
             android:id="@+id/checkBox2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Movie" />
+            android:text="Movie"
+            android:textColor="#FFFFFF"/>
 
         <CheckBox
             android:id="@+id/checkBox3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cooking" />
+            android:text="Cooking"
+            android:textColor="#FFFFFF"/>
 
         <CheckBox
             android:id="@+id/checkBox4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Reading" />
+            android:text="Reading"
+            android:textColor="#FFFFFF"/>
 
         <CheckBox
             android:id="@+id/checkBox5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Video game" />
+            android:text="Video game"
+            android:textColor="#FFFFFF"/>
 
         <CheckBox
             android:id="@+id/checkBox6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Fishing" />
+            android:text="Fishing"
+            android:textColor="#FFFFFF"/>
 
         <CheckBox
             android:id="@+id/checkBox7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Drawing" />
+            android:text="Drawing"
+            android:textColor="#FFFFFF"/>
 
         <CheckBox
             android:id="@+id/checkBox8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hiking" />
+            android:text="Hiking"
+            android:textColor="#FFFFFF"/>
 
         <CheckBox
             android:id="@+id/checkBox9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Traveling" />
+            android:text="Traveling"
+            android:textColor="#FFFFFF"/>
 
         <CheckBox
             android:id="@+id/checkBox10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Working out" />
+            android:text="Working out"
+            android:textColor="#FFFFFF"/>
 
         <Button
             android:id="@+id/hobby_choose_btn"

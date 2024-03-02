@@ -116,7 +116,7 @@ public class SignupActivity extends AppCompatActivity {
                     RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
                     queue.add(jsonObjectRequest);
 
-                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SignupActivity.this, ChoosehobbiesActivity.class);
                     startActivity(intent);
 
                 }
@@ -127,7 +127,7 @@ public class SignupActivity extends AppCompatActivity {
 
                 /* when login button is pressed, use intent to switch to Login Activity */
                 Intent intent = new Intent(SignupActivity.this, ChoosehobbiesActivity.class);
-                //intent.putExtra("USERNAME", username);  // key-value to pass to the MainActivity
+                intent.putExtra("USERNAME", username);  // key-value to pass to the MainActivity
                 startActivity(intent);  // go to ChoosehobbiesActivity with the key-value data
 
 
