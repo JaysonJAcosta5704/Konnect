@@ -1,28 +1,33 @@
 package com.example.konnect;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -98,10 +103,10 @@ public class SignupActivity extends AppCompatActivity {
 
                     JSONObject params = new JSONObject();
                     try {
-                        params.put("username", username);
+                        params.put("name", username);
                         params.put("emailId", email);
                         params.put("joiningDate", currentDate);
-                        params.put("userPassword", password);
+                        params.put("UserPassword", password);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -113,23 +118,30 @@ public class SignupActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     try {
-                                        String userid = response.getString("userid");
-                                        String email = response.getString("email");
-                                        String password = response.getString("password");
+                                        String status = response.getString("message"); // Get the status from the response
 
-                                        String message = "User ID: " + userid + "\nEmail: " + email + "\nPassword: " + password;
-                                        Toast.makeText(SignupActivity.this, "Server Response:\n" + message, Toast.LENGTH_LONG).show();
-                                        startActivity(new Intent(v.getContext(), ProfileActivity.class));
+                                        if (status.equals("success")) {
+                                            // Display success message
+                                            Toast.makeText(SignupActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
+
+                                            // Start ChoosehobbiesActivity
+                                            Intent intent = new Intent(SignupActivity.this, ChoosehobbiesActivity.class);
+                                            intent.putExtra("USERNAME", username);
+                                            startActivity(intent);
+                                        } else {
+                                            // Display failure message
+                                            Toast.makeText(SignupActivity.this, "Signup failed!", Toast.LENGTH_SHORT).show();
+                                        }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
                                 }
+
                             }, new Response.ErrorListener() {
 
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
                                     Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_LONG).show();
-                                    Log.e("Volley Error", error.toString());
                                 }
                             });
 
@@ -137,6 +149,7 @@ public class SignupActivity extends AppCompatActivity {
 
                     RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
                     queue.add(jsonObjectRequest);
+
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Password don't match", Toast.LENGTH_LONG).show();
