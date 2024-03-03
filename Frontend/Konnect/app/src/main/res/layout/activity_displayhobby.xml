@@ -23,15 +23,28 @@
             android:textColor="#FFFFFF"
             android:fontFamily="@font/abril_fatface"/>
 
-    </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/hobbiesLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:textColor="#FFFFFF">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="664dp"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/hobbiesLayout"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="#FFFFFF"
+                android:elevation="10dp"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Your hobbies will be added here -->
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
 
 
 
