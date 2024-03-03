@@ -200,6 +200,9 @@ public class User {
 
     private String UserPassword;
     private Date lastLoggin;
+    //added userName
+    @Column(unique = true)
+    private String username;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -246,7 +249,7 @@ public class User {
     // =============================== Constructors ================================== //
 
 
-    public User(String name, String emailId, Date joiningDate, String userPassword) {
+    public User(String name, String emailId, Date joiningDate, String userPassword,String usernam) {
         this.name = name;
         this.emailId = emailId;
         this.joiningDate = joiningDate;
@@ -254,6 +257,7 @@ public class User {
         userReports = new ArrayList<>();
         this.UserPassword= userPassword;
         this.UserMatches= new ArrayList<>();
+        this.username = username;
 
     }
 
@@ -294,7 +298,13 @@ public class User {
     public void setName(String name){
         this.name = name;
     }
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public String getEmailId(){
         return emailId;
     }

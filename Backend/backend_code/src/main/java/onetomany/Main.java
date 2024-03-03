@@ -111,9 +111,11 @@ class Main {
     @Bean
     CommandLineRunner initUser(UserRepository userRepository, MatchesRepository matchesRepository, ReportsRepository reportsRepository,HobbiesRepository hobbiesRepository) {
         return args -> {
-            User user1 = new User("Daniel", "dmvp01@somemail.com", new Date(), "Daniel123");
-            User user2 = new User("Nishi", "Nishi@somemail.com", new Date(),"Nishi456");
-            User user3 = new User("Jayson", "Jayson@somemail.com", new Date(),"Jayson");
+//
+            User user1 = new User("Daniel", "dmvp01@somemail.com", new Date(), "Daniel123", "danielUser");
+            User user2 = new User("Nishi", "Nishi@somemail.com", new Date(), "Nishi456", "nishiUser");
+            User user3 = new User("Jayson", "Jayson@somemail.com", new Date(), "Jayson789", "jaysonUser");
+
 //            Hobbies painting = new Hobbies("Painting", HobbyType.INDOOR);
 //            Hobbies football = new Hobbies("Football", HobbyType.OUTDOOR);
 //            Hobbies bookClub = new Hobbies("Book Club", HobbyType.GROUP);
