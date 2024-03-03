@@ -127,7 +127,7 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
                 JSONObject hobbyJson = new JSONObject();
                 try {
                     hobbyJson.put("name", hobby.getName());
-                    hobbyJson.put("type", hobby.getType());
+                    hobbyJson.put("hobbyType", hobby.getType());
                     hobbiesArray.put(hobbyJson);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -141,15 +141,15 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
             return;
         }
 
-        JSONObject postBody = new JSONObject();
-        try{
-            postBody.put("HOBBY", hobbiesArray);
-            postBody.put("USERNAME", username_hobby);
-        }catch (JSONException e){
-            e.printStackTrace();
+        for (int i = 0; i < hobbiesArray.length(); i++) {
+            try {
+                JSONObject hobbyJson = hobbiesArray.getJSONObject(i);
+                hobbyJson.put("username", username_hobby);
+                sendPostRequest(url, hobbyJson);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
-
-        sendPostRequest(url, postBody);
 
         Intent intent = new Intent(ChoosehobbiesActivity.this, ShowChosenHobbiesActivity.class);
         intent.putExtra("USERNAME", username_hobby);  // key-value to pass to the MainActivity
