@@ -24,8 +24,11 @@ import java.util.List;
 
 public class ShowChosenHobbiesActivity extends AppCompatActivity {
     private String username_hobby;
+    private int user_id;
     private String url = "http://coms-309-001.class.las.iastate.edu:8080/hobbies";
-    List<Hobby> hobbies = new ArrayList<>();
+    //List<Hobby> hobbies = new ArrayList<>();
+
+    private LinearLayout hobbiesLayout;
 
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -36,32 +39,37 @@ public class ShowChosenHobbiesActivity extends AppCompatActivity {
         username_hobby = intent.getStringExtra("USERNAME");
 
         TextView usernameTextView = findViewById(R.id.usernameTextView);
-        usernameTextView.setText(username_hobby + ", Choose your hobby!");
+        usernameTextView.setText(username_hobby + "'s hobby'");
+        hobbiesLayout = findViewById(R.id.hobbiesLayout);
+
+
+
+        user_id = 4;
+
+        sendGetRequest(url, user_id);
 
 
 
     }
 
-    public void sendGetRequest(String url_send, String username){
+    public void sendGetRequest(String url_send, int user_id){
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,
-                url_send + "?username=" + username, null, new Response.Listener<JSONObject>() {
+                url_send + "/" + user_id, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONArray hobbiesArray = response.getJSONArray("HOBBY");
-                    LinearLayout hobbiesLayout = findViewById(R.id.hobbiesLayout);
-                    for (int i = 0; i < hobbiesArray.length(); i++) {
-                        JSONObject hobby = hobbiesArray.getJSONObject(i);
-                        String name = hobby.getString("name");
-                        String type = hobby.getString("hobbyType");
+                    // Parse the hobby from the response
+                    String name = response.getString("name");
+                    String type = response.getString("hobbyType");
 
-                        TextView hobbyView = new TextView(ShowChosenHobbiesActivity.this);
-                        hobbyView.setText("name: " + name + ", hobby type: " + type);
-                        hobbiesLayout.addView(hobbyView);
-                    }
+                    TextView hobbyView = new TextView(ShowChosenHobbiesActivity.this);
+                    hobbyView.setText("name: " + name + ", hobby type: " + type);
+
+                    hobbiesLayout.addView(hobbyView);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

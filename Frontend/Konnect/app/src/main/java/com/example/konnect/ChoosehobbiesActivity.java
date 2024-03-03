@@ -156,9 +156,7 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
             }
         }
 
-        Intent intent = new Intent(ChoosehobbiesActivity.this, ShowChosenHobbiesActivity.class);
-        intent.putExtra("USERNAME", username_hobby);  // key-value to pass to the MainActivity
-        startActivity(intent);  // go to ChoosehobbiesActivity with the key-value data
+
     }
 
 
@@ -174,6 +172,9 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
                             if (status.equals("success")) {
                                 // Display success message
                                 Toast.makeText(ChoosehobbiesActivity.this, "Hobby submitted successfully!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(ChoosehobbiesActivity.this, ShowChosenHobbiesActivity.class);
+                                intent.putExtra("USERNAME", username_hobby);
+                                startActivity(intent);
                             } else {
                                 // Display failure message
                                 Toast.makeText(ChoosehobbiesActivity.this, "Failed to submit hobby!", Toast.LENGTH_SHORT).show();
