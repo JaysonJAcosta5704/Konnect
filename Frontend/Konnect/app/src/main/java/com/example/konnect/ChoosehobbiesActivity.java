@@ -10,9 +10,14 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.NoConnectionError;
+import com.android.volley.ParseError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.ServerError;
+import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
@@ -96,9 +101,9 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
                         }
                     }
 
-                    if (checkedCount > 5) {
+                    if (checkedCount > 1) {
                         checkBox.setChecked(false);
-                        Toast.makeText(ChoosehobbiesActivity.this, "You cannot choose more than 5 hobbies", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChoosehobbiesActivity.this, "You should choose one hobbies", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -118,8 +123,22 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
 
     private void submitHobbies(){
         //JSON array for storing hobbies
-        JSONArray hobbiesArray = new JSONArray();
+        boolean isHobbySelected = false;
 
+        for (CheckBox checkBox : checkBoxes) {
+            if (checkBox.isChecked()) {
+                isHobbySelected = true;
+                break;
+            }
+        }
+
+        // If no hobby is selected, show a message and return
+        if (!isHobbySelected) {
+            Toast.makeText(this, "Choose at least one hobby", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Loop over each checkbox
         for (int i = 0; i < checkBoxes.size(); i++) {
             CheckBox checkBox = checkBoxes.get(i);
             if (checkBox.isChecked()) {
@@ -128,73 +147,59 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
                 try {
                     hobbyJson.put("name", hobby.getName());
                     hobbyJson.put("hobbyType", hobby.getType());
-                    hobbiesArray.put(hobbyJson);
+
+                    // Send a POST request for this hobby
+                    sendPostRequest(url, hobbyJson);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         }
 
-        //checking if user choose at least one hobby from the list
-        if (hobbiesArray.length() == 0) {
-            Toast.makeText(this, "Choose at least one hobby", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        for (int i = 0; i < hobbiesArray.length(); i++) {
-            try {
-                JSONObject hobbyJson = hobbiesArray.getJSONObject(i);
-                hobbyJson.put("username", username_hobby);
-                sendPostRequest(url, hobbyJson);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-
         Intent intent = new Intent(ChoosehobbiesActivity.this, ShowChosenHobbiesActivity.class);
         intent.putExtra("USERNAME", username_hobby);  // key-value to pass to the MainActivity
         startActivity(intent);  // go to ChoosehobbiesActivity with the key-value data
-
-
-
     }
 
-    public void sendPostRequest(String url_post, JSONObject postBody){
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        JsonObjectRequest request = new JsonObjectRequest(
-                Request.Method.POST,
-                url_post,
-                postBody,
+    private void sendPostRequest(String url, JSONObject jsonObject) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Toast.makeText(ChoosehobbiesActivity.this, "Data submitted", Toast.LENGTH_SHORT).show();
+                        // Handle the response from the server
+                        try {
+                            String status = response.getString("message"); // Get the status from the response
 
+                            if (status.equals("success")) {
+                                // Display success message
+                                Toast.makeText(ChoosehobbiesActivity.this, "Hobby submitted successfully!", Toast.LENGTH_SHORT).show();
+                            } else {
+                                // Display failure message
+                                Toast.makeText(ChoosehobbiesActivity.this, "Failed to submit hobby!", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(ChoosehobbiesActivity.this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // Handle the error
+                if (error instanceof TimeoutError || error instanceof NoConnectionError) {
+                    Toast.makeText(ChoosehobbiesActivity.this, "Network error!", Toast.LENGTH_SHORT).show();
+                } else if (error instanceof AuthFailureError) {
+                    Toast.makeText(ChoosehobbiesActivity.this, "Authentication error!", Toast.LENGTH_SHORT).show();
+                } else if (error instanceof ServerError) {
+                    Toast.makeText(ChoosehobbiesActivity.this, "Server error!", Toast.LENGTH_SHORT).show();
+                } else if (error instanceof ParseError) {
+                    Toast.makeText(ChoosehobbiesActivity.this, "Parse error!", Toast.LENGTH_SHORT).show();
                 }
-        ){
-            /**for later use
-             *
-             * @return
-             */
-            public Map<String, String> getParams(){
-                Map<String, String> params = new HashMap<String, String>();
-
-                return params;
             }
-        };
+        });
 
-        requestQueue.add(request);
-
-
-
+        // Add the request to the request queue
+        Volley.newRequestQueue(this).add(jsonObjectRequest);
     }
 
 
