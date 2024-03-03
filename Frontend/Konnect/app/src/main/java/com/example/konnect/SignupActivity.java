@@ -106,7 +106,7 @@ public class SignupActivity extends AppCompatActivity {
                         params.put("name", username);
                         params.put("emailId", email);
                         params.put("joiningDate", currentDate);
-                        params.put("UserPassword", password);
+                        params.put("userPassword", password);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
