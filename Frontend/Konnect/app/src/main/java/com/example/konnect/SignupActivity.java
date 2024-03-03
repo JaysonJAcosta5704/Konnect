@@ -1,33 +1,28 @@
 package com.example.konnect;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -103,10 +98,10 @@ public class SignupActivity extends AppCompatActivity {
 
                     JSONObject params = new JSONObject();
                     try {
-                        params.put("name", username);
+                        params.put("username", username);
                         params.put("emailId", email);
                         params.put("joiningDate", currentDate);
-                        params.put("Userpassword", password);
+                        params.put("userPassword", password);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -124,6 +119,7 @@ public class SignupActivity extends AppCompatActivity {
 
                                         String message = "User ID: " + userid + "\nEmail: " + email + "\nPassword: " + password;
                                         Toast.makeText(SignupActivity.this, "Server Response:\n" + message, Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(v.getContext(), ProfileActivity.class));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -133,6 +129,7 @@ public class SignupActivity extends AppCompatActivity {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
                                     Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_LONG).show();
+                                    Log.e("Volley Error", error.toString());
                                 }
                             });
 
