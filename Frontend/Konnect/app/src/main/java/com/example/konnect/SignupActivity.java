@@ -1,30 +1,28 @@
 package com.example.konnect;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -71,17 +69,39 @@ public class SignupActivity extends AppCompatActivity {
                 String confirm = confirmEditText.getText().toString();
                 String email = emailAccountEditText.getText().toString();
 
+                //check if user didn't left the blank
+                if(username.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "Please, provide your username", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }else if(email.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "Please, provide your email.", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }else if(password.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "Plesae, provide your password.", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }else if(confirm.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "Please, provide your confirm password.", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String currentDate = df.format(new Date());
+
                 if (password.equals(confirm)){
                     Toast.makeText(getApplicationContext(), "Signing up", Toast.LENGTH_LONG).show();
 
 
-                    String url = "https://2595f4d4-3316-4394-9382-bb459bb55e4a.mock.pstmn.io/signup";
+                    String url = "http://coms-309-001.class.las.iastate.edu:8080/users";
 
                     JSONObject params = new JSONObject();
                     try {
                         params.put("username", username);
-                        params.put("email", email);
-                        params.put("password", password);
+                        params.put("emailId", email);
+                        params.put("joiningDate", currentDate);
+                        params.put("userPassword", password);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -99,6 +119,7 @@ public class SignupActivity extends AppCompatActivity {
 
                                         String message = "User ID: " + userid + "\nEmail: " + email + "\nPassword: " + password;
                                         Toast.makeText(SignupActivity.this, "Server Response:\n" + message, Toast.LENGTH_LONG).show();
+                                        startActivity(new Intent(v.getContext(), ProfileActivity.class));
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
@@ -108,6 +129,7 @@ public class SignupActivity extends AppCompatActivity {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
                                     Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_LONG).show();
+                                    Log.e("Volley Error", error.toString());
                                 }
                             });
 
