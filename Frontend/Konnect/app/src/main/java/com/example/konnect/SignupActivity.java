@@ -23,7 +23,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
@@ -71,6 +74,27 @@ public class SignupActivity extends AppCompatActivity {
                 String confirm = confirmEditText.getText().toString();
                 String email = emailAccountEditText.getText().toString();
 
+                //check if user didn't left the blank
+                if(username.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "Please, provide your username", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }else if(email.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "Please, provide your email.", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }else if(password.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "Plesae, provide your password.", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }else if(confirm.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "Please, provide your confirm password.", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String currentDate = df.format(new Date());
+
                 if (password.equals(confirm)){
                     Toast.makeText(getApplicationContext(), "Signing up", Toast.LENGTH_LONG).show();
 
@@ -79,9 +103,10 @@ public class SignupActivity extends AppCompatActivity {
 
                     JSONObject params = new JSONObject();
                     try {
-                        params.put("username", username);
-                        params.put("email", email);
-                        params.put("password", password);
+                        params.put("name", username);
+                        params.put("emailId", email);
+                        params.put("joiningDate", currentDate);
+                        params.put("Userpassword", password);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -115,22 +140,10 @@ public class SignupActivity extends AppCompatActivity {
 
                     RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
                     queue.add(jsonObjectRequest);
-
-                    Intent intent = new Intent(SignupActivity.this, ChoosehobbiesActivity.class);
-                    startActivity(intent);
-
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Password don't match", Toast.LENGTH_LONG).show();
                 }
-
-
-                /* when login button is pressed, use intent to switch to Login Activity */
-                Intent intent = new Intent(SignupActivity.this, ChoosehobbiesActivity.class);
-                intent.putExtra("USERNAME", username);  // key-value to pass to the MainActivity
-                startActivity(intent);  // go to ChoosehobbiesActivity with the key-value data
-
-
             }
         });
 

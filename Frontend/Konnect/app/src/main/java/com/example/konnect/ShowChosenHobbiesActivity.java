@@ -56,12 +56,11 @@ public class ShowChosenHobbiesActivity extends AppCompatActivity {
                     for (int i = 0; i < hobbiesArray.length(); i++) {
                         JSONObject hobby = hobbiesArray.getJSONObject(i);
                         String name = hobby.getString("name");
-                        String type = hobby.getString("type");
+                        String type = hobby.getString("hobbyType");
 
                         TextView hobbyView = new TextView(ShowChosenHobbiesActivity.this);
-                        hobbyView.setText(name + ", " + type);
+                        hobbyView.setText("name: " + name + ", hobby type: " + type);
                         hobbiesLayout.addView(hobbyView);
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -75,7 +74,6 @@ public class ShowChosenHobbiesActivity extends AppCompatActivity {
         });
 
         requestQueue.add(jsonObjectRequest);
-
-
     }
+
 }
