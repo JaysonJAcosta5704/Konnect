@@ -106,7 +106,7 @@ public class SignupActivity extends AppCompatActivity {
                         params.put("name", username);
                         params.put("emailId", email);
                         params.put("joiningDate", currentDate);
-                        params.put("Userpassword", password);
+                        params.put("UserPassword", password);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -118,16 +118,25 @@ public class SignupActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(JSONObject response) {
                                     try {
-                                        String userid = response.getString("userid");
-                                        String email = response.getString("email");
-                                        String password = response.getString("password");
+                                        String status = response.getString("message"); // Get the status from the response
 
-                                        String message = "User ID: " + userid + "\nEmail: " + email + "\nPassword: " + password;
-                                        Toast.makeText(SignupActivity.this, "Server Response:\n" + message, Toast.LENGTH_LONG).show();
+                                        if (status.equals("success")) {
+                                            // Display success message
+                                            Toast.makeText(SignupActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
+
+                                            // Start ChoosehobbiesActivity
+                                            Intent intent = new Intent(SignupActivity.this, ChoosehobbiesActivity.class);
+                                            intent.putExtra("USERNAME", username);
+                                            startActivity(intent);
+                                        } else {
+                                            // Display failure message
+                                            Toast.makeText(SignupActivity.this, "Signup failed!", Toast.LENGTH_SHORT).show();
+                                        }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
                                 }
+
                             }, new Response.ErrorListener() {
 
                                 @Override
@@ -140,6 +149,7 @@ public class SignupActivity extends AppCompatActivity {
 
                     RequestQueue queue = Volley.newRequestQueue(SignupActivity.this);
                     queue.add(jsonObjectRequest);
+
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Password don't match", Toast.LENGTH_LONG).show();
