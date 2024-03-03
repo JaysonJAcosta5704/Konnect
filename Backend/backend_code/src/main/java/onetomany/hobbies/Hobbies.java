@@ -109,6 +109,8 @@ public class Hobbies {
     public Hobbies(String name, HobbyType hobbyType) {
         this.name = name;
         this.hobbyType = hobbyType;
+
+
     }
 
     // Getters and setters

@@ -249,7 +249,7 @@ public class User {
     // =============================== Constructors ================================== //
 
 
-    public User(String name, String emailId, Date joiningDate, String userPassword,String usernam) {
+    public User(String name, String emailId, Date joiningDate, String userPassword,String username) {
         this.name = name;
         this.emailId = emailId;
         this.joiningDate = joiningDate;
@@ -281,6 +281,9 @@ public class User {
     }
     public String getUserPassword(){
         return this.UserPassword;
+    }
+    public void setUserPassword(String userPassword) {
+        this.UserPassword = userPassword;
     }
     public void setLastLoggin(){
         lastLoggin= new Date();
