@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
         homeButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), MainActivity.class)));
         loginButton.setOnClickListener(v -> {
             /* Start of OnClickListener for loginButton */
-            String url = ""; //TODO
+            String url = "http://coms-309-001.class.las.iastate.edu:8080/users";
 
             String inputUsername = loginUsername.getText().toString();
             String inputPassword = loginPassword.getText().toString();
