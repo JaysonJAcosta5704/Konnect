@@ -46,10 +46,10 @@ public class LoginActivity extends AppCompatActivity {
                 Log.d("Volley Response", response.toString());
                 String responseUsername, responsePassword;
                 try {
-                     responseUsername = response.getString("emailId");
+                     responseUsername = response.getString("username");
                      responsePassword = response.getString("userPassword");
                 } catch (JSONException e) {
-                    Log.e("Volley error", e.toString());
+                    Log.e("JSON error", e.toString());
                     toastLoginError(0);
                     return;
                 }
