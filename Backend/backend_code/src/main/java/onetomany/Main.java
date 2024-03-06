@@ -197,15 +197,15 @@ class Main {
     public CommandLineRunner demo(UserRepository userRepository) {
         return (args) -> {
             // Create a new user and save it in the database
-            User newUser = new User("Test User", "testuser@example.com", new Date(), "TestUserPassword", "testUsername");
-            userRepository.save(newUser);
-
-            // List all users
-            System.out.println("Users found with findAll():");
-            System.out.println("-------------------------------");
-            for (User user : userRepository.findAll()) {
-                System.out.println(user.getName());
-            }
+//            User newUser = new User("Test User", "testuser@example.com", new Date(), "TestUserPassword", "testUsername");
+//            userRepository.save(newUser);
+//
+//            // List all users
+//            System.out.println("Users found with findAll():");
+//            System.out.println("-------------------------------");
+//            for (User user : userRepository.findAll()) {
+//                System.out.println(user.getName());
+//            }
         };
     }
 
