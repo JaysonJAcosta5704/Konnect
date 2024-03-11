@@ -26,7 +26,7 @@ public class ReportsController {
         return reportsRepository.findById(id);
     }
 
-    @PostMapping(path = "/reports")
+    @PostMapping(path = "/reports/")
     String createReport(@RequestBody Reports Report){
         if (Report == null)
             return failure;

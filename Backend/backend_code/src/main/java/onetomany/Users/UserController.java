@@ -1,11 +1,14 @@
 package onetomany.Users;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import onetomany.Matches.MatchesRepository;
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
 import onetomany.hobbies.HobbiesRepository;
+import onetomany.userLogIn.userLogin;
+import onetomany.userLogIn.userLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,6 +41,9 @@ public class UserController {
     @Autowired
     MatchesRepository matchesRepository;
 
+    @Autowired
+    userLoginRepository userLoginRepository;
+
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
 
@@ -56,13 +62,21 @@ public class UserController {
     }
 
 
-
+    @GetMapping("/users/getReports/{id}/")
+    List<Reports> add(@PathVariable int id){
+        User tempUser= userRepository.findById(id);
+        if(tempUser == null)
+            return null;
+        return tempUser.getReports();
+    }
 
     @PostMapping(path = "/users/")
     String createUser(@RequestBody User user){
         if (user == null)
             return failure;
         userRepository.save(user);
+        userLogin temp= new userLogin(user.getUsername(),user.getEmailId(),'n',user.getUserPassword());
+        userLoginRepository.save(temp);
         return success;
     }
 
@@ -91,21 +105,9 @@ public class UserController {
 
 
     @DeleteMapping(path = "/users/{id}")
-    String deleteLaptop(@PathVariable int id){
+    String deleteUser(@PathVariable int id){
         userRepository.deleteById(id);
         return success;
     }
 
-
-    @PutMapping("/users/{userId}/Reports/{reportId}")
-    String assignLaptopToUser(@PathVariable int userId,@PathVariable int reportId){
-        User user = userRepository.findById(userId);
-        Reports report = reportsRepository.findById(reportId);
-        if(user == null || report == null)
-            return failure;
-        report.setUser(user);
-        user.setUserReports(report);
-        userRepository.save(user);
-        return success;
-    }
 }
