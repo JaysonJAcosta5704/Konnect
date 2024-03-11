@@ -2,8 +2,10 @@ package onetomany.Users;
 
 import java.util.List;
 
+import onetomany.Matches.MatchesRepository;
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
+import onetomany.hobbies.HobbiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,12 @@ public class UserController {
     @Autowired
     ReportsRepository reportsRepository;
 
+    @Autowired
+    HobbiesRepository hobbiesRepository;
+
+    @Autowired
+    MatchesRepository matchesRepository;
+
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
 
@@ -42,13 +50,15 @@ public class UserController {
     }
 
 
-
     @GetMapping(path = "/users/{id}")
     User getUserById( @PathVariable int id){
         return userRepository.findById(id);
     }
 
-    @PostMapping(path = "/users")
+   
+
+
+    @PostMapping(path = "/users/")
     String createUser(@RequestBody User user){
         if (user == null)
             return failure;
@@ -56,14 +66,27 @@ public class UserController {
         return success;
     }
 
-    @PutMapping("/users/{id}")
+    @PutMapping("/users/{id}/")
     User updateUser(@PathVariable int id, @RequestBody User request){
         User user = userRepository.findById(id);
         if(user == null)
             return null;
+
         userRepository.save(request);
         return userRepository.findById(id);
-    }   
+    }
+
+    @PostMapping("/users/addReport/{id}/")
+        String adduserReport(@PathVariable int id,@RequestBody Reports report ){
+            User tempUser= userRepository.findById(id);
+            if(tempUser == null || report ==null)
+                return null;
+            report.setUser(tempUser);
+          reportsRepository.save(report);
+          tempUser.addReport(reportsRepository.findById(1));
+          userRepository.save(tempUser);
+            return success;
+    }
     
 
 

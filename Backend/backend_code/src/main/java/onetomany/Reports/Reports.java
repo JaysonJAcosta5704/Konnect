@@ -11,8 +11,6 @@ public class Reports {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-
-
     private String report;
 
 
@@ -40,6 +38,10 @@ public class Reports {
     }
     public Reports(String report){
         this.report= report;
+    }
+
+    public void setReport(String newReport){
+        this.report=newReport;
     }
 
     public void setUser(User user){

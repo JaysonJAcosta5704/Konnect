@@ -190,6 +190,8 @@ public class User {
      * The annotation @ID marks the field below as the primary key for the table created by springboot
      * The @GeneratedValue generates a value if not already present, The strategy in this case is to start from 1 and increment for each table
      */
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -219,13 +221,6 @@ public class User {
     @ElementCollection
     private List<Integer> UserHobbiesLists;
 
-
-
-
-
-
-
-
     /*
      * @OneToOne creates a relation between the current entity/table(Laptop) with the entity/table defined below it(User), the cascade option tells springboot
      * to create the child entity if not present already (in this case it is laptop)
@@ -238,12 +233,14 @@ public class User {
     /*
      * @OneToMany tells springboot that one instance of User can map to multiple instances of Phone OR one user row can map to multiple rows of the phone table
      */
-    @OneToMany  (mappedBy = "user")  ///Initialize Hobbies  here  like  private List<Phone> phones;
+    @OneToMany  (mappedBy = "user")  ///Initialize reports  here  like  private List<Phone> phones;
             List<Reports> userReports;
 
 
     @OneToMany
     List<Match> UserMatches;
+
+
 
 
     // =============================== Constructors ================================== //
