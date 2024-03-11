@@ -26,7 +26,7 @@ public class ReportsController {
         return reportsRepository.findById(id);
     }
 
-    @PostMapping(path = "/reports")
+    @PostMapping(path = "/reports/")
     String createReport(@RequestBody Reports Report){
         if (Report == null)
             return failure;
@@ -36,10 +36,11 @@ public class ReportsController {
 
     @PutMapping(path = "/reports/{id}")
     Reports updateReport(@PathVariable int id, @RequestBody Reports request){
-        Reports laptop = reportsRepository.findById(id);
-        if(laptop == null)
+        Reports report = reportsRepository.findById(id);
+        if(request == null)
             return null;
-        reportsRepository.save(request);
+        report.setReport(request.getReport());
+        reportsRepository.save(report);
         return reportsRepository.findById(id);
     }
 
