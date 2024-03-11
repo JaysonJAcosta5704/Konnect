@@ -89,6 +89,7 @@ import java.util.Date;
 import onetomany.Matches.MatchesRepository;
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
+import onetomany.userLogIn.userLoginController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -110,15 +111,16 @@ class Main {
     @Bean
     CommandLineRunner initUser(UserRepository userRepository, MatchesRepository matchesRepository, ReportsRepository reportsRepository, HobbiesRepository hobbiesRepository){
         return args -> {
-            User user1= new User("Daniel", "dmvp01@iastate.edu", new Date(), "Daniel123", "DanielNew1");
-            User user2= new User("Nishi", "Nishi@iastate.edu", new Date(), "Nishi456", "NishiNew");
-            User user3= new User("Jayson", "jayson@iastate.edu", new Date(), "Jayson123", "newJayson");
-            User user4= new User("Chanho", "Chanho12@iastate.edu",new Date(), "Chanho897", "Chanhonew");
+            User user1= new User("Daniel", "dmvp01@iastate.edu", new Date(), "Daniel123", "DanielNew1", 21);
+            User user2= new User("Nishi", "Nishi@iastate.edu", new Date(), "Nishi456", "NishiNew",22);
+            User user3= new User("Jayson", "jayson@iastate.edu", new Date(), "Jayson123", "newJayson",20);
+            User user4= new User("Chanho", "Chanho12@iastate.edu",new Date(), "Chanho897", "Chanhonew",20);
 
             userRepository.save(user1);
             userRepository.save(user2);
             userRepository.save(user3);
             userRepository.save(user4);
+
         };
     }
 

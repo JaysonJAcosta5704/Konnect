@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
- * @author Vivek Bengre
+ * @author Daniel Pinilla
  *
  */
 
@@ -45,11 +45,9 @@ public class userLoginController {
     }
 
 
-    @GetMapping(path = "/usersLogin/{id}")
+    @GetMapping(path = "/usersLogin/{id}/")
     userLogin getUserById( @PathVariable int id){
-        for (userLogin useer:userLoginRepository.findAll()) {
-            useer.getUser().setLastLoggin();
-        }
+
         return userLoginRepository.findById(id);
     }
 

@@ -4,6 +4,8 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import onetomany.Users.User;
+import onetomany.Users.UserRepository;
+
 @Entity
 @Table(name = "userLogin")
 public class userLogin {
@@ -11,7 +13,8 @@ public class userLogin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
-
+    @Column(unique = true)
+    private String userName;
 
 
     String email;
@@ -20,8 +23,10 @@ public class userLogin {
 
     String password;
 
-    @Column(unique = true)
-    private String userName;
+
+
+
+
 
     public userLogin(){
 
@@ -38,6 +43,8 @@ public class userLogin {
         this.userName= userName;
         this.password= password;
         this.type= type;
+
+
     }
 
     public void setId(int id){

@@ -178,6 +178,8 @@ import onetomany.Matches.Match;
 
 import onetomany.Reports.Reports;
 import onetomany.hobbies.Hobbies;
+import onetomany.userLogIn.userLogin;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -199,6 +201,8 @@ public class User {
     private String emailId;
     private Date joiningDate;
     private boolean ifActive;
+
+    private int age;
 
     private String UserPassword;
     private Date lastLoggin;
@@ -240,13 +244,16 @@ public class User {
     @OneToMany
     List<Match> UserMatches;
 
+    @OneToOne
+    userLogin  userLogin;
+
 
 
 
     // =============================== Constructors ================================== //
 
 
-    public User(String name, String emailId, Date joiningDate, String userPassword,String username) {
+    public User(String name, String emailId, Date joiningDate, String userPassword,String username, int age ) {
         this.name = name;
         this.emailId = emailId;
         this.joiningDate = joiningDate;
@@ -255,6 +262,7 @@ public class User {
         this.UserPassword= userPassword;
         this.UserMatches= new ArrayList<>();
         this.username = username;
+        this.age= age;
 
     }
 
@@ -357,4 +365,7 @@ public class User {
         return this.lastLoggin;
     }
 
+    public void setUserLogin(onetomany.userLogIn.userLogin userLogin) {
+        this.userLogin = userLogin;
+    }
 }

@@ -75,8 +75,13 @@ public class UserController {
         if (user == null)
             return failure;
         userRepository.save(user);
+
+        User temptest= userRepository.findUserByUsername(user.getUsername());
         userLogin temp= new userLogin(user.getUsername(),user.getEmailId(),'n',user.getUserPassword());
+        temp.setUser(temptest);
+        temptest.setUserLogin(temp);
         userLoginRepository.save(temp);
+        userRepository.save(user);
         return success;
     }
 
