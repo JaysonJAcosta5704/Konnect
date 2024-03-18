@@ -18,7 +18,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
-import java.util.Objects;
 
 public class ProfileEditActivity extends AppCompatActivity {
     @Override
@@ -56,7 +55,8 @@ public class ProfileEditActivity extends AppCompatActivity {
 
             /* Verify strings to send to server */
             for (String s : profileStrings.keySet()) {
-                if (Objects.requireNonNull(profileStrings.get(s)).isEmpty()) {
+                //noinspection DataFlowIssue
+                if (profileStrings.get(s).isEmpty()) {
                     profileStrings.remove(s);
                 }
             }
@@ -76,9 +76,20 @@ public class ProfileEditActivity extends AppCompatActivity {
             }
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, params, response -> {
-                Log.d("Volley Response", response.toString());
-                Toast.makeText(this, "Saved Changes!", Toast.LENGTH_LONG).show();
-                startActivity(new Intent(v.getContext(), ProfileActivity.class));
+                try {
+                    String status = response.getString("message"); // Get the status from the response
+
+                    if (status.equals("success")) {
+                        // Display success message
+                        Toast.makeText(ProfileEditActivity.this, "Accessing profile data successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(ProfileEditActivity.this, ProfileActivity.class));
+                    } else {
+                        // Display failure message
+                        Toast.makeText(ProfileEditActivity.this, "Accessing profile data failed", Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }, error -> {
                 Log.e("Volley error", error.toString());
                 Toast.makeText(this, "There was an error in the server", Toast.LENGTH_LONG).show();
