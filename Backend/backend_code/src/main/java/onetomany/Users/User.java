@@ -396,6 +396,7 @@ public class User {
     private String emailId;
     private Date joiningDate;
     private Date birthday;
+    private String gender; // New field
     private boolean ifActive;
     private int age;
     private String UserPassword;
@@ -430,11 +431,12 @@ public class User {
     @OneToOne
     userLogin  userLogin;
 
-    public User(String name, String emailId, Date joiningDate, String userPassword,String username, Date birthday, int age ) {
+    public User(String name, String emailId, Date joiningDate, String userPassword,String username, Date birthday, int age, String gender ) {
         this.name = name;
         this.emailId = emailId;
         this.joiningDate = joiningDate;
         this.birthday = birthday;
+        this.gender = gender;
         this.ifActive = true;
         userReports = new ArrayList<>();
         this.UserPassword= userPassword;
@@ -494,6 +496,14 @@ public class User {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public boolean isIfActive() {
