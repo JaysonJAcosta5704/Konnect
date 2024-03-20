@@ -201,6 +201,8 @@ public class User {
     private String emailId;
     private Date joiningDate;
     private boolean ifActive;
+    private Date birthday;
+    private String gender;
 
     private int age;
 
@@ -253,16 +255,17 @@ public class User {
     // =============================== Constructors ================================== //
 
 
-    public User(String name, String emailId, Date joiningDate, String userPassword,String username, int age ) {
+    public User(String name, String emailId, String userPassword,String userame, Date birthday, int age, String gender  ) {
         this.name = name;
         this.emailId = emailId;
-        this.joiningDate = joiningDate;
+        this.joiningDate = new Date();
         this.ifActive = true;
         userReports = new ArrayList<>();
         this.UserPassword= userPassword;
         this.UserMatches= new ArrayList<>();
         this.username = username;
         this.age= age;
+        this.lastLoggin=new Date();
 
     }
 
@@ -368,4 +371,30 @@ public class User {
     public void setUserLogin(onetomany.userLogIn.userLogin userLogin) {
         this.userLogin = userLogin;
     }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+
 }

@@ -60,6 +60,15 @@ public class userLoginController {
         return success;
     }
 
+    @DeleteMapping(path = "/usersLogin/{id}/{password}")
+    String deleteLoginUser( @PathVariable String password, @PathVariable int id){
+        if(!userLoginRepository.findById(id).getPassword().equals(password))
+            return failure;
+        userLoginRepository.deleteById(id);
+        return success;
+
+    }
+
 
 
 

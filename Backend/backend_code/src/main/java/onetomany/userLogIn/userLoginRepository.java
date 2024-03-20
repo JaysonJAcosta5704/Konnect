@@ -6,4 +6,5 @@ public interface userLoginRepository  extends JpaRepository<userLogin, Long>{
 
 
     userLogin findById(int id);
+    void deleteById(int id);
 }

@@ -51,27 +51,26 @@ public class adminUserController {
     @Autowired
     adminUserRepository adminUserRepository;
 
+    @Autowired
+    adminActivityReportRepository adminActivityReportRepository;
+
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
 
-    @GetMapping(path = "/adminUser/{email}/{password}/")
-    List<adminUser> getAllUsers(@PathVariable String email, @PathVariable String password){
+    @GetMapping(path = "/adminUser/getAdminUsers/{email}/{password}/")
+    List<adminUser> getAdminUser(@PathVariable String email, @PathVariable String password){
         adminUser temp= adminUserRepository.findByEmailId(email);
        if (temp == null)
            return null;
-       if (temp.getAdminPassword() != password)
+       if (!temp.getAdminPassword().equals(password))
            return null;
        return adminUserRepository.findAll();
     }
 
-    @GetMapping(path = "/adminUser/")
-    List<adminUser> getAllUsers(){
-
-        return adminUserRepository.findAll();
-    }
 
 
-    @GetMapping(path = "/adminUser/{email}/{password}/{id}")
+
+    @GetMapping(path = "/adminUser/{id}/{email}/{password}/")
     adminUser getAdminById( @PathVariable int id){
         return adminUserRepository.findById(id);
     }
@@ -87,7 +86,7 @@ public class adminUserController {
     }
 
 
-    @GetMapping("/adminUser/getUser/{email}/{password}/{id}/")
+    @GetMapping("/adminUser/getUser/{id}/{email}/{password}/")
     User getUserbyId(@PathVariable String email, @PathVariable String password, @PathVariable int id){
         adminUser temp= adminUserRepository.findByEmailId(email);
         if (temp == null)
@@ -106,7 +105,7 @@ public class adminUserController {
         return reportsRepository.findAll();
     }
 
-    @GetMapping("/adminUser/getReports/{email}/{password}/{id}")
+    @GetMapping("/adminUser/getReports/{id}/{email}/{password}/")
     Reports getAllReports(@PathVariable String email, @PathVariable String password, @PathVariable int id){
         adminUser temp= adminUserRepository.findByEmailId(email);
         if (temp == null)
@@ -131,7 +130,7 @@ public class adminUserController {
         return success;
     }
 
-    @PostMapping(path = "/adminUser/")
+    @PostMapping(path = "/adminUser/309")
     String createNewAdmin(@RequestBody adminUser user){
         if (user == null)
             return failure;
@@ -143,5 +142,19 @@ public class adminUserController {
         userLoginRepository.save(temp);
         adminUserRepository.save(user);
         return success;
+    }
+
+    @PostMapping(path = "/adminUser/addActivityReport/{email}/{password}")
+    String createActicityReport(@PathVariable String email, @PathVariable String password, @RequestBody adminActivityReport report){
+        adminUser temp = adminUserRepository.findByEmailId(email);
+        adminUser temp2= adminUserRepository.findById(1);
+        if(temp2 == null)
+            return failure;
+        if(temp == null)
+            return failure;
+        if(report == null)
+            return  failure;
+        return success;
+
     }
 }
