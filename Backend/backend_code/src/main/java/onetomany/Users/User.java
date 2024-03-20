@@ -398,8 +398,8 @@ public class User {
     private Date birthday;
     private String gender; // New field
     private boolean ifActive;
-    private Date birthday;
-    private String gender;
+
+
 
     private int age;
     private String UserPassword;
@@ -498,21 +498,8 @@ public class User {
         this.joiningDate = joiningDate;
     }
 
-    public Date getBirthday() {
-        return birthday;
-    }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
 
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
 
     public boolean isIfActive() {
         return ifActive;

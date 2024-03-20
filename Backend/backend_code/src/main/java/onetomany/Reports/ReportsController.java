@@ -17,10 +17,10 @@ public class ReportsController {
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
 
-    @GetMapping(path = "/reports")
-    List<Reports> getAllReports(){
-        return reportsRepository.findAll();
-    }
+//    @GetMapping(path = "/reports")
+//    List<Reports> getAllReports(){
+//        return reportsRepository.findAll();
+//    }
     @GetMapping(path = "/reports/{id}")
     Reports getReportsById(@PathVariable int id){
         return reportsRepository.findById(id);
