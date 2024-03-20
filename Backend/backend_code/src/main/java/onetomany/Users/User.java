@@ -398,6 +398,9 @@ public class User {
     private Date birthday;
     private String gender; // New field
     private boolean ifActive;
+    private Date birthday;
+    private String gender;
+
     private int age;
     private String UserPassword;
     private Date lastLoggin;
@@ -431,18 +434,23 @@ public class User {
     @OneToOne
     userLogin  userLogin;
 
-    public User(String name, String emailId, Date joiningDate, String userPassword,String username, Date birthday, int age, String gender ) {
+
+
+
+    // =============================== Constructors ================================== //
+
+
+    public User(String name, String emailId, String userPassword,String userame, Date birthday, int age, String gender  ) {
         this.name = name;
         this.emailId = emailId;
-        this.joiningDate = joiningDate;
-        this.birthday = birthday;
-        this.gender = gender;
+        this.joiningDate = new Date();
         this.ifActive = true;
         userReports = new ArrayList<>();
         this.UserPassword= userPassword;
         this.UserMatches= new ArrayList<>();
         this.username = username;
         this.age= age;
+        this.lastLoggin=new Date();
 
     }
 
@@ -565,4 +573,30 @@ public class User {
     public void setUserLogin(userLogin userLogin) {
         this.userLogin = userLogin;
     }
+
+    public int getAge() {
+        return age;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+
 }

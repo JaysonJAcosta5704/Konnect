@@ -4,7 +4,8 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import onetomany.Users.User;
-import onetomany.Users.UserRepository;
+import onetomany.adminUser.adminUser;
+
 
 @Entity
 @Table(name = "userLogin")
@@ -36,6 +37,10 @@ public class userLogin {
     @JsonIgnore
     @JoinColumn
     User user;
+    @OneToOne
+    @JsonIgnore
+    @JoinColumn
+    adminUser adminUser;
 
 
     public userLogin(String userName, String email, char type, String password){
@@ -43,9 +48,8 @@ public class userLogin {
         this.userName= userName;
         this.password= password;
         this.type= type;
-
-
     }
+
 
     public void setId(int id){
         this.id= id;
@@ -91,5 +95,9 @@ public class userLogin {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setAdminUser(adminUser newAdminUser){
+        this.adminUser = newAdminUser;
     }
 }
