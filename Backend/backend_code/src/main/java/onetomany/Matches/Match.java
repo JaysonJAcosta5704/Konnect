@@ -1,5 +1,5 @@
 package onetomany.Matches;
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -7,8 +7,8 @@ import onetomany.Users.User;
 @Entity
 @Table(name="matches")
 public class Match {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int matchedID;
 

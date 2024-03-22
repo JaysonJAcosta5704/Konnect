@@ -3,6 +3,7 @@ package onetomany.adminUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import onetomany.AdminActivityReport.adminActivityReport;
 import onetomany.Matches.MatchesRepository;
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
@@ -51,8 +52,8 @@ public class adminUserController {
     @Autowired
     adminUserRepository adminUserRepository;
 
-    @Autowired
-    adminActivityReportRepository adminActivityReportRepository;
+
+
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
