@@ -19,6 +19,11 @@ public class Reports {
     @JoinColumn
     private User user;
 
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn
+    private User user2;
+
     public int getId(){
         return this.id;
     }
@@ -44,11 +49,11 @@ public class Reports {
         this.report=newReport;
     }
 
-    public void setUser(User user){
+    public void setUser1(User user){
         this.user= user;
     }
 
-
-
-
+    public void setUser2(User user2) {
+        this.user2 = user2;
+    }
 }
