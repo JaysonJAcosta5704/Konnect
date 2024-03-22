@@ -3,6 +3,7 @@ package onetomany.adminUser;
 import java.util.ArrayList;
 import java.util.List;
 
+import onetomany.AdminActivityReport.adminActivityReport;
 import onetomany.Matches.MatchesRepository;
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
@@ -51,8 +52,8 @@ public class adminUserController {
     @Autowired
     adminUserRepository adminUserRepository;
 
-    @Autowired
-    adminActivityReportRepository adminActivityReportRepository;
+
+
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
@@ -71,8 +72,11 @@ public class adminUserController {
 
 
     @GetMapping(path = "/adminUser/{id}/{email}/{password}/")
-    adminUser getAdminById( @PathVariable int id){
-        return adminUserRepository.findById(id);
+    adminUser getAdminById( @PathVariable int id, @PathVariable String email, @PathVariable String password){
+        adminUser temp= adminUserRepository.findById(id);
+        if(temp== null || !temp.getEmailId().equals(email) || !temp.getAdminPassword().equals(password))
+             return null;
+        return temp;
     }
 
     @GetMapping(path = "/adminUser/getUsers/{email}/{password}/")

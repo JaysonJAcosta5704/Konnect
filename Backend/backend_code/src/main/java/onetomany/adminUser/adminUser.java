@@ -1,23 +1,19 @@
 
 package onetomany.adminUser;
 
+import onetomany.AdminActivityReport.adminActivityReport;
 import onetomany.userLogIn.userLogin;
 
-import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
-import javax.persistence.*;
-
-
-
-
+import jakarta.persistence.*;
 
 
 
 
 @Entity
-
+@Table(name="admin_Users")
 public class adminUser {
 
     /*
@@ -33,6 +29,7 @@ public class adminUser {
     private String emailId;
 
     private String adminPassword;
+    private int test;
 
     //added userName
     @Column(unique = true)

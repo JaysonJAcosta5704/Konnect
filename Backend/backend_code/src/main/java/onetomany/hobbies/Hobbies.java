@@ -71,16 +71,8 @@
 //}
 package onetomany.hobbies;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.JoinTable;
-import javax.persistence.JoinColumn;
+import jakarta.persistence.*;
+
 import java.util.Set;
 import onetomany.Users.User;
 
