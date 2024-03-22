@@ -72,8 +72,11 @@ public class adminUserController {
 
 
     @GetMapping(path = "/adminUser/{id}/{email}/{password}/")
-    adminUser getAdminById( @PathVariable int id){
-        return adminUserRepository.findById(id);
+    adminUser getAdminById( @PathVariable int id, @PathVariable String email, @PathVariable String password){
+        adminUser temp= adminUserRepository.findById(id);
+        if(temp== null || !temp.getEmailId().equals(email) || !temp.getAdminPassword().equals(password))
+             return null;
+        return temp;
     }
 
     @GetMapping(path = "/adminUser/getUsers/{email}/{password}/")
