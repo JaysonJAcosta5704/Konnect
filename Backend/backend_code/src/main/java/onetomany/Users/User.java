@@ -396,7 +396,7 @@ public class User {
     private String emailId;
     private Date joiningDate;
     private Date birthday;
-    private String gender; // New field
+    private String gender;
     private boolean ifActive;
 
 
@@ -440,7 +440,7 @@ public class User {
     // =============================== Constructors ================================== //
 
 
-    public User(String name, String emailId, String userPassword,String userame, Date birthday, int age, String gender  ) {
+    public User(String name, String emailId, String userPassword,String userName, Date birthday, int age, String gender, String UserBio  ) {
         this.name = name;
         this.emailId = emailId;
         this.joiningDate = new Date();
@@ -448,9 +448,12 @@ public class User {
         userReports = new ArrayList<>();
         this.UserPassword= userPassword;
         this.UserMatches= new ArrayList<>();
-        this.username = username;
+        this.username = userName;
         this.age= age;
         this.lastLoggin=new Date();
+        this.gender=gender;
+        this.birthday= birthday;
+        this.UserBio=UserBio;
 
     }
 
@@ -585,5 +588,8 @@ public class User {
         this.birthday = birthday;
     }
 
+    public String getUserBio() {
+        return UserBio;
+    }
 
 }

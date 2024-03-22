@@ -102,12 +102,14 @@ public class UserController {
         return userRepository.findById(id);
     }
 
-    @PostMapping("/users/addReport/{id}/")
-        String adduserReport(@PathVariable int id,@RequestBody Reports report ){
+    @PostMapping("/users/addReport/{id}/{id2}")
+        String adduserReport(@PathVariable int id, @PathVariable int id2,@RequestBody Reports report ){
             User tempUser= userRepository.findById(id);
+            User tempUser2= userRepository.findById(id2);
             if(tempUser == null || report ==null)
                 return null;
-            report.setUser(tempUser);
+            report.setUser1(tempUser);
+            report.setUser2(tempUser2);
           reportsRepository.save(report);
           tempUser.addReport(reportsRepository.findById(1));
           userRepository.save(tempUser);
