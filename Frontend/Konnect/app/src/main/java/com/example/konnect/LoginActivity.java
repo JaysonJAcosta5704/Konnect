@@ -35,22 +35,26 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> {
             /* Start of OnClickListener for loginButton */
 
+            /* Set Username and Password then URL */
             User.getInstance().setUsername(loginUsername.getText().toString());
             User.getInstance().setPassword(loginPassword.getText().toString());
             User.getInstance().setURL_UP();
 
+            /* Request ID from server */
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERLOGIN(), null, response -> {
 
                 try {
                     User.getInstance().setID(response.getString("id"));
                     User.getInstance().setEmail(response.getString("email"));
+                    User.getInstance().setURL_USERINFO();
                     startActivity(new Intent(v.getContext(), ProfileActivity.class));
+
                 }
-                catch (JSONException e) { User.toastError(LoginActivity.this,0);}
+                catch (JSONException e) { User.toastError(this,0, e.toString());}
 
-            }, error -> User.toastError(LoginActivity.this,0));
+            }, error -> User.toastError(this,0, error.toString()));
 
-            RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+            RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(jsonObjectRequest);
         });
         /* End of onCreate */

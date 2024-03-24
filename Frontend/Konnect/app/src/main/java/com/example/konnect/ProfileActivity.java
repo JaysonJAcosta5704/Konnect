@@ -38,28 +38,30 @@ public class ProfileActivity extends AppCompatActivity {
         /* OnClick Listener for button*/
         profileEditButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
 
-        /* Set URL */
-        User.getInstance().setURL_USERINFO();
-
-        /* Calls to the server to set TextViews and ImageView*/
+        /* Calls to the server to set Profile Information */
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERINFO(), null, response -> {
             try {
                 User.getInstance().setName(response.getString("name"));
                 User.getInstance().setBio(response.getString("bio"));
                 User.getInstance().setGender(response.getString("gender"));
                 User.getInstance().setBirthday(response.getString("birthday"));
-            } catch (JSONException e) { User.toastError(this, 1); Log.e("JSON Error", e.toString());}
-        }, error -> User.toastError(this, 1));
+
+                profileName.setText(User.getInstance().getName());
+                profileUsername.setText(User.getInstance().getUsername());
+                profileEmail.setText(User.getInstance().getEmail());
+                profileBio.setText(User.getInstance().getBio());
+                profileGender.setText(User.getInstance().getGender());
+                profileBirthday.setText(User.getInstance().getBirthday());
+
+            } catch (JSONException e) { User.toastError(this, 1, e.toString()); Log.e("JSON Error", e.toString());}
+        }, error -> User.toastError(this, 1, error.toString()));
+
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjectRequest);
 
-        profileName.setText(User.getInstance().getName());
-        profileUsername.setText(User.getInstance().getUsername());
-        profileEmail.setText(User.getInstance().getEmail());
-        profileBio.setText(User.getInstance().getBio());
-        profileGender.setText(User.getInstance().getGender());
-        profileBirthday.setText(User.getInstance().getBirthday());
+
+
     }
 
 }
