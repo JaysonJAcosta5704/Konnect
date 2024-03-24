@@ -1,6 +1,7 @@
 package com.example.konnect;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 public class User {
@@ -49,7 +50,7 @@ public class User {
     public String getURL_USERINFO(){ return USERINFO_URL; }
 
     /* Other Methods */
-    public static void toastError(Context context, int errorCode){
+    public static void toastError(Context context, int errorCode, String error){
         int duration = Toast.LENGTH_LONG;
         String text;
         switch (errorCode){
@@ -63,5 +64,6 @@ public class User {
                 text = "Something went wrong";
         }
         Toast.makeText(context, text, duration).show();
+        Log.e("Error", error);
     }
    }
