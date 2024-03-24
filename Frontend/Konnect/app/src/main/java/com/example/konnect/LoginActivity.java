@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
             User.getInstance().setPassword(loginPassword.getText().toString());
             User.getInstance().setURL_UP();
 
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL(), null, response -> {
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERLOGIN(), null, response -> {
 
                 try {
                     User.getInstance().setID(response.getString("id"));
