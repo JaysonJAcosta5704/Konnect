@@ -6,22 +6,20 @@ import android.widget.Toast;
 import java.util.Date;
 
 public class User {
-    private String name, email, username, gender, bio, password;
-    private int age, ID;
+    private String name, email, username, gender, bio, password, ID;
+    private int age;
     private Date birthday;
     private static User instance;
-    private final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
-    private String LOGIN_URL;
+//    private final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
+    private final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
+    private String USER_URL;
     /* Constructor */
     public User(){}
 
     /* Setter Methods */
     public void setUsername(String username) { this.username = username; }
     public void setEmail(String email) { this.email = email; }
-    public void setID(int ID) { this.ID = ID;}
-    public void setLOGIN_URL(){
-        LOGIN_URL = SERVER_URL + "users/" + username + "/" + password;
-    }
+    public void setID(String ID) { this.ID = ID;}
     public void setPassword(String password) { this.password = password; }
 
     public void setName(String name) { this.name = name; }
@@ -35,7 +33,7 @@ public class User {
     /* Getter Methods */
     public String getUsername() { return username; }
     public String getEmail() { return email; }
-    public int getID() { return ID; }
+    public String getID() { return ID; }
     public String getName() { return name; }
     public int getAge() { return age; }
     public String getGender() { return gender; }
@@ -46,11 +44,13 @@ public class User {
         return instance;
     }
 
-    /*GET Requests*/
-//    public void tryLogin(String inputPassword, Context context){}
+    /* URLS METHODS */
+    public void setURL_UP(){ USER_URL = SERVER_URL + "user/" + username + "/" + password; }
+    public void setURL_EP(){ USER_URL = SERVER_URL + "user/" + email + "/" + password; }
+    public String getURL(){ return USER_URL; }
 
     /* Other Methods */
-    public void toastError(Context context, int errorCode){
+    public static void toastError(Context context, int errorCode){
         int duration = Toast.LENGTH_LONG;
         String text;
         switch (errorCode){
@@ -68,6 +68,4 @@ public class User {
         }
         Toast.makeText(context, text, duration).show();
     }
-
-
-}
+   }
