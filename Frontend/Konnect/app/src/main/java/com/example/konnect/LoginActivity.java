@@ -43,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 try {
                     User.getInstance().setID(response.getString("id"));
+                    User.getInstance().setEmail(response.getString("email"));
                     startActivity(new Intent(v.getContext(), ProfileActivity.class));
                 }
                 catch (JSONException e) { User.toastError(LoginActivity.this,0);}
