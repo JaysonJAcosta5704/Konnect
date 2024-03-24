@@ -49,7 +49,7 @@ public class ProfileActivity extends AppCompatActivity {
                 User.getInstance().setGender(response.getString("gender"));
                 User.getInstance().setBirthday(response.getString("birthday"));
             } catch (JSONException e) { User.toastError(this, 1); Log.e("JSON Error", e.toString());}
-        }, error -> { User.toastError(this, 1); });
+        }, error -> User.toastError(this, 1));
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjectRequest);
