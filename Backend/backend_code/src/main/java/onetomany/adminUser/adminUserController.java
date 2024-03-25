@@ -71,9 +71,9 @@ public class adminUserController {
 
 
 
-    @GetMapping(path = "/adminUser/{id}/{email}/{password}/")
-    adminUser getAdminById( @PathVariable int id, @PathVariable String email, @PathVariable String password){
-        adminUser temp= adminUserRepository.findById(id);
+    @GetMapping(path = "/adminUser/{email}/{password}/")
+    adminUser getAdminById( @PathVariable String email, @PathVariable String password){
+        adminUser temp= adminUserRepository.findByEmailId(email);
         if(temp== null || !temp.getEmailId().equals(email) || !temp.getAdminPassword().equals(password))
              return null;
         return temp;
@@ -149,16 +149,10 @@ public class adminUserController {
     }
 
     @PostMapping(path = "/adminUser/addActivityReport/{email}/{password}")
-    String createActicityReport(@PathVariable String email, @PathVariable String password, @RequestBody adminActivityReport report){
+    String createActicityReport(@PathVariable String email, @PathVariable String password){
         adminUser temp = adminUserRepository.findByEmailId(email);
         adminUser temp2= adminUserRepository.findById(1);
-        if(temp2 == null)
-            return failure;
-        if(temp == null)
-            return failure;
-        if(report == null)
-            return  failure;
-        return success;
+       return success;
 
     }
 }
