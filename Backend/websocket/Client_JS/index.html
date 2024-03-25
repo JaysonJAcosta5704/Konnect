@@ -1,39 +1,166 @@
-<html>
+<!--<html>-->
+
+<!--<head>-->
+<!--  <title>Chat</title>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--  <table style="width: 100%">-->
+<!--    <tr>-->
+<!--      <td>-->
+<!--        <input type="text" id="wsserver"-->
+<!--	style = "width: 15rem;"-->
+<!--        placeholder="ws://localhost:8080/chat/"-->
+<!--	value ="ws://localhost:8080/chat/"	-->
+<!--/>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td>-->
+<!--        <input type="text" id="username" style:"width=100%;" placeholder="Username" />-->
+<!--        <button type="button" onclick="connect();">Connect</button>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td>-->
+<!--        <textarea readonly="true" rows="10" cols="80" id="log"></textarea>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--      <td>-->
+<!--        <input type="text" size="51" id="msg" placeholder="Message" />-->
+<!--        <button type="button" onclick="send();">Send</button>-->
+<!--      </td>-->
+<!--    </tr>-->
+<!--  </table>-->
+<!--</body>-->
+<!--<script src="websocket.js"></script>-->
+
+<!--</html>-->
+<!--<!DOCTYPE html>-->
+<!--<html>-->
+
+<!--<head>-->
+<!--    <title>Chat</title>-->
+<!--    <link rel="stylesheet" href="style.css"> &lt;!&ndash; Assuming your CSS is in style.css &ndash;&gt;-->
+<!--    <style>-->
+<!--        /* Add your CSS here if not using an external CSS file */-->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+<!--<div id="wrapper">-->
+<!--    <div class="input-group">-->
+<!--        <input type="text" id="wsserver" class="input" placeholder="ws://localhost:8080/chat/" value="ws://localhost:8080/chat/">-->
+<!--    </div>-->
+<!--    <div class="input-group">-->
+<!--        <input type="text" id="username" class="input" placeholder="Username">-->
+<!--        <button type="button" onclick="connect();" class="button">Connect</button>-->
+<!--    </div>-->
+<!--    <div class="input-group">-->
+<!--        <textarea readonly id="log" class="input" rows="10" placeholder="Chat Log"></textarea>-->
+<!--    </div>-->
+<!--    <div class="input-group">-->
+<!--        <input type="text" id="msg" class="input" placeholder="Message">-->
+<!--        <button type="button" onclick="send();" class="button">Send</button>-->
+<!--    </div>-->
+<!--</div>-->
+<!--<script src="websocket.js"></script>-->
+<!--</body>-->
+
+<!--</html>-->
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <title>Chat</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konnect Chat</title>
+    <link rel="stylesheet" href="style.css"> <!-- Make sure to create a style.css file -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #wrapper {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .input-group {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group:not(:last-child) {
+            border-bottom: 1px solid #eee;
+        }
+
+        .input, .button {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        .input {
+            width: calc(100% - 22px); /* Accounting for padding and border */
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+        }
+
+        #log {
+            background-color: #fafafa;
+            height: 200px;
+            overflow-y: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+    </style>
 </head>
 
 <body>
-  <table style="width: 100%">
-    <tr>
-      <td>
-        <input type="text" id="wsserver"
-	style = "width: 15rem;"
-        placeholder="ws://localhost:8080/chat/"
-	value ="ws://localhost:8080/chat/"	
-/>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <input type="text" id="username" style:"width=100%;" placeholder="Username" />
-        <button type="button" onclick="connect();">Connect</button>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <textarea readonly="true" rows="10" cols="80" id="log"></textarea>
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <input type="text" size="51" id="msg" placeholder="Message" />
-        <button type="button" onclick="send();">Send</button>
-      </td>
-    </tr>
-  </table>
-</body>
+<div id="wrapper">
+    <h1>Konnect Chat</h1>
+    <div class="input-group">
+        <input type="text" id="wsserver" class="input" placeholder="ws://localhost:8080/chat/" value="ws://localhost:8080/chat/">
+    </div>
+    <div class="input-group">
+        <input type="text" id="username" class="input" placeholder="Username">
+        <button type="button" onclick="connect();" class="button">Connect</button>
+    </div>
+    <div class="input-group">
+        <textarea readonly id="log" class="input" placeholder="Chat Log"></textarea>
+    </div>
+    <div class="input-group">
+        <input type="text" id="msg" class="input" placeholder="Message">
+        <button type="button" onclick="send();" class="button">Send</button>
+    </div>
+</div>
 <script src="websocket.js"></script>
+</body>
 
 </html>
