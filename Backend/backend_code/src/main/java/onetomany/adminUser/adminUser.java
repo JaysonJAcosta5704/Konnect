@@ -118,7 +118,7 @@ public class adminUser {
         this.userLogin = userLogin;
     }
 
-    public onetomany.userLogIn.userLogin getUserLogin() {
+    public userLogin getUserLogin() {
         return userLogin;
     }
 }
