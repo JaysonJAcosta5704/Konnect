@@ -45,6 +45,7 @@ public class ProfileActivity extends AppCompatActivity {
                 User.getInstance().setBio(response.getString("bio"));
                 User.getInstance().setGender(response.getString("gender"));
                 User.getInstance().setBirthday(response.getString("birthday"));
+                User.getInstance().setAge(response.getString("age"));
 
                 profileName.setText(User.getInstance().getName());
                 profileUsername.setText(User.getInstance().getUsername());
