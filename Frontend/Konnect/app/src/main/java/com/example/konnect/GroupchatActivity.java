@@ -1,59 +1,64 @@
 package com.example.konnect;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
+import org.java_websocket.handshake.ServerHandshake;
 
-public class GroupchatActivity extends AppCompatActivity implements WebSocketListener {
+public class GroupChatActivity extends AppCompatActivity implements WebSocketListener {
 
-    private Button sendButton;
-    private EditText messageEditText;
-    private TextView chatTextView;
+    private Button sendBtn;
+    private EditText msgEtx;
+    private TextView msgTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_groupchat);
 
-        /* Initialize UI elements */
-        sendButton = findViewById(R.id.sendButton);
-        messageEditText = findViewById(R.id.messageEditText);
-        chatTextView = findViewById(R.id.chatTextView);
+        /* initialize UI elements */
+        sendBtn = (Button) findViewById(R.id.sendBtn);
+        msgEtx = (EditText) findViewById(R.id.msgEdt);
+        msgTv = (TextView) findViewById(R.id.tx1);
 
-        /* Set WebSocket listener */
-        WebSocketManager.getInstance().setWebSocketListener(this);
+        /* connect this activity to the websocket instance */
+        WebSocketManager.getInstance().setWebSocketListener(GroupChatActivity.this);
 
-        /* Set send button listener */
-        sendButton.setOnClickListener(v -> {
-            String message = messageEditText.getText().toString();
-            WebSocketManager.getInstance().sendMessage(message);
+        /* send button listener */
+        sendBtn.setOnClickListener(v -> {
+            try {
+                // send message
+                WebSocketManager.getInstance().sendMessage(msgEtx.getText().toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
     }
 
     @Override
     public void onWebSocketMessage(String message) {
         runOnUiThread(() -> {
-            String currentText = chatTextView.getText().toString();
-            chatTextView.setText(currentText + "\n" + message);
+            String s = msgTv.getText().toString();
+            msgTv.setText(s + "\n" + message);
         });
     }
 
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
-        // Handle WebSocket closure
+        String closedBy = remote ? "server" : "local";
+        runOnUiThread(() -> {
+            String s = msgTv.getText().toString();
+            msgTv.setText(s + "---\nconnection closed by " + closedBy + "\nreason: " + reason);
+        });
     }
 
     @Override
-    public void onWebSocketOpen(ServerHandshake handshakedata) {
-        // Handle WebSocket opening
-    }
+    public void onWebSocketOpen(ServerHandshake handshakedata) {}
 
     @Override
-    public void onWebSocketError(Exception ex) {
-        // Handle WebSocket error
-    }
+    public void onWebSocketError(Exception ex) {}
 }
