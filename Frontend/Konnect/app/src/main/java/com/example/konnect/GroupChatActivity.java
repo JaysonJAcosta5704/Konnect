@@ -14,6 +14,9 @@ public class GroupChatActivity extends AppCompatActivity implements WebSocketLis
     private Button sendBtn;
     private EditText msgEtx;
     private TextView msgTv;
+    String serverUrl = "ws://localhost:8080/chat/";
+
+    private String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +29,10 @@ public class GroupChatActivity extends AppCompatActivity implements WebSocketLis
         msgTv = (TextView) findViewById(R.id.tx1);
 
         /* connect this activity to the websocket instance */
+        WebSocketManager.getInstance().connectWebSocket(serverUrl + userName);
         WebSocketManager.getInstance().setWebSocketListener(GroupChatActivity.this);
+
+
 
         /* send button listener */
         sendBtn.setOnClickListener(v -> {
