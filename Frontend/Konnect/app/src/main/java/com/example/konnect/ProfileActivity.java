@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -39,33 +38,30 @@ public class ProfileActivity extends AppCompatActivity {
         /* OnClick Listener for button*/
         profileEditButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
 
-        /* Initialize urls for call to server */
-        String urlJSON = "http://coms-309-001.class.las.iastate.edu:8080/users/3";
-//        String urlIMAGE = "";
-
-        /* Calls to the server to set TextViews and ImageView*/
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, urlJSON, null, response -> {
-            /* Beginning of response */
-            Log.d("Volley Response", response.toString());
+        /* Calls to the server to set Profile Information */
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERINFO(), null, response -> {
             try {
-                profileName.setText(response.getString("name"));
-                profileUsername.setText(response.getString("username"));
-                profileEmail.setText(response.getString("emailId"));
-                profileBio.setText(response.getString("bio"));
-                profileGender.setText(response.getString("gender"));
-                profileBirthday.setText(response.getString("birthday"));
+                User.getInstance().setName(response.getString("name"));
+                User.getInstance().setBio(response.getString("bio"));
+                User.getInstance().setGender(response.getString("gender"));
+                User.getInstance().setBirthday(response.getString("birthday"));
+                User.getInstance().setAge(response.getString("age"));
 
-            } catch (JSONException e) {
-                Log.e("Volley error", e.toString());
-                Toast.makeText(this, "There was an error in the server", Toast.LENGTH_LONG).show();
-            }
-        }, error -> {
-            Log.e("Volley error", error.toString());
-            Toast.makeText(this, "There was an error in the server", Toast.LENGTH_LONG).show();
-        });
+                profileName.setText(User.getInstance().getName());
+                profileUsername.setText(User.getInstance().getUsername());
+                profileEmail.setText(User.getInstance().getEmail());
+                profileBio.setText(User.getInstance().getBio());
+                profileGender.setText(User.getInstance().getGender());
+                profileBirthday.setText(User.getInstance().getBirthday());
+
+            } catch (JSONException e) { User.toastError(this, 1, e.toString()); Log.e("JSON Error", e.toString());}
+        }, error -> User.toastError(this, 1, error.toString()));
+
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjectRequest);
+
+
 
     }
 

@@ -2,10 +2,8 @@ package com.example.konnect;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -36,55 +34,37 @@ public class LoginActivity extends AppCompatActivity {
         homeButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), MainActivity.class)));
         loginButton.setOnClickListener(v -> {
             /* Start of OnClickListener for loginButton */
-            String url = "http://coms-309-001.class.las.iastate.edu:8080/users/3";
 
-            String inputUsername = loginUsername.getText().toString();
-            String inputPassword = loginPassword.getText().toString();
+            /* Set input and password */
+            String input = loginUsername.getText().toString();
+            User.getInstance().setPassword(loginPassword.getText().toString());
 
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, response -> {
-            /* Beginning of response */
-                Log.d("Volley Response", response.toString());
-                String responseUsername, responsePassword;
+            /* Check if the input is a username or an email */
+            if (input.contains("@")) {
+                User.getInstance().setEmail(input);
+                User.getInstance().setURL_EP();
+            } else {
+                User.getInstance().setUsername(input);
+                User.getInstance().setURL_UP();
+            }
+
+            /* Request ID from server */
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERLOGIN(), null, response -> {
+
                 try {
-                     responseUsername = response.getString("username");
-                     responsePassword = response.getString("userPassword");
-                } catch (JSONException e) {
-                    Log.e("JSON error", e.toString());
-                    toastLoginError(0);
-                    return;
+                    User.getInstance().setID(response.getString("id"));
+                    User.getInstance().setEmail(response.getString("email"));
+                    User.getInstance().setUsername(response.getString("username"));
+                    User.getInstance().setURL_USERINFO();
+                    startActivity(new Intent(v.getContext(), ProfileActivity.class));
                 }
+                catch (JSONException e) { User.toastError(this,0,e.toString());}
 
-                if(inputUsername.equals(responseUsername) && inputPassword.equals(responsePassword)){
-                    Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(this, ProfileActivity.class));
-                } else if (!inputUsername.equals(responseUsername)){
-                    toastLoginError(1);
-                } else {
-                    toastLoginError(2);
-                }
-                /* End of response */
-            }, error -> toastLoginError(0));
+            }, error -> User.toastError(this,0,error.toString()));
 
-            RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+            RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(jsonObjectRequest);
-            /* End of OnClickListener for loginButton */
         });
         /* End of onCreate */
     }
-
-    public void toastLoginError(int errorCode){
-        switch (errorCode){
-            case 0:
-                Toast.makeText(LoginActivity.this, "There was an error while attempting to login, please try again", Toast.LENGTH_LONG).show();
-                break;
-            case 1:
-                Toast.makeText(LoginActivity.this, "There is no user with your username. Please try again.", Toast.LENGTH_LONG).show();
-                break;
-            case 2:
-                Toast.makeText(LoginActivity.this, "Your password is incorrect. Please try again.", Toast.LENGTH_LONG).show();
-                break;
-        }
-    }
-
-
 } //end of class
