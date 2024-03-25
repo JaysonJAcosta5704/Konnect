@@ -35,10 +35,18 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(v -> {
             /* Start of OnClickListener for loginButton */
 
-            /* Set Username and Password then URL */
-            User.getInstance().setUsername(loginUsername.getText().toString());
+            /* Set input and password */
+            String input = loginUsername.getText().toString();
             User.getInstance().setPassword(loginPassword.getText().toString());
-            User.getInstance().setURL_UP();
+
+            /* Check if the input is a username or an email */
+            if (input.contains("@")) {
+                User.getInstance().setEmail(input);
+                User.getInstance().setURL_EP();
+            } else {
+                User.getInstance().setUsername(input);
+                User.getInstance().setURL_UP();
+            }
 
             /* Request ID from server */
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERLOGIN(), null, response -> {
@@ -46,13 +54,13 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     User.getInstance().setID(response.getString("id"));
                     User.getInstance().setEmail(response.getString("email"));
+                    User.getInstance().setUsername(response.getString("username"));
                     User.getInstance().setURL_USERINFO();
                     startActivity(new Intent(v.getContext(), ProfileActivity.class));
-
                 }
-                catch (JSONException e) { User.toastError(this,0, e.toString());}
+                catch (JSONException e) { User.toastError(this,0,e.toString());}
 
-            }, error -> User.toastError(this,0, error.toString()));
+            }, error -> User.toastError(this,0,error.toString()));
 
             RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(jsonObjectRequest);
