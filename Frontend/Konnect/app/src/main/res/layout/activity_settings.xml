@@ -8,7 +8,7 @@
     android:background="#ececec">
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -182,9 +182,9 @@
         android:text="ID: 12345678"
         android:textColor="#5C5A5A"
         android:textSize="10sp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="HardcodedText,SmallSp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

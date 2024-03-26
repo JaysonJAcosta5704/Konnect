@@ -31,8 +31,6 @@ public class SettingsActivity extends AppCompatActivity {
         chatButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChatActivity.class)));
         profileSettingsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileActivity.class)));
 
-
-
         /* Calls to the server to set Profile Information */
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERINFO(), null, response -> {
             try {
