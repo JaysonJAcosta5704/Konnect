@@ -53,7 +53,7 @@
                     app:srcCompat="@drawable/default_pfp" />
 
                 <TextView
-                    android:id="@+id/Settings_Name"
+                    android:id="@+id/Chat_Name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
@@ -73,27 +73,30 @@
                     android:text="username"
                     android:textColor="#5C5A5A"
                     android:textSize="20sp"
-                    app:layout_constraintEnd_toEndOf="@+id/Settings_Name"
-                    app:layout_constraintStart_toStartOf="@+id/Settings_Name"
-                    app:layout_constraintTop_toBottomOf="@+id/Settings_Name"
+                    app:layout_constraintEnd_toEndOf="@+id/Chat_Name"
+                    app:layout_constraintStart_toStartOf="@+id/Chat_Name"
+                    app:layout_constraintTop_toBottomOf="@+id/Chat_Name"
                     tools:ignore="HardcodedText" />
 
 
                     <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="400dp"
+                        android:layout_height="match_parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/Chat_Username">
+                        app:layout_constraintTop_toBottomOf="@+id/Chat_Username"
+                        android:layout_marginTop="20dp">
 
                         <TextView
-                            android:id="@+id/tx1"
+                            android:id="@+id/Chat_Receive"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginEnd="10dp"
+                            android:textColor="@color/black"
                             android:hint="The Conversation will appear here:\n"
+                            android:textColorHint="#686464"
                             android:textSize="20sp"
                             tools:ignore="HardcodedText" />
                     </ScrollView>
@@ -103,24 +106,36 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <EditText
-                    android:id="@+id/msgEdt"
-                    android:layout_width="300dp"
+                    android:id="@+id/Chat_Send_EditText"
+                    android:layout_width="250dp"
                     android:layout_height="50dp"
                     android:layout_marginStart="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#686464"
                     android:hint="message"
                     android:textSize="20sp"
                     tools:ignore="HardcodedText"
                     android:importantForAutofill="no" />
 
                 <Button
+                    android:id="@+id/Chat_Send_Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Send"
-                    android:id="@+id/sendBtn"
                     android:layout_marginEnd="10dp"
+                    android:backgroundTint="#5035C7"
                     tools:ignore="HardcodedText" />
             </LinearLayout>
+            <Button
+                android:id="@+id/Chat_Home_Button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#4738C4"
+                android:text="Home"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText"
+                android:layout_gravity="center"/>
         </LinearLayout>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
