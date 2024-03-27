@@ -57,9 +57,9 @@ public class UserController {
 //    }
 
 
-    @GetMapping(path = "/users/{id}/{password}")
-    User getUserById( @PathVariable int id, @PathVariable String password){
-        User temp= userRepository.findById(id);
+    @GetMapping(path = "/users/{email}/{password}")
+    User getUserById( @PathVariable String email, @PathVariable String password){
+        User temp= userRepository.findByEmailId(email);
         if (temp.getUserPassword().equals(password))
             return temp;
         return null;
@@ -118,13 +118,14 @@ public class UserController {
     
 
 
-    @DeleteMapping(path = "/users/{id}/{password}")
-    String deleteUser(@PathVariable int id, @PathVariable String password){
-        User temp= userRepository.findById(id);
+    @DeleteMapping(path = "/users/{email}/{password}")
+    String deleteUser(@PathVariable String email, @PathVariable String password){
+        User temp= userRepository.findByEmailId(email);
         if (!temp.getUserPassword().equals(password))
             return failure;
-        userRepository.deleteUserById(id);
-//        userRepository.deleteById(id);
+        userRepository.delete(temp);
+        //userRepository.deleteById(temp.getId());
+
         return success;
     }
 
