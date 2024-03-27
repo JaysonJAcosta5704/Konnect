@@ -38,7 +38,7 @@
         public String getAge() { return age; }
         public String getGender() { return gender; }
         public String getBio() { return bio; }
-        public String getBirthday() { return birthday; }
+        public Date getBirthday() { return birthday; }
         public static synchronized User getInstance() {
             if (instance == null){ instance = new User(); }
             return instance;
