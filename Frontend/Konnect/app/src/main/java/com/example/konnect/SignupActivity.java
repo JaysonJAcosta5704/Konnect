@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.icu.text.StringPrepParseException;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -40,12 +44,14 @@ public class SignupActivity extends AppCompatActivity {
     private EditText emailAccountEditText;
     private EditText nameEditText;
     private EditText ageEditText;
-    private EditText genderEditText;
+    private Spinner genderSpinner;
     private Button DOBButton;
     private Button loginButton;         // define login button variable
     private Button signupButton;        // define signup button variable
     private Button homeButton;
     private Date birthday;
+    private String gender;
+    private String ageString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +65,35 @@ public class SignupActivity extends AppCompatActivity {
         emailAccountEditText = findViewById(R.id.signup_email_edt);
         nameEditText = findViewById(R.id.signup_name_edt);
         ageEditText = findViewById(R.id.signup_age_edt);
-        genderEditText = findViewById(R.id.signup_gender_edt);
+        genderSpinner = findViewById(R.id.signup_gender_spinner);
         DOBButton = findViewById(R.id.signup_birthday_btn);
         loginButton = findViewById(R.id.signup_login_btn);    // link to login button in the Signup activity XML
         signupButton = findViewById(R.id.signup_signup_btn);  // link to signup button in the Signup activity XML
         homeButton = findViewById(R.id.signup_home_btn);
+
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.gender_array, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        genderSpinner.setAdapter(adapter);
+
+        // Set the selected gender when an item is selected in the spinner
+        genderSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+               gender = (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Do nothing
+            }
+        });
 
 
         // Create a date set listener
@@ -117,6 +147,9 @@ public class SignupActivity extends AppCompatActivity {
                 String confirm = confirmEditText.getText().toString();
                 newUser.setEmail(emailAccountEditText.getText().toString());
                 newUser.setBirthday(birthday);
+                newUser.setGender(gender);
+                ageString = ageEditText.getText().toString();
+                newUser.setAge(Integer.parseInt(ageString));
 
                 //check if user didn't left the blank
                 if(newUser.getUsername().isEmpty()){
@@ -133,6 +166,18 @@ public class SignupActivity extends AppCompatActivity {
 
                 }else if(confirm.isEmpty()){
                     Toast.makeText(SignupActivity.this, "Please, provide your confirm password.", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }else if(birthday == null){
+                    Toast.makeText(SignupActivity.this, "Please, provide your date of birth.", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }else if(gender.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "Please, provide your gender.", Toast.LENGTH_SHORT).show();
+                    return;
+
+                }else if(ageString.isEmpty()){
+                    Toast.makeText(SignupActivity.this, "Please, provide your age.", Toast.LENGTH_SHORT).show();
                     return;
 
                 }
@@ -153,6 +198,8 @@ public class SignupActivity extends AppCompatActivity {
                         params.put("emailId", newUser.getEmail());
                         params.put("userPassword", newUser.getPassword());
                         params.put("birthday", newUser.getBirthday());
+                        params.put("gender", newUser.getGender());
+                        params.put("age", newUser.getAge());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

@@ -6,8 +6,9 @@
     import java.util.Date;
 
     public class User {
-        private String name, email, username, gender, bio, password, ID, age;
+        private String name, email, username, gender, bio, password, ID;
         private Date birthday;
+        private  int age;
         private static User instance;
         //    private final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
         private final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
@@ -22,7 +23,7 @@
         public void setPassword(String password) { this.password = password; }
 
         public void setName(String name) { this.name = name; }
-        public void setAge(String age) { this.age = age;}
+        public void setAge(int age) { this.age = age;}
         public void setGender(String gender) { this.gender = gender; }
 
         public void setBio(String bio) { this.bio = bio; }
@@ -35,7 +36,7 @@
         public String getPassword(){return password;}
         public String getID() { return ID; }
         public String getName() { return name; }
-        public String getAge() { return age; }
+        public int getAge() { return age; }
         public String getGender() { return gender; }
         public String getBio() { return bio; }
         public Date getBirthday() { return birthday; }
