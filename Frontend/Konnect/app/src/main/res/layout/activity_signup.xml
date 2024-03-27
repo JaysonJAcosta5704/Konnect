@@ -52,6 +52,11 @@
             android:textColor="#ffffff">
         </Button>
 
+        <Spinner
+            android:id="@+id/signup_gender_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Spinner>
 
         <TextView
             android:layout_width="wrap_content"

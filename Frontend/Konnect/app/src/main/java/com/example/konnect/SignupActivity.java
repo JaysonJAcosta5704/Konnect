@@ -116,7 +116,7 @@ public class SignupActivity extends AppCompatActivity {
                 newUser.setPassword(passwordEditText.getText().toString());
                 String confirm = confirmEditText.getText().toString();
                 newUser.setEmail(emailAccountEditText.getText().toString());
-                newUser.setBirthday(birthday.toString());
+                newUser.setBirthday(birthday);
 
                 //check if user didn't left the blank
                 if(newUser.getUsername().isEmpty()){

@@ -27,7 +27,7 @@
 
         public void setBio(String bio) { this.bio = bio; }
 
-        public void setBirthday(String birthday) { this.birthday = birthday; }
+        public void setBirthday(Date birthday) { this.birthday = birthday; }
 
         /* Getter Methods */
         public String getUsername() { return username; }
