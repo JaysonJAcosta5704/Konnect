@@ -2,10 +2,12 @@ package com.example.konnect;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,6 +26,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -35,9 +38,14 @@ public class SignupActivity extends AppCompatActivity {
     private EditText passwordEditText;  // define password edittext variable
     private EditText confirmEditText;   // define confirm edittext variable
     private EditText emailAccountEditText;
+    private EditText nameEditText;
+    private EditText ageEditText;
+    private EditText genderEditText;
+    private Button DOBButton;
     private Button loginButton;         // define login button variable
     private Button signupButton;        // define signup button variable
     private Button homeButton;
+    private Date birthday;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +57,42 @@ public class SignupActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.signup_password_edt);  // link to password edtext in the Signup activity XML
         confirmEditText = findViewById(R.id.signup_confirm_edt);    // link to confirm edtext in the Signup activity XML
         emailAccountEditText = findViewById(R.id.signup_email_edt);
+        nameEditText = findViewById(R.id.signup_name_edt);
+        ageEditText = findViewById(R.id.signup_age_edt);
+        genderEditText = findViewById(R.id.signup_gender_edt);
+        DOBButton = findViewById(R.id.signup_birthday_btn);
         loginButton = findViewById(R.id.signup_login_btn);    // link to login button in the Signup activity XML
         signupButton = findViewById(R.id.signup_signup_btn);  // link to signup button in the Signup activity XML
         homeButton = findViewById(R.id.signup_home_btn);
+
+
+        // Create a date set listener
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()  {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.set(year, month, dayOfMonth);
+
+                // Save the selected birthday
+                birthday = calendar.getTime();
+
+                // Format the date to a string and set it as the button text
+                SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+                DOBButton.setText(df.format(birthday));
+            }
+        };
+
+        // Show the date picker dialog when the birthday button is clicked
+        DOBButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Calendar calendar = Calendar.getInstance();
+                new DatePickerDialog(SignupActivity.this, dateSetListener,
+                        calendar.get(Calendar.YEAR),
+                        calendar.get(Calendar.MONTH),
+                        calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -69,21 +110,24 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 /* grab strings from user inputs */
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+                User newUser = new User();
+                newUser.setUsername(usernameEditText.getText().toString());
+                newUser.setName(nameEditText.getText().toString());
+                newUser.setPassword(passwordEditText.getText().toString());
                 String confirm = confirmEditText.getText().toString();
-                String email = emailAccountEditText.getText().toString();
+                newUser.setEmail(emailAccountEditText.getText().toString());
+                newUser.setBirthday(birthday.toString());
 
                 //check if user didn't left the blank
-                if(username.isEmpty()){
+                if(newUser.getUsername().isEmpty()){
                     Toast.makeText(SignupActivity.this, "Please, provide your username", Toast.LENGTH_SHORT).show();
                     return;
 
-                }else if(email.isEmpty()){
+                }else if(newUser.getEmail().isEmpty()){
                     Toast.makeText(SignupActivity.this, "Please, provide your email.", Toast.LENGTH_SHORT).show();
                     return;
 
-                }else if(password.isEmpty()){
+                }else if(newUser.getPassword().isEmpty()){
                     Toast.makeText(SignupActivity.this, "Plesae, provide your password.", Toast.LENGTH_SHORT).show();
                     return;
 
@@ -92,10 +136,11 @@ public class SignupActivity extends AppCompatActivity {
                     return;
 
                 }
+                /**
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 String currentDate = df.format(new Date());
-
-                if (password.equals(confirm)){
+                 **/
+                if (newUser.getPassword().equals(confirm)){
                     Toast.makeText(getApplicationContext(), "Signing up", Toast.LENGTH_LONG).show();
 
 
@@ -103,10 +148,11 @@ public class SignupActivity extends AppCompatActivity {
 
                     JSONObject params = new JSONObject();
                     try {
-                        params.put("name", username);
-                        params.put("emailId", email);
-                        params.put("joiningDate", currentDate);
-                        params.put("userPassword", password);
+                        params.put("name", newUser.getName());
+                        params.put("userName", newUser.getUsername());
+                        params.put("emailId", newUser.getEmail());
+                        params.put("userPassword", newUser.getPassword());
+                        params.put("birthday", newUser.getBirthday());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -126,7 +172,7 @@ public class SignupActivity extends AppCompatActivity {
 
                                             // Start ChoosehobbiesActivity
                                             Intent intent = new Intent(SignupActivity.this, ChoosehobbiesActivity.class);
-                                            intent.putExtra("USERNAME", username);
+                                            intent.putExtra("USERNAME", newUser.getUsername());
                                             startActivity(intent);
                                         } else {
                                             // Display failure message
