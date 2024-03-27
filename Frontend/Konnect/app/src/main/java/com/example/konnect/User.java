@@ -18,13 +18,10 @@ public class User {
     public void setEmail(String email) { this.email = email; }
     public void setID(String ID) { this.ID = ID;}
     public void setPassword(String password) { this.password = password; }
-
     public void setName(String name) { this.name = name; }
     public void setAge(String age) { this.age = age;}
     public void setGender(String gender) { this.gender = gender; }
-
     public void setBio(String bio) { this.bio = bio; }
-
     public void setBirthday(String birthday) { this.birthday = birthday; }
 
     /* Getter Methods */
@@ -36,6 +33,8 @@ public class User {
     public String getGender() { return gender; }
     public String getBio() { return bio; }
     public String getBirthday() { return birthday; }
+
+    /* Creates only one instance of User */
     public static synchronized User getInstance() {
         if (instance == null){ instance = new User(); }
         return instance;

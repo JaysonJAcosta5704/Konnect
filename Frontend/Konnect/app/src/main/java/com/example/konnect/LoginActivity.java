@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                     User.getInstance().setEmail(response.getString("email"));
                     User.getInstance().setUsername(response.getString("username"));
                     User.getInstance().setURL_USERINFO();
-                    startActivity(new Intent(v.getContext(), ProfileActivity.class));
+                    startActivity(new Intent(v.getContext(), SettingsActivity.class));
                 }
                 catch (JSONException e) { User.toastError(this,0,e.toString());}
 
