@@ -11,6 +11,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.java_websocket.handshake.ServerHandshake;
 
+/**
+ * This class represents the ChatActivity and handles the chat functionality.
+ *
+ * @author Jayson Acosta
+ */
 public class ChatActivity extends AppCompatActivity implements WebSocketListener{
 
     TextView chatReceive;
@@ -38,9 +43,19 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
         WebSocketManager.getInstance().setWebSocketListener(this);
     }
 
+    /**
+     * This method is called when the WebSocket connection is opened.
+     *
+     * @param handshakedata The handshake data for the WebSocket connection.
+     */
     @Override
     public void onWebSocketOpen(ServerHandshake handshakedata) {}
 
+    /**
+     * This method is called when a message is received from the WebSocket.
+     *
+     * @param message The message received from the WebSocket.
+     */
     @Override
     public void onWebSocketMessage(String message) {
         runOnUiThread(() -> {
@@ -49,6 +64,13 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
         });
     }
 
+    /**
+     * This method is called when the WebSocket connection is closed.
+     *
+     * @param code   The code for the reason the WebSocket connection was closed.
+     * @param reason The reason for the WebSocket connection being closed.
+     * @param remote A flag indicating whether the connection was closed by the remote server or locally.
+     */
     @Override
     public void onWebSocketClose(int code, String reason, boolean remote) {
         String closedBy = remote ? "server" : "local";
@@ -58,6 +80,11 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
         });
     }
 
+    /**
+     * This method is called when an error occurs in the WebSocket connection.
+     *
+     * @param ex The exception that occurred.
+     */
     @Override
     public void onWebSocketError(Exception ex) { Log.e("Websocket Error", ex.toString()); }
 }

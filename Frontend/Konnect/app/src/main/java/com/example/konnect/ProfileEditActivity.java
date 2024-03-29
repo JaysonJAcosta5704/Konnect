@@ -19,6 +19,11 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
+/**
+ * This class represents the ProfileEditActivity and handles the editing of user profile information.
+ *
+ * @author Jayson Acosta
+ */
 public class ProfileEditActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){

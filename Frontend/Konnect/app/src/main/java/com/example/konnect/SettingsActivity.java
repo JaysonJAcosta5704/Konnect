@@ -14,6 +14,11 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 
+/**
+ * This class represents the SettingsActivity and handles the display of user settings and profile information. This Activity connects to ChatActivity and ProfileActivity.
+ *
+ * @author Jayson Acosta
+ */
 public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){

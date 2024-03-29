@@ -14,6 +14,11 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 
+/**
+ * This class represents the LoginActivity and handles the user login process. This activity connects to SignupActivity and SettingsActivity.
+ *
+ * @author Jayson Acosta
+ */
 public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

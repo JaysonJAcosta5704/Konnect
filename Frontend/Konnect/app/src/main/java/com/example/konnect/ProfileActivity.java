@@ -7,6 +7,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * This class represents the ProfileActivity and displays the user's profile information. This activity connects to ProfileEditActivity.
+ *
+ * @author Jayson Acosta
+ */
 public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
