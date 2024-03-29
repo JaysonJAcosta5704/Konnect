@@ -70,7 +70,7 @@ public class User {
     // =============================== Constructors ================================== //
 
 
-    public User(String name, String emailId, String userPassword,String userName, Date birthday, int age, String gender, String UserBio  ) {
+    public User(String name, String emailId, String userPassword,String userName, Date birthday, int age, String gender  ) {
         this.name = name;
         this.emailId = emailId;
         this.joiningDate = new Date();
@@ -222,4 +222,7 @@ public class User {
         return UserBio;
     }
 
+    public void setUserBio(String userBio) {
+        UserBio = userBio;
+    }
 }

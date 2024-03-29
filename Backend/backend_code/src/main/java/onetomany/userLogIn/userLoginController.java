@@ -45,7 +45,7 @@ public class userLoginController {
     }
 
 
-    @GetMapping(path = "/usersLogin/{emailId}/{password}")
+    @GetMapping(path = "/usersLogin/{emailId}/{password}/")
     userLogin getUserById( @PathVariable String emailId, @PathVariable String password){
 
         userLogin temp= userLoginRepository.findByEmail(emailId);
