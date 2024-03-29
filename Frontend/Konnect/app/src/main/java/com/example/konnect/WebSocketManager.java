@@ -7,6 +7,11 @@ import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
 
+/**
+ * This interface defines the methods to handle WebSocket events.
+ *
+ * @author ComS309
+ */
 interface WebSocketListener {
     /**
      * Called when the WebSocket connection is successfully opened.
@@ -44,6 +49,8 @@ interface WebSocketListener {
  * in the Android application.
  * This instance ensures that there is only one WebSocketManager throughout
  * the application's lifecycle, allowing for centralized WebSocket handling.
+ *
+ * @author ComS309
  */
 public class WebSocketManager {
 

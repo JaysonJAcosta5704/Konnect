@@ -6,6 +6,12 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+/**
+ * This class represents the main activity of the application. This activity connects to LoginActivity and SignupActivity.
+ *
+ * @author Jayson Acosta
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
