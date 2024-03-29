@@ -1,7 +1,5 @@
 package com.example.konnect;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,11 +8,12 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.AuthFailureError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.ParseError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
@@ -22,26 +21,35 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-
+/**
+ * This class represents the ChooseHobbiesActivity and handles the process of choosing hobbies. This activity connects to ShowChosenHobbiesActivity.
+ *
+ * @author Chanho Yang
+ */
 public class ChoosehobbiesActivity extends AppCompatActivity {
 
+    /**
+     * Username of the user.
+     */
     private String username_hobby;
+
+    /**
+     * List of all the Check Boxes.
+     */
     private List<CheckBox> checkBoxes = new ArrayList<>();
+
+    /**
+     * The URL of the server.
+     */
     private String url = "http://coms-309-001.class.las.iastate.edu:8080/hobbies";
 
     List<Hobby> hobbies = new ArrayList<>();
-
-
-
 
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -121,6 +129,9 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Checks if a Hobby is selected and submits all selected hobbies to sendPostRequest.
+     */
     private void submitHobbies(){
         //JSON array for storing hobbies
         boolean isHobbySelected = false;
@@ -159,7 +170,12 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Sends a POST request to server with all chosen hobbies of the user in a json object.
+     *
+     * @param url
+     * @param jsonObject
+     */
     private void sendPostRequest(String url, JSONObject jsonObject) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, jsonObject,
                 new Response.Listener<JSONObject>() {

@@ -2,7 +2,6 @@ package com.example.konnect;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.PixelCopy;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,13 +14,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
-
+/**
+ * This class represents the ShowChosenHobbiesActivity and displays the user's chosen hobbies.
+ *
+ * @author Chanho Yang
+ */
 public class ShowChosenHobbiesActivity extends AppCompatActivity {
     private String username_hobby;
     private int user_id;
@@ -53,6 +53,12 @@ public class ShowChosenHobbiesActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Sends a GET request to the specified URL to retrieve the user's hobbies.
+     *
+     * @param url_send The URL to send the GET request.
+     * @param user_id  The ID of the user whose hobbies are to be retrieved.
+     */
     public void sendGetRequest(String url_send, int user_id){
 
         RequestQueue requestQueue = Volley.newRequestQueue(this);
