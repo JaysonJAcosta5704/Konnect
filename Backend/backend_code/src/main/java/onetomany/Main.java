@@ -101,7 +101,10 @@ import onetomany.Users.UserRepository;
 import onetomany.hobbies.Hobbies;
 import onetomany.hobbies.HobbiesRepository;
 import onetomany.hobbies.HobbyType;
+
+
 @SpringBootApplication
+//@EnableSwagger2
 class Main {
 
     public static void main(String[] args) {
