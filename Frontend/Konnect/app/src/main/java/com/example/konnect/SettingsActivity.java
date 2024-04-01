@@ -30,11 +30,12 @@ public class SettingsActivity extends AppCompatActivity {
         TextView settingsID = findViewById(R.id.Settings_ID);
 
         Button chatButton = findViewById(R.id.ChatButton);
-        Button accountSettingsButton = findViewById(R.id.AccountSettingsButton);
-        Button profileSettingsButton = findViewById(R.id.ProfileSettingsButton);
+        Button accountSettingsButton = findViewById(R.id.Profile_Edit_Button);
+        Button profileButton = findViewById(R.id.Profile_Button);
 
         chatButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChatActivity.class)));
-        profileSettingsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileActivity.class)));
+        profileButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileActivity.class)));
+        accountSettingsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
 
         /* Calls to the server to set Profile Information */
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERINFO(), null, response -> {

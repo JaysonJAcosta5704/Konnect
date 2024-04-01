@@ -90,6 +90,45 @@
                     app:layout_constraintTop_toBottomOf="@+id/Settings_Email">
 
                     <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/Minigame_Button"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/btn_background_1"
+                        android:drawableStart="@drawable/games_controller"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="Minigames"
+                        android:textAlignment="viewStart"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/Friends_Button"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/btn_background_1"
+                        android:drawableStart="@drawable/group"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="Friends"
+                        android:textAlignment="viewStart"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+                    <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/ChatButton"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
@@ -110,27 +149,7 @@
                         tools:ignore="HardcodedText" />
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/AccountSettingsButton"
-                        style="@android:style/Widget.Button"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginStart="32dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="32dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/btn_background_1"
-                        android:drawableStart="@drawable/edit_note"
-                        android:drawablePadding="20dp"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
-                        android:text="Account Settings"
-                        android:textAlignment="viewStart"
-                        android:textSize="18sp"
-                        android:textStyle="bold"
-                        tools:ignore="HardcodedText" />
-
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/ProfileSettingsButton"
+                        android:id="@+id/Profile_Button"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -144,6 +163,26 @@
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
                         android:text="Personal Information"
+                        android:textAlignment="viewStart"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/Profile_Edit_Button"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/btn_background_1"
+                        android:drawableStart="@drawable/edit_note"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="Edit Profile Information"
                         android:textAlignment="viewStart"
                         android:textSize="18sp"
                         android:textStyle="bold"
@@ -168,6 +207,8 @@
                         android:textSize="18sp"
                         android:textStyle="bold"
                         tools:ignore="HardcodedText" />
+
+
 
 
                 </LinearLayout>
