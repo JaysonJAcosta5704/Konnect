@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.Date;
+
 /**
  * This class represents a User object with various properties and methods.
  *
@@ -49,12 +51,12 @@ public class User {
     /**
      * The birthday of the user.
      */
-    private Date birthday;
+    private String birthday;
 
     /**
      * The age of the user.
      */
-    private int age;
+    private String age;
 
     /**
      * The singleton instance of the User class.
@@ -124,7 +126,7 @@ public class User {
      *
      * @param age The age to be set.
      */
-    protected void setAge(int age) { this.age = age;}
+    protected void setAge(String age) { this.age = age;}
 
     /**
      * Sets the gender of the user.
@@ -145,7 +147,7 @@ public class User {
      *
      * @param birthday The birthday to be set.
      */
-    protected void setBirthday(Date birthday) { this.birthday = birthday; }
+    protected void setBirthday(String birthday) { this.birthday = birthday; }
 
     /* Getter Methods */
     /**
@@ -181,7 +183,7 @@ public class User {
      *
      * @return The age of the user.
      */
-    protected int getAge() { return age; }
+    protected String getAge() { return age; }
 
     /**
      * Gets the gender of the user.
@@ -202,7 +204,7 @@ public class User {
      *
      * @return The birthday of the user.
      */
-    protected Date getBirthday() { return birthday; }
+    protected String getBirthday() { return birthday; }
 
     /**
      * Gets the singleton instance of the User class.
@@ -270,4 +272,3 @@ public class User {
         Log.e("Error", error);
     }
    }
->>>>>>> Frontend/Konnect/app/src/main/java/com/example/konnect/User.java

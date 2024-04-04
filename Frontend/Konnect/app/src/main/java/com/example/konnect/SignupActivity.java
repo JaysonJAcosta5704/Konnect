@@ -52,7 +52,6 @@ public class SignupActivity extends AppCompatActivity {
     private Button homeButton;
     private Date birthday;
     private String gender;
-    private String ageString;
 
     /**
      *
@@ -145,27 +144,24 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 /* grab strings from user inputs */
-                User newUser = new User();
-                newUser.setUsername(usernameEditText.getText().toString());
-                newUser.setName(nameEditText.getText().toString());
-                newUser.setPassword(passwordEditText.getText().toString());
+
+                String username = usernameEditText.getText().toString();
+                String name = nameEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
                 String confirm = confirmEditText.getText().toString();
-                newUser.setEmail(emailAccountEditText.getText().toString());
-                newUser.setBirthday(birthday);
-                newUser.setGender(gender);
-                ageString = ageEditText.getText().toString();
-                newUser.setAge(Integer.parseInt(ageString));
+                String email = emailAccountEditText.getText().toString();
+                int age = Integer.parseInt(ageEditText.getText().toString());
 
                 //check if user didn't left the blank
-                if(newUser.getUsername().isEmpty()){
+                if(username.isEmpty()){
                     Toast.makeText(SignupActivity.this, "Please, provide your username", Toast.LENGTH_SHORT).show();
                     return;
 
-                }else if(newUser.getEmail().isEmpty()){
+                }else if(email.isEmpty()){
                     Toast.makeText(SignupActivity.this, "Please, provide your email.", Toast.LENGTH_SHORT).show();
                     return;
 
-                }else if(newUser.getPassword().isEmpty()){
+                }else if(password.isEmpty()){
                     Toast.makeText(SignupActivity.this, "Plesae, provide your password.", Toast.LENGTH_SHORT).show();
                     return;
 
@@ -181,7 +177,7 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(SignupActivity.this, "Please, provide your gender.", Toast.LENGTH_SHORT).show();
                     return;
 
-                }else if(ageString.isEmpty()){
+                }else if(ageEditText.getText().toString().isEmpty()){
                     Toast.makeText(SignupActivity.this, "Please, provide your age.", Toast.LENGTH_SHORT).show();
                     return;
 
@@ -190,7 +186,7 @@ public class SignupActivity extends AppCompatActivity {
                 SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
                 String currentDate = df.format(new Date());
                  **/
-                if (newUser.getPassword().equals(confirm)){
+                if (password.equals(confirm)){
                     Toast.makeText(getApplicationContext(), "Signing up", Toast.LENGTH_LONG).show();
 
 
@@ -198,13 +194,13 @@ public class SignupActivity extends AppCompatActivity {
 
                     JSONObject params = new JSONObject();
                     try {
-                        params.put("name", newUser.getName());
-                        params.put("userName", newUser.getUsername());
-                        params.put("emailId", newUser.getEmail());
-                        params.put("userPassword", newUser.getPassword());
-                        params.put("birthday", newUser.getBirthday());
-                        params.put("gender", newUser.getGender());
-                        params.put("age", newUser.getAge());
+                        params.put("name", name);
+                        params.put("userName", username);
+                        params.put("emailId", email);
+                        params.put("userPassword", password);
+                        params.put("birthday", birthday);
+                        params.put("gender", gender);
+                        params.put("age", age);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -224,7 +220,7 @@ public class SignupActivity extends AppCompatActivity {
 
                                             // Start ChoosehobbiesActivity
                                             Intent intent = new Intent(SignupActivity.this, ChoosehobbiesActivity.class);
-                                            intent.putExtra("USERNAME", newUser.getUsername());
+                                            intent.putExtra("USERNAME", username);
                                             startActivity(intent);
                                         } else {
                                             // Display failure message
