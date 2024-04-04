@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/sendBtn"
-        android:hint="Type a message"/>
+        android:hint="Type your message"/>
 
     <Button
         android:id="@+id/sendBtn"
