@@ -41,7 +41,7 @@ public class SignupActivity extends AppCompatActivity {
     private EditText usernameEditText;  // define username edittext variable
     private EditText passwordEditText;  // define password edittext variable
     private EditText confirmEditText;   // define confirm edittext variable
-    private EditText emailAccountEditText;
+    private EditText emailAccountEditText; // define emailAccount edittext variable
     private EditText nameEditText;
     private EditText ageEditText;
     private Spinner genderSpinner;
@@ -53,6 +53,10 @@ public class SignupActivity extends AppCompatActivity {
     private String gender;
     private String ageString;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -249,6 +253,7 @@ public class SignupActivity extends AppCompatActivity {
                 }
             }
         });
+
 
         homeButton.setOnClickListener(new View.OnClickListener() {
             @Override
