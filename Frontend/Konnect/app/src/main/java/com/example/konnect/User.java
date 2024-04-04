@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.Date;
+
 /**
  * This class represents a User object with various properties and methods.
  *
