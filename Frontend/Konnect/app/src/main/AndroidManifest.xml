@@ -66,17 +66,12 @@
             </intent-filter>
         </activity>
         <activity
-<<<<<<< Frontend/Konnect/app/src/main/AndroidManifest.xml
-=======
             android:name=".SettingsActivity"
->>>>>>> Frontend/Konnect/app/src/main/AndroidManifest.xml
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-<<<<<<< Frontend/Konnect/app/src/main/AndroidManifest.xml
-=======
         <activity
             android:name=".ChatActivity"
             android:exported="true"
@@ -86,19 +81,6 @@
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".GroupchatActivity"
-            android:exported="true"
-            android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
-
-        
->>>>>>> Frontend/Konnect/app/src/main/AndroidManifest.xml
 
         <meta-data
             android:name="preloaded_fonts"
