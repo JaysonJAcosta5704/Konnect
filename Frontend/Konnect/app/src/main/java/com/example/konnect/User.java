@@ -57,6 +57,11 @@ public class User {
     private String age;
 
     /**
+     * The date the user joined the app.
+     */
+    private String joinDate;
+
+    /**
      * The singleton instance of the User class.
      */
     private static User instance;
@@ -127,6 +132,13 @@ public class User {
     protected void setAge(String age) { this.age = age;}
 
     /**
+     * Sets the Join date of the user.
+     *
+     * @param joinDate The join date to be set.
+     */
+    protected void setJoinDate(String joinDate){ this.joinDate = joinDate;}
+
+    /**
      * Sets the gender of the user.
      *
      * @param gender The gender to be set.
@@ -182,6 +194,13 @@ public class User {
      * @return The age of the user.
      */
     protected String getAge() { return age; }
+
+    /**
+     * Gets the join date of the user.
+     *
+     * @return The join date of the user.
+     */
+    protected String getJoinDate() { return joinDate; }
 
     /**
      * Gets the gender of the user.

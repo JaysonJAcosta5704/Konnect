@@ -195,8 +195,26 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Edit_Button"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_background_1"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Edit Information"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </ScrollView>
+
 
     <TextView
         android:id="@+id/Settings_ID"
@@ -205,8 +223,9 @@
         android:text="ID: 12345678"
         android:textColor="#5C5A5A"
         android:textSize="10sp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="HardcodedText,SmallSp" />
