@@ -3,6 +3,7 @@ package com.example.konnect;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         /* Initialize Buttons used in activity_login.xml */
-//        ImageView profilePicture= findViewById(R.id.ProfilePicture);
+        ImageView profilePicture= findViewById(R.id.ProfilePicture);
 
         /* Initialize TextViews used in activity_login.xml */
         TextView profileName= findViewById(R.id.ProfileName);

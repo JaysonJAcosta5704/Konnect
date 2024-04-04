@@ -46,7 +46,7 @@
 
 
                 <ImageView
-                    android:id="@+id/Settings_PFP"
+                    android:id="@+id/ProfilePicture"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:importantForAccessibility="no"
@@ -65,9 +65,9 @@
                     android:textColor="@color/black"
                     android:textSize="25sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/Settings_PFP"
-                    app:layout_constraintStart_toStartOf="@+id/Settings_PFP"
-                    app:layout_constraintTop_toBottomOf="@+id/Settings_PFP"
+                    app:layout_constraintEnd_toEndOf="@+id/ProfilePicture"
+                    app:layout_constraintStart_toStartOf="@+id/ProfilePicture"
+                    app:layout_constraintTop_toBottomOf="@+id/ProfilePicture"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -223,8 +223,7 @@
         android:text="ID: 12345678"
         android:textColor="#5C5A5A"
         android:textSize="10sp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
