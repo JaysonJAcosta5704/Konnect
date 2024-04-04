@@ -45,10 +45,13 @@ public class userLoginController {
     }
 
 
-    @GetMapping(path = "/usersLogin/{id}/")
-    userLogin getUserById( @PathVariable int id){
+    @GetMapping(path = "/usersLogin/{emailId}/{password}/")
+    userLogin getUserById( @PathVariable String emailId, @PathVariable String password){
 
-        return userLoginRepository.findById(id);
+        userLogin temp= userLoginRepository.findByEmail(emailId);
+        if(temp == null || !temp.getPassword().equals(password))
+            return null;
+        return temp;
     }
 
 

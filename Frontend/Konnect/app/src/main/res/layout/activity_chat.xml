@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="#ececec">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="402dp"
+                    android:layout_height="182dp"
+                    android:importantForAccessibility="no"
+                    android:scaleType="fitXY"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/top_background" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView"
+                    app:srcCompat="@drawable/circle_bg" />
+
+                <ImageView
+                    android:id="@+id/Chat_PFP"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:importantForAccessibility="no"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/imageView"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView"
+                    app:srcCompat="@drawable/default_pfp" />
+
+                <TextView
+                    android:id="@+id/Chat_Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="First Last"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/Chat_PFP"
+                    app:layout_constraintStart_toStartOf="@+id/Chat_PFP"
+                    app:layout_constraintTop_toBottomOf="@+id/Chat_PFP"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/Chat_Username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="username"
+                    android:textColor="#5C5A5A"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="@+id/Chat_Name"
+                    app:layout_constraintStart_toStartOf="@+id/Chat_Name"
+                    app:layout_constraintTop_toBottomOf="@+id/Chat_Name"
+                    tools:ignore="HardcodedText" />
+
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/Chat_Username"
+                        android:layout_marginTop="20dp">
+
+                        <TextView
+                            android:id="@+id/Chat_Receive"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            android:textColor="@color/black"
+                            android:hint="The Conversation will appear here:\n"
+                            android:textColorHint="#686464"
+                            android:textSize="20sp"
+                            tools:ignore="HardcodedText" />
+                    </ScrollView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/Chat_Send_EditText"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="#686464"
+                    android:hint="message"
+                    android:textSize="20sp"
+                    tools:ignore="HardcodedText"
+                    android:importantForAutofill="no" />
+
+                <Button
+                    android:id="@+id/Chat_Send_Button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Send"
+                    android:layout_marginEnd="10dp"
+                    android:backgroundTint="#5035C7"
+                    tools:ignore="HardcodedText" />
+            </LinearLayout>
+            <Button
+                android:id="@+id/Chat_Home_Button"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#4738C4"
+                android:text="Home"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
