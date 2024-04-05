@@ -125,15 +125,15 @@ public class UserController {
     
 
 
-    @DeleteMapping(path = "/users/{email}/{password}")
-    String deleteUser(@PathVariable String email, @PathVariable String password){
-        User temp= userRepository.findByEmailId(email);
-        if (!temp.getUserPassword().equals(password))
-            return failure;
-        userRepository.delete(temp);
-        //userRepository.deleteById(temp.getId());
-
-        return success;
-    }
+//    @DeleteMapping(path = "/users/{email}/{password}")
+//    String deleteUser(@PathVariable String email, @PathVariable String password){
+//        User temp= userRepository.findByEmailId(email);
+//        if (!temp.getUserPassword().equals(password))
+//            return failure;
+//        userRepository.delete(temp);
+//        //userRepository.deleteById(temp.getId());
+//
+//        return success;
+//    }
 
 }
