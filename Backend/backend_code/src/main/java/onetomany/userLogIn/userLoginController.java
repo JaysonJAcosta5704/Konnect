@@ -6,6 +6,7 @@ import java.util.List;
 import onetomany.Matches.MatchesRepository;
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
+import onetomany.Users.User;
 import onetomany.Users.UserRepository;
 import onetomany.hobbies.HobbiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,22 @@ public class userLoginController {
 
         return userLoginRepository.findAll();
     }
+    @GetMapping(path = "/login/e/{email}/{password}/")
+    userLogin getUserByEmail(@PathVariable String email, @PathVariable String password){
+        userLogin temp= userLoginRepository.findByEmail(email);
+        if (temp.getPassword().equals(password))
+            return temp;
+        return null;
+    }
+
+    @GetMapping(path = "/login/u/{username}/{password}/")
+    userLogin getUserByUsername(@PathVariable String username, @PathVariable String password){
+        userLogin temp= userLoginRepository.findByUserName(username);
+        if (temp.getPassword().equals(password))
+            return temp;
+        return null;
+    }
+
 
 
     @GetMapping(path = "/usersLogin/{emailId}/{password}/")
