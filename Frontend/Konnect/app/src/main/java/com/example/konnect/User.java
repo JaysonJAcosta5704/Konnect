@@ -69,8 +69,8 @@ public class User {
     /**
      * The URL of the server.
      */
-    private final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
-//    private final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
+//    private final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
+    private final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
 
     /**
      * The URL for user login.
