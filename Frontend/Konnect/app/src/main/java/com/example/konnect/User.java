@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.util.Date;
-
 /**
  * This class represents a User object with various properties and methods.
  *
@@ -71,8 +69,8 @@ public class User {
     /**
      * The URL of the server.
      */
-//    private final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
-    private final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
+    private final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
+//    private final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
 
     /**
      * The URL for user login.
@@ -239,12 +237,12 @@ public class User {
     /**
      * Sets the URL for user login with the provided username and password.
      */
-    protected void setURL_UP(){ USERLOGIN_URL = SERVER_URL + "user/" + username + "/" + password; }
+    protected void setURL_UP(){ USERLOGIN_URL = SERVER_URL + "login/u/" + username + "/" + password; }
 
     /**
      * Sets the URL for user login with the provided email and password.
      */
-    protected void setURL_EP(){ USERLOGIN_URL = SERVER_URL + "user/" + email + "/" + password; }
+    protected void setURL_EP(){ USERLOGIN_URL = SERVER_URL + "login/e/" + email + "/" + password; }
 
     /**
      * Gets the URL for user login.
