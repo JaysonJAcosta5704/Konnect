@@ -2,6 +2,7 @@ package com.example.konnect;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,28 +35,34 @@ public class ReportActivity extends AppCompatActivity {
         updateReportButton = findViewById(R.id.update_report_button);
         deleteReportButton = findViewById(R.id.delete_report_button);
 
+        Button createReportButton = findViewById(R.id.create_report_button);
+
         createReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createReport();
+                Intent intent = new Intent(ReportActivity.this, ReportFormActivity.class);
+                startActivity(intent);
             }
         });
-
         updateReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateReport();
+                Intent intent = new Intent(ReportActivity.this, UpdateReportActivity.class);
+                startActivity(intent);
             }
         });
 
         deleteReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteReport();
+                Intent intent = new Intent(ReportActivity.this, DeleteReportActivity.class);
+                startActivity(intent);
             }
         });
+
     }
 
+    /**
     private void createReport() {
         String url = "http://coms-309-001.class.las.iastate.edu:8080/reports/";
         JSONObject params = new JSONObject();
@@ -92,5 +99,5 @@ public class ReportActivity extends AppCompatActivity {
 
     private void deleteReport() {
 
-    }
+    }**/
 }
