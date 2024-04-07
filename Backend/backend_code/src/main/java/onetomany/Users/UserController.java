@@ -57,13 +57,20 @@ public class UserController {
 //    }
 
 
-    @GetMapping(path = "/users/{email}/{password}/")
-    User getUserById( @PathVariable String email, @PathVariable String password){
-        User temp= userRepository.findByEmailId(email);
-        if (temp.getUserPassword().equals(password))
-            return temp;
-        return null;
-    }
+//    @GetMapping(path = "/loginEmail/{email}/{password}/")
+//    User getUserById( @PathVariable String email, @PathVariable String password){
+//        User temp= userRepository.findByEmailId(email);
+//        if (temp.getUserPassword().equals(password))
+//            return temp;
+//        return null;
+//    }
+//    @GetMapping(path = "/us/{username}/{password}/")
+//    User getUserByUsername( @PathVariable String username, @PathVariable String password){
+//        User temp= userRepository.findByUsername(username);
+//        if (temp.getUserPassword().equals(password))
+//            return temp;
+//        return null;
+//    }
 
 
 //    @GetMapping("/users/getReports/{id}/")
@@ -74,6 +81,10 @@ public class UserController {
 //        return tempUser.getReports();
 //    }
 
+    @GetMapping(path = "/users/{username}")
+    User getUserbyUsername(@PathVariable String username){
+        return userRepository.findByUsername(username);
+    }
     @PostMapping(path = "/users/")
     String createUser(@RequestBody User user){
         if (user == null)
@@ -118,16 +129,16 @@ public class UserController {
 
 
 
-    @DeleteMapping(path = "/users/{email}/{password}")
-    String deleteUser(@PathVariable String email, @PathVariable String password){
-        User temp= userRepository.findByEmailId(email);
-        if (!temp.getUserPassword().equals(password))
-            return failure;
-        userRepository.delete(temp);
-        //userRepository.deleteById(temp.getId());
-
-        return success;
-    }
+//    @DeleteMapping(path = "/users/{email}/{password}")
+//    String deleteUser(@PathVariable String email, @PathVariable String password){
+//        User temp= userRepository.findByEmailId(email);
+//        if (!temp.getUserPassword().equals(password))
+//            return failure;
+//        userRepository.delete(temp);
+//        //userRepository.deleteById(temp.getId());
+//
+//        return success;
+//    }
 
 }
 
