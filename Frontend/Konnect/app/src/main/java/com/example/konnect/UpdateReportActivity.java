@@ -26,6 +26,7 @@ public class UpdateReportActivity extends AppCompatActivity {
 
         private ListView reportsListView;
         private List<Integer> reportIds;
+        private List<String> reports;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class UpdateReportActivity extends AppCompatActivity {
                         public void onResponse(JSONArray response) {
                             // The response is a JSON array of reports
                             // Parse this JSON array and display the reports in the ListView
-                            List<String> reports = new ArrayList<>();
+                            reports = new ArrayList<>();
                             reportIds = new ArrayList<>(); // List to store the report IDs
                             for (int i = 0; i < response.length(); i++) {
                                 try {
@@ -81,6 +82,7 @@ public class UpdateReportActivity extends AppCompatActivity {
                     // When a report is clicked, start the ReportDetailActivity
                     Intent intent = new Intent(UpdateReportActivity.this, ReportDetailActivity.class);
                     intent.putExtra("reportId", reportIds.get(position)); // Pass the report ID to the ReportDetailActivity
+                    intent.putExtra("reportContent", reports.get(position)); // Pass the report content to the ReportDetailActivity
                     startActivity(intent);
                 }
             });
