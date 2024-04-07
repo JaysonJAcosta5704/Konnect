@@ -81,6 +81,10 @@ public class UserController {
 //        return tempUser.getReports();
 //    }
 
+    @GetMapping(path = "/users/{username}")
+    User getUserbyUsername(@PathVariable String username){
+        return userRepository.findByUsername(username);
+    }
     @PostMapping(path = "/users/")
     String createUser(@RequestBody User user){
         if (user == null)
