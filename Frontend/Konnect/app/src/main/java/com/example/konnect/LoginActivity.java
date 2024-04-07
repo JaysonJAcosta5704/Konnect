@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 try {
                     User.getInstance().setID(response.getString("id"));
                     User.getInstance().setEmail(response.getString("email"));
-                    User.getInstance().setUsername(response.getString("username"));
+                    User.getInstance().setUsername(response.getString("userName"));
                     User.getInstance().setURL_USERINFO();
                     startActivity(new Intent(v.getContext(), SettingsActivity.class));
                 }

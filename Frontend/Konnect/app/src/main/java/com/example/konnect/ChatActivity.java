@@ -27,7 +27,7 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
 
         chatReceive = findViewById(R.id.chat);
 
-        ImageButton imageButton = findViewById(R.id.imageButton);
+        ImageButton imageButton = findViewById(R.id.ImageButton);
         imageButton.setOnClickListener(v -> finish());
 
         ImageView sendButton = findViewById(R.id.Send_Message);

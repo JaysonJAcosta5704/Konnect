@@ -69,8 +69,8 @@ public class User {
     /**
      * The URL of the server.
      */
-//    private static final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
-    private static final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
+    private static final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
+//    private static final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
 
     /**
      * The URL of the websocket
@@ -86,6 +86,11 @@ public class User {
      * The URL for user information.
      */
     private String USERINFO_URL;
+
+    /**
+     * The URL for friend requests.
+     */
+    private String FRIENDREQUEST_URL;
 
     /**
      * Default constructor for the User class.
@@ -250,12 +255,17 @@ public class User {
     /**
      * Sets the URL for user login with the provided username and password.
      */
-    protected void setURL_UP(){ USERLOGIN_URL = SERVER_URL + "login/u/" + username + "/" + password; }
+    protected void setURL_UP(){ USERLOGIN_URL = SERVER_URL + "login/u/" + username + "/" + password + "/"; }
 
     /**
      * Sets the URL for user login with the provided email and password.
      */
-    protected void setURL_EP(){ USERLOGIN_URL = SERVER_URL + "login/e/" + email + "/" + password; }
+    protected void setURL_EP(){ USERLOGIN_URL = SERVER_URL + "login/e/" + email + "/" + password + "/"; }
+
+    /**
+     * Sets the URL for friend requests with the provided username.
+     */
+    protected void setURL_FR(){ USERLOGIN_URL = SERVER_URL + "friend-requests/list/" + username; }
 
     /**
      * Gets the URL for user login.
@@ -267,7 +277,7 @@ public class User {
     /**
      * Sets the URL for user information with the provided ID.
      */
-    protected void setURL_USERINFO(){ USERINFO_URL = SERVER_URL + "user/" + ID; }
+    protected void setURL_USERINFO(){ USERINFO_URL = SERVER_URL + "users/" + username; }
 
     /**
      * Gets the URL for user information.
@@ -282,6 +292,9 @@ public class User {
      * @return The URL for websockets
      */
     protected static String getWEBSOCKET_URL(){ return WEBSOCKET_URL; }
+
+    protected String getURL_FR(){ return FRIENDREQUEST_URL; }
+
 
     /* Other Methods */
     /**
@@ -301,6 +314,9 @@ public class User {
                 break;
             case 1:
                 text = "There is an error with the server";
+                break;
+            case 2:
+                text = error;
                 break;
             default:
                 text = "Something went wrong";
