@@ -1,5 +1,8 @@
 package com.example.konnect;
 
+import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
@@ -8,23 +11,32 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.graphics.Color;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 
-public class FriendsActivity extends AppCompatActivity {
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class FriendsActivity extends AppCompatActivity {
+    LinearLayout containerFR, containerF, containerG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friends);
 
-        LinearLayout containerFR = findViewById(R.id.Container_FR);
-        LinearLayout containerF = findViewById(R.id.Container_F);
-        LinearLayout containerG = findViewById(R.id.Container_G);
+         containerFR = findViewById(R.id.Container_FR);
+         containerF = findViewById(R.id.Container_F);
+         containerG = findViewById(R.id.Container_G);
 
         ImageView imageViewVFR = findViewById(R.id.ImageView_VFR);
         ImageView imageViewVF = findViewById(R.id.ImageView_VF);
@@ -59,21 +71,69 @@ public class FriendsActivity extends AppCompatActivity {
         });
 
         ImageButton imageButton = findViewById(R.id.imageButton);
-        imageButton.setOnClickListener(v -> finish());
-
-
-        containerFR.addView(createFRLayout("Nishi", "Nishi Kant", 3));
-        containerFR.addView(createFRLayout("Daniel", "Daniel P", 4));
-        containerFR.addView(createFRLayout("Chanho", "Chanho Yang", 5));
-
-        containerF.addView(createFLayout("Jayson04", "Jayson Acosta", 1));
+        imageButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FriendsActivity.class)));
 
         containerG.addView(createGLayout("ComS-309 Group", 906));
+        containerG.addView(createGLayout("Admin Group", 101));
 
 
+        User.getInstance().setURL_FR();
+
+
+
+
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, User.getInstance().getURL_FR(), null, response -> {
+
+            try {
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject item = response.getJSONObject(i);
+                    int id = item.getInt("id");
+                    String senderUsername = item.getString("senderUsername");
+                    String status = item.getString("status");
+
+                    switch (status){
+                        case "DECLINED":
+                            break;
+                        case "PENDING":
+                            containerFR.addView(createFRLayout(senderUsername, senderUsername, id));
+                            break;
+                        case "ACCEPTED":
+                            containerF.addView(createFLayout(senderUsername, senderUsername, id));
+                            break;
+                    }
+                }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+
+
+        }, error -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+            builder.setMessage(error.toString())
+                    .setTitle("Error:");
+
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        });
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(jsonArrayRequest);
 
     }
 
+
+
+
+
+    /**
+     * This method creates a new constraint layout with an ImageView 2 TextViews and 2 more image views with onClickListeners.
+     * @param userUsername username of the user
+     * @param userName name of the user
+     * @param num ID of the user friend request
+     * @return Constraint layout to be added to screen
+     */
     private ConstraintLayout createFRLayout(String userUsername, String userName, int num){
 
         /* Set Layout */
@@ -118,16 +178,50 @@ public class FriendsActivity extends AppCompatActivity {
         accept.setImageResource(R.drawable.check);
         accept.setAdjustViewBounds(true);
         accept.setLayoutParams(new ViewGroup.LayoutParams(fortyDPtoPX, fortyDPtoPX));
-        accept.setOnClickListener(view -> {});
-        constraintLayout.addView(accept);
 
         ImageView deny = new ImageView(this);
         deny.setId(500000 + num);
         deny.setImageResource(R.drawable.close);
         deny.setAdjustViewBounds(true);
         deny.setLayoutParams(new ViewGroup.LayoutParams(fortyDPtoPX, fortyDPtoPX));
-        deny.setOnClickListener(view -> {});
+
+
+
+
+
+        accept.setOnClickListener(view -> {
+            try {
+                JSONObject params = new JSONObject();
+                params.put("requestId", num);
+                JsonObjectRequest jsonObjectRequest = friendRequestStatusUpdate(params, "accept", num);
+                RequestQueue queue = Volley.newRequestQueue(this);
+                queue.add(jsonObjectRequest);
+                accept.setVisibility(View.GONE);
+                deny.setVisibility(View.GONE);
+                containerFR.removeView(constraintLayout);
+                containerF.addView(constraintLayout);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
+        deny.setOnClickListener(view -> {
+            try {
+                JSONObject params = new JSONObject();
+                params.put("requestId", num);
+                JsonObjectRequest jsonObjectRequest = friendRequestStatusUpdate(params, "decline", num);
+                RequestQueue queue = Volley.newRequestQueue(this);
+                queue.add(jsonObjectRequest);
+                accept.setVisibility(View.GONE);
+                deny.setVisibility(View.GONE);
+                containerFR.removeView(constraintLayout);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         constraintLayout.addView(deny);
+        constraintLayout.addView(accept);
 
         /* Set Constraints */
         ConstraintSet constraintSet = new ConstraintSet();
@@ -156,6 +250,13 @@ public class FriendsActivity extends AppCompatActivity {
         return constraintLayout;
     }
 
+    /**
+     * This method creates a new constraint layout with an ImageView and 2 TextViews
+     * @param userUsername username of the user
+     * @param userName name of the user
+     * @param num ID of the user friend request
+     * @return Constraint layout to be added to screen
+     */
     private ConstraintLayout createFLayout(String userUsername, String userName, int num){
 
         /* Set Layout */
@@ -213,6 +314,12 @@ public class FriendsActivity extends AppCompatActivity {
         return constraintLayout;
     }
 
+    /**
+     * This method creates a new constraint layout with an ImageView 2 TextViews
+     * @param groupName name of the group
+     * @param num id of the group
+     * @return Constraint layout to be added to screen
+     */
     private ConstraintLayout createGLayout(String groupName, int num){
 
         /* Set Layout */
@@ -259,6 +366,20 @@ public class FriendsActivity extends AppCompatActivity {
         constraintSet.applyTo(constraintLayout);
 
         return constraintLayout;
+    }
+
+
+    private JsonObjectRequest friendRequestStatusUpdate(JSONObject params, String path, int id){
+        String url = String.format("http://coms-309-001.class.las.iastate.edu:8080/friend-requests/%s/%s", path, id);
+
+
+        return new JsonObjectRequest(Request.Method.POST, url, params, response -> {
+            try {
+                Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        }, error -> {});
     }
 
 }
