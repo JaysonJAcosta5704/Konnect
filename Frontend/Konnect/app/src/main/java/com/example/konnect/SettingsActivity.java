@@ -35,6 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
         Button chooseHobbiesButton = findViewById(R.id.ChooseHobbies_Button);
         Button reportButton = findViewById(R.id.Report_Button);
         Button friendsButton = findViewById(R.id.Friends_Button);
+        Button findpeopleButton = findViewById(R.id.GroupChatButton);
 
 
         chatButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChatActivity.class)));
@@ -45,6 +46,8 @@ public class SettingsActivity extends AppCompatActivity {
         reportButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ReportActivity.class)));
 
         friendsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FriendsActivity.class)));
+        findpeopleButton.setOnClickListener(v->startActivity(new Intent(v.getContext(), FindPeopleActivity.class)));
+
 
 
         /* Calls to the server to set Profile Information */
