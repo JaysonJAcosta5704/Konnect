@@ -1,4 +1,4 @@
-<!-- activity_report_form.xml -->
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,16 +6,16 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/username_edit_text"
+        android:id="@+id/user2_id_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Username" />
+        android:hint="ID of the user being reported" />
 
     <EditText
-        android:id="@+id/report_description_edit_text"
+        android:id="@+id/report_content_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Report Description"
+        android:hint="Report Content"
         android:inputType="textMultiLine"
         android:lines="4"
         android:gravity="top|start"
