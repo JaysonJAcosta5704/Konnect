@@ -45,7 +45,7 @@ public class ReportFormActivity extends AppCompatActivity {
                 RequestQueue queue = Volley.newRequestQueue(ReportFormActivity.this);
 
                 // URL of your server
-                String url = "http://coms-309-001.class.las.iastate.edu:8080/users/addReport/" + user1Id + "/" + user2Id;
+                String url = "http://coms-309-001.class.las.iastate.edu:8080/users/addReport/" + user1Id + "/" + user2Id+"/";
 
                 // Create a new JSONObject
                 JSONObject jsonBody = new JSONObject();
