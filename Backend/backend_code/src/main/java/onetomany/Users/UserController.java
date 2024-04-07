@@ -154,14 +154,7 @@ public class UserController {
           userRepository.save(tempUser);
             return success;
     }
-    @GetMapping("/users/search/{username}")
-    public ResponseEntity<List<User>> searchUsersByUsername(@PathVariable String username) {
-        List<User> users = userRepository.findByUsernameContaining(username);
-        if (users.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(users);
-    }
+
 
 
 //    @DeleteMapping(path = "/users/{id}")
