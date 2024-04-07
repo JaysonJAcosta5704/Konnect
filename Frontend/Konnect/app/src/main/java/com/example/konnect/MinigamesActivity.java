@@ -79,14 +79,13 @@ public class MinigamesActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, User.getServerUrl() + "game1Score/", jsonObject, response -> {
+        return new JsonObjectRequest(Request.Method.POST, User.getServerUrl() + "game1Score/", jsonObject, response -> {
             try {
                 Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
         }, error -> {});
-        return jsonObjectRequest;
     }
 
     void displayQuestion(Question currentQuestion){
@@ -188,6 +187,7 @@ public class MinigamesActivity extends AppCompatActivity {
             gameOverDialogBuilder.setTitle("Game Over!");
             gameOverDialogBuilder.setMessage(gameOverMessage);
             gameOverDialogBuilder.setPositiveButton("Play Again!", (dialog, i) -> startNewGame());
+            gameOverDialogBuilder.setNegativeButton("Stop here!", (dialog, i) -> finish());
             gameOverDialogBuilder.create().show();
         } else {
             chooseNewQuestion();
