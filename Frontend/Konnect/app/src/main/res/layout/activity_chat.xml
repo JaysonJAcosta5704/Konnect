@@ -43,8 +43,8 @@
 
                 <ImageView
                     android:id="@+id/Chat_PFP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="106dp"
+                    android:layout_height="106dp"
                     android:importantForAccessibility="no"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView"
                     app:layout_constraintEnd_toEndOf="parent"

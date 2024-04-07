@@ -62,146 +62,15 @@
                         android:contentDescription="expand section"
                         tools:ignore="HardcodedText" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:id="@+id/Container_FR"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="15dp">
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <ImageView
-                            android:id="@+id/FriendRequests_PFP"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:importantForAccessibility="no"
-                            app:srcCompat="@drawable/default_pfp"
-                            android:background="@drawable/circle_bg"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-                        <TextView
-                            android:id="@+id/FriendRequests_username"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Username"
-                            android:textColor="@color/black"
-                            android:textSize="16sp"
-                            app:layout_constraintStart_toEndOf="@+id/FriendRequests_PFP"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            tools:ignore="HardcodedText" />
-                        <TextView
-                            android:id="@+id/FriendRequests_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="name"
-                            android:textColor="#5C5A5A"
-                            android:textSize="14sp"
-                            app:layout_constraintStart_toStartOf="@+id/FriendRequests_username"
-                            app:layout_constraintTop_toBottomOf="@+id/FriendRequests_username"
-                            tools:ignore="HardcodedText" />
-                        <ImageView
-                            android:id="@+id/FriendRequests_Deny"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/close"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:contentDescription="Deny Friend Request"
-                            tools:ignore="HardcodedText"/>
-                        <ImageView
-                            android:id="@+id/FriendRequests_Accept"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:src="@drawable/check"
-                            app:layout_constraintEnd_toStartOf="@+id/FriendRequests_Deny"
-                            app:layout_constraintTop_toTopOf="@+id/FriendRequests_Deny"
-                            android:contentDescription="Accept Friend Request"
-                            tools:ignore="HardcodedText"/>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/LinearLayout_VF"
@@ -234,43 +103,14 @@
                         android:contentDescription="expand section"
                         tools:ignore="HardcodedText"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:id="@+id/Container_F"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/Friends_PFP"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:importantForAccessibility="no"
-                        app:srcCompat="@drawable/default_pfp"
-                        android:background="@drawable/circle_bg"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                    <TextView
-                        android:id="@+id/Friends_username"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Username"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toEndOf="@+id/Friends_PFP"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        tools:ignore="HardcodedText" />
-                    <TextView
-                        android:id="@+id/Friends_name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="name"
-                        android:textColor="#5C5A5A"
-                        android:textSize="14sp"
-                        app:layout_constraintStart_toStartOf="@+id/Friends_username"
-                        app:layout_constraintTop_toBottomOf="@+id/Friends_username"
-                        tools:ignore="HardcodedText" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="15dp">
+
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/LinearLayout_VG"
@@ -302,34 +142,14 @@
                         android:contentDescription="expand section"
                         tools:ignore="HardcodedText"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:id="@+id/Container_G"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/Groups_PFP"
-                        android:layout_width="60dp"
-                        android:layout_height="60dp"
-                        android:importantForAccessibility="no"
-                        app:srcCompat="@drawable/default_pfp"
-                        android:background="@drawable/circle_bg"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                    <TextView
-                        android:id="@+id/Groups_Name"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Group Name"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toEndOf="@+id/Groups_PFP"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="5dp"
-                        tools:ignore="HardcodedText" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="15dp">
+
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
