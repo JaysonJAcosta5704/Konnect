@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.ResponseEntity;
 
 
 /**
@@ -63,6 +63,15 @@ public class UserController {
         if (temp.getUserPassword().equals(password))
             return temp;
         return null;
+    }
+    //search for a username
+    @GetMapping("/users/search/{username}")
+    public ResponseEntity<List<User>> searchUsersByUsername(@PathVariable String username) {
+        List<User> users = userRepository.findByUsernameContaining(username);
+        if (users.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(users);
     }
 
 
