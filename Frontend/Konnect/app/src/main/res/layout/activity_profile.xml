@@ -46,9 +46,9 @@
 
 
                 <ImageView
-                    android:id="@+id/Settings_PFP"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/ProfilePicture"
+                    android:layout_width="106dp"
+                    android:layout_height="106dp"
                     android:importantForAccessibility="no"
                     app:layout_constraintBottom_toBottomOf="@+id/imageView"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -65,9 +65,9 @@
                     android:textColor="@color/black"
                     android:textSize="25sp"
                     android:textStyle="bold"
-                    app:layout_constraintEnd_toEndOf="@+id/Settings_PFP"
-                    app:layout_constraintStart_toStartOf="@+id/Settings_PFP"
-                    app:layout_constraintTop_toBottomOf="@+id/Settings_PFP"
+                    app:layout_constraintEnd_toEndOf="@+id/ProfilePicture"
+                    app:layout_constraintStart_toStartOf="@+id/ProfilePicture"
+                    app:layout_constraintTop_toBottomOf="@+id/ProfilePicture"
                     tools:ignore="HardcodedText" />
 
                 <TextView
@@ -195,8 +195,26 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/Edit_Button"
+                style="@android:style/Widget.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="32dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/btn_background_1"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Edit Information"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:ignore="HardcodedText" />
         </LinearLayout>
     </ScrollView>
+
 
     <TextView
         android:id="@+id/Settings_ID"
@@ -205,8 +223,8 @@
         android:text="ID: 12345678"
         android:textColor="#5C5A5A"
         android:textSize="10sp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="HardcodedText,SmallSp" />

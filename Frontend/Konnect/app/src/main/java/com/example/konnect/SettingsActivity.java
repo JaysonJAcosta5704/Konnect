@@ -34,13 +34,18 @@ public class SettingsActivity extends AppCompatActivity {
         Button profileButton = findViewById(R.id.Profile_Button);
         Button chooseHobbiesButton = findViewById(R.id.ChooseHobbies_Button);
         Button reportButton = findViewById(R.id.Report_Button);
+        Button friendsButton = findViewById(R.id.Friends_Button);
 
 
         chatButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChatActivity.class)));
         profileButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileActivity.class)));
         accountSettingsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
+
         chooseHobbiesButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChoosehobbiesActivity.class)));
         reportButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ReportActivity.class)));
+
+        friendsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FriendsActivity.class)));
+
 
         /* Calls to the server to set Profile Information */
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERINFO(), null, response -> {
@@ -56,7 +61,6 @@ public class SettingsActivity extends AppCompatActivity {
                 settingsID.setText(String.format("ID: %s", User.getInstance().getID()));
             } catch (JSONException e) { User.toastError(this, 1, e.toString()); Log.e("JSON Error", e.toString());}
         }, error -> User.toastError(this, 1, error.toString()));
-
 
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjectRequest);

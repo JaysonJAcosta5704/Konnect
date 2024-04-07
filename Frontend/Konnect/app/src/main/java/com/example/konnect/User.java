@@ -4,8 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import java.util.Date;
-
 /**
  * This class represents a User object with various properties and methods.
  *
@@ -59,6 +57,11 @@ public class User {
     private String age;
 
     /**
+     * The date the user joined the app.
+     */
+    private String joinDate;
+
+    /**
      * The singleton instance of the User class.
      */
     private static User instance;
@@ -66,8 +69,13 @@ public class User {
     /**
      * The URL of the server.
      */
-//    private final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
-    private final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
+//    private static final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
+    private static final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
+
+    /**
+     * The URL of the websocket
+     */
+    private static final String WEBSOCKET_URL = "ws://coms-309-001.class.las.iastate.edu:8080/";
 
     /**
      * The URL for user login.
@@ -129,6 +137,13 @@ public class User {
     protected void setAge(String age) { this.age = age;}
 
     /**
+     * Sets the Join date of the user.
+     *
+     * @param joinDate The join date to be set.
+     */
+    protected void setJoinDate(String joinDate){ this.joinDate = joinDate;}
+
+    /**
      * Sets the gender of the user.
      *
      * @param gender The gender to be set.
@@ -186,6 +201,13 @@ public class User {
     protected String getAge() { return age; }
 
     /**
+     * Gets the join date of the user.
+     *
+     * @return The join date of the user.
+     */
+    protected String getJoinDate() { return joinDate; }
+
+    /**
      * Gets the gender of the user.
      *
      * @return The gender of the user.
@@ -217,15 +239,23 @@ public class User {
     }
 
     /* URLS METHODS */
+
+    /**
+     * Gets the URL for the server.
+     *
+     * @return The URL for the server.
+     */
+    protected static String getServerUrl(){ return SERVER_URL; }
+
     /**
      * Sets the URL for user login with the provided username and password.
      */
-    protected void setURL_UP(){ USERLOGIN_URL = SERVER_URL + "user/" + username + "/" + password; }
+    protected void setURL_UP(){ USERLOGIN_URL = SERVER_URL + "login/u/" + username + "/" + password; }
 
     /**
      * Sets the URL for user login with the provided email and password.
      */
-    protected void setURL_EP(){ USERLOGIN_URL = SERVER_URL + "user/" + email + "/" + password; }
+    protected void setURL_EP(){ USERLOGIN_URL = SERVER_URL + "login/e/" + email + "/" + password; }
 
     /**
      * Gets the URL for user login.
@@ -245,6 +275,13 @@ public class User {
      * @return The URL for user information.
      */
     protected String getURL_USERINFO(){ return USERINFO_URL; }
+
+    /**
+     * Gets the URL for Websockets.
+     *
+     * @return The URL for websockets
+     */
+    protected static String getWEBSOCKET_URL(){ return WEBSOCKET_URL; }
 
     /* Other Methods */
     /**

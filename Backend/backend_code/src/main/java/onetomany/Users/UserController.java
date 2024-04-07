@@ -3,11 +3,14 @@ package onetomany.Users;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 import onetomany.Matches.MatchesRepository;
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
+import onetomany.hobbies.Hobbies;
 import onetomany.hobbies.HobbiesRepository;
+import onetomany.hobbies.HobbyType;
 import onetomany.userLogIn.userLogin;
 import onetomany.userLogIn.userLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +25,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * 
+ *
  * @author Vivek Bengre
- * 
- */ 
+ *
+ */
 
 @RestController
 public class UserController {
@@ -57,13 +60,20 @@ public class UserController {
 //    }
 
 
-    @GetMapping(path = "/users/{email}/{password}/")
-    User getUserById( @PathVariable String email, @PathVariable String password){
-        User temp= userRepository.findByEmailId(email);
-        if (temp.getUserPassword().equals(password))
-            return temp;
-        return null;
-    }
+//    @GetMapping(path = "/loginEmail/{email}/{password}/")
+//    User getUserById( @PathVariable String email, @PathVariable String password){
+//        User temp= userRepository.findByEmailId(email);
+//        if (temp.getUserPassword().equals(password))
+//            return temp;
+//        return null;
+//    }
+//    @GetMapping(path = "/us/{username}/{password}/")
+//    User getUserByUsername( @PathVariable String username, @PathVariable String password){
+//        User temp= userRepository.findByUsername(username);
+//        if (temp.getUserPassword().equals(password))
+//            return temp;
+//        return null;
+//    }
 
 
 //    @GetMapping("/users/getReports/{id}/")
@@ -74,6 +84,22 @@ public class UserController {
 //        return tempUser.getReports();
 //    }
 
+    @GetMapping(path = "/users/{username}")
+    User getUserbyUsername(@PathVariable String username){
+        return userRepository.findByUsername(username);
+    }
+    @GetMapping(path = "/users/{id}/getFlashcards")
+    List<User> getMatches(@PathVariable int id){
+      User temp=  userRepository.findById(id);
+
+      return temp.getMatches();
+    }
+    @GetMapping(path = "/users/getReport/{id}")
+    List<Reports> getReports(@PathVariable int id){
+        User temp= userRepository.findById(id);
+
+        return temp.getReports();
+    }
     @PostMapping(path = "/users/")
     String createUser(@RequestBody User user){
         if (user == null)
@@ -90,6 +116,19 @@ public class UserController {
         userLoginRepository.save(temp);
         userRepository.save(user);
         return success;
+    }
+
+    @PostMapping(path = "/users/{id}/addHobbie/")
+    String addHobbie(@PathVariable int id,@RequestBody Hobbies hobbie){
+      User temp=   userRepository.findById(id);
+      temp.addHobbie(hobbie);
+
+    // Hobbies temp2= hobbiesRepository;
+
+//        temp2.addUser(temp);
+//        userRepository.save(temp);
+//        hobbiesRepository.save(temp2);
+      return success;
     }
 
     @PutMapping("/users/{id}/{password}")
@@ -115,18 +154,17 @@ public class UserController {
           userRepository.save(tempUser);
             return success;
     }
-    
 
 
-    @DeleteMapping(path = "/users/{email}/{password}")
-    String deleteUser(@PathVariable String email, @PathVariable String password){
-        User temp= userRepository.findByEmailId(email);
-        if (!temp.getUserPassword().equals(password))
-            return failure;
-        userRepository.delete(temp);
-        //userRepository.deleteById(temp.getId());
 
-        return success;
-    }
+//    @DeleteMapping(path = "/users/{id}")
+//    String deleteUser(@PathVariable long id){
+//
+//        userRepository.deleteById(id);
+//        //userRepository.deleteById(temp.getId());
+//
+//        return success;
+//    }
 
 }
+

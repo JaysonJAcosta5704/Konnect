@@ -1,6 +1,9 @@
 package com.example.konnect;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,7 +20,7 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         /* Initialize Buttons used in activity_login.xml */
-//        ImageView profilePicture= findViewById(R.id.ProfilePicture);
+        ImageView profilePicture= findViewById(R.id.ProfilePicture);
 
         /* Initialize TextViews used in activity_login.xml */
         TextView profileName= findViewById(R.id.ProfileName);
@@ -29,6 +32,7 @@ public class ProfileActivity extends AppCompatActivity {
         TextView profileBirthday= findViewById(R.id.ProfileBirthday);
         TextView profileJoinDate= findViewById(R.id.ProfileJoinDate);
 
+        /* Set text inside of TextViews */
         profileName.setText(User.getInstance().getName());
         profileUsername.setText(User.getInstance().getUsername());
         profileEmail.setText(User.getInstance().getEmail());
@@ -36,6 +40,11 @@ public class ProfileActivity extends AppCompatActivity {
         profileGender.setText(String.format("%s%s", profileGender.getText(), User.getInstance().getGender()));
         profileAge.setText(String.format("%s%s", profileAge.getText(), User.getInstance().getAge()));
         profileBirthday.setText(String.format("%s%s", profileBirthday.getText(), User.getInstance().getBirthday()));
+        profileJoinDate.setText(String.format("%s%s", profileJoinDate.getText(), User.getInstance().getJoinDate()));
+
+        /* Initialize and set onClick listener for edit button*/
+        Button editButton = findViewById(R.id.Edit_Button);
+        editButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
 
 
     }
