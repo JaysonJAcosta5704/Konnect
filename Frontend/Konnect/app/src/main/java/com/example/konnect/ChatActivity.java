@@ -1,10 +1,10 @@
 package com.example.konnect;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,22 +25,30 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
 
-        Button homeButton = findViewById(R.id.Chat_Home_Button);
-        homeButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), SettingsActivity.class)));
+        chatReceive = findViewById(R.id.chat);
 
-        Button sendButton = findViewById(R.id.Chat_Send_Button);
+        ImageButton imageButton = findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(v -> finish());
 
-        EditText sendEditText = findViewById(R.id.Chat_Send_EditText);
-        chatReceive = findViewById(R.id.Chat_Receive);
+        ImageView sendButton = findViewById(R.id.Send_Message);
+        ImageView connectButton = findViewById(R.id.Connect_Chat);
+
+        EditText messageText = findViewById(R.id.Chat_Message);
+        EditText usernameText = findViewById(R.id.Chat_username);
+
+
+        connectButton.setOnClickListener(v -> {
+            String wsURL = String.format("%s%s-%s/%s",User.getWEBSOCKET_URL(), User.getInstance().getUsername(), usernameText.toString(), User.getInstance().getUsername());
+            WebSocketManager.getInstance().connectWebSocket(wsURL);
+            WebSocketManager.getInstance().setWebSocketListener(this);
+        });
 
         sendButton.setOnClickListener(v -> {
-            try { WebSocketManager.getInstance().sendMessage(sendEditText.getText().toString()); }
+            try { WebSocketManager.getInstance().sendMessage(messageText.getText().toString()); }
             catch (Exception e) { Log.d("ExceptionSendMessage:", e.toString()); }
         });
 
-        String wsURL = "ws://10.0.2.2:8080/chat/" + User.getInstance().getUsername();
-        WebSocketManager.getInstance().connectWebSocket(wsURL);
-        WebSocketManager.getInstance().setWebSocketListener(this);
+
     }
 
     /**
