@@ -8,16 +8,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 public class ReportActivity extends AppCompatActivity {
 
     private EditText reportContentEditText;
@@ -55,7 +45,7 @@ public class ReportActivity extends AppCompatActivity {
         deleteReportButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ReportActivity.this, DeleteReportActivity.class);
+                Intent intent = new Intent(ReportActivity.this, ReportDetailActivity.class);
                 startActivity(intent);
             }
         });
