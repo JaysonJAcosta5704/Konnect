@@ -24,61 +24,63 @@ import java.util.List;
 
 public class UpdateReportActivity extends AppCompatActivity {
 
-    private ListView reportsListView;
+        private ListView reportsListView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_updatereport);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_updatereport);
 
-        reportsListView = findViewById(R.id.reports_list_view);
+            reportsListView = findViewById(R.id.reports_list_view);
 
-        String userId = User.getInstance().getID(); // Get the ID of the user
+            String userId = User.getInstance().getID(); // Get the ID of the user
 
-        // URL of your server
-        String url = "http://coms-309-001.class.las.iastate.edu:8080/reports" + userId;
+            // Updated URL of your server
+            String url = "http://coms-309-001.class.las.iastate.edu:8080/users/getReport/" + userId;
 
-        // Create a new JsonArrayRequest
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        // The response is a JSON array of reports
-                        // Parse this JSON array and display the reports in the ListView
-                        List<String> reports = new ArrayList<>();
-                        for (int i = 0; i < response.length(); i++) {
-                            try {
-                                JSONObject report = response.getJSONObject(i);
-                                reports.add(report.getString("report")); // Assuming "report" is the key for the report content
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+            // Create a new JsonArrayRequest
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONArray>() {
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            // The response is a JSON array of reports
+                            // Parse this JSON array and display the reports in the ListView
+                            List<String> reports = new ArrayList<>();
+                            for (int i = 0; i < response.length(); i++) {
+                                try {
+                                    JSONObject report = response.getJSONObject(i);
+                                    reports.add(report.getString("report")); // Assuming "report" is the key for the report content
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
                             }
+
+                            // Display the reports in the ListView
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(UpdateReportActivity.this,
+                                    android.R.layout.simple_list_item_1, reports);
+                            reportsListView.setAdapter(adapter);
                         }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // Handle the error
+                }
+            });
 
-                        // Display the reports in the ListView
-                        ArrayAdapter<String> adapter = new ArrayAdapter<>(UpdateReportActivity.this,
-                                android.R.layout.simple_list_item_1, reports);
-                        reportsListView.setAdapter(adapter);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                // Handle the error
-            }
-        });
+            // Add the request to the RequestQueue
+            RequestQueue queue = Volley.newRequestQueue(UpdateReportActivity.this);
+            queue.add(jsonArrayRequest);
 
-        // Add the request to the RequestQueue
-        RequestQueue queue = Volley.newRequestQueue(UpdateReportActivity.this);
-        queue.add(jsonArrayRequest);
+            reportsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    // When a report is clicked, start the ReportDetailActivity
+                    Intent intent = new Intent(UpdateReportActivity.this, ReportDetailActivity.class);
+                    intent.putExtra("reportId", position); // Pass the report ID to the ReportDetailActivity
+                    startActivity(intent);
+                }
+            });
+        }
 
-        reportsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // When a report is clicked, start the ReportDetailActivity
-                Intent intent = new Intent(UpdateReportActivity.this, ReportDetailActivity.class);
-                intent.putExtra("reportId", position); // Pass the report ID to the ReportDetailActivity
-                startActivity(intent);
-            }
-        });
-    }
+
 }
