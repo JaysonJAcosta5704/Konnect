@@ -1,0 +1,114 @@
+package onetomany.friendrequest;
+
+
+import onetomany.Users.User;
+import onetomany.Users.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+
+@RestController
+@RequestMapping("/friend-requests")
+public class FriendRequestController {
+
+
+    @Autowired
+    private FriendRequestRepository friendRequestRepository;
+
+
+    @Autowired
+    private UserRepository userRepository;
+
+
+    @PostMapping("/send")
+    public ResponseEntity<String> sendFriendRequest(@RequestParam int senderId, @RequestParam int receiverId) {
+        Optional<User> senderOpt = userRepository.findById((long) senderId);
+        Optional<User> receiverOpt = userRepository.findById((long) receiverId);
+
+
+        if (!senderOpt.isPresent() || !receiverOpt.isPresent()) {
+            return ResponseEntity.badRequest().body("{\"message\":\"One or both users not found\"}");
+        }
+
+
+        FriendRequest friendRequest = new FriendRequest();
+        friendRequest.setSender(senderOpt.get());
+        friendRequest.setReceiver(receiverOpt.get());
+        friendRequest.setStatus(RequestStatus.PENDING);
+        friendRequestRepository.save(friendRequest);
+        return ResponseEntity.ok("{\"message\":\"Friend request sent successfully\"}");
+    }
+
+
+    @PostMapping("/accept/{requestId}")
+    public ResponseEntity<String> acceptFriendRequest(@PathVariable int requestId) {
+        Optional<FriendRequest> friendRequestOpt = friendRequestRepository.findById(requestId);
+        if (!friendRequestOpt.isPresent()) {
+            return ResponseEntity.badRequest().body("{\"message\":\"Friend request not found\"}");
+        }
+
+
+        FriendRequest friendRequest = friendRequestOpt.get();
+        friendRequest.setStatus(RequestStatus.ACCEPTED);
+        friendRequestRepository.save(friendRequest);
+        return ResponseEntity.ok("{\"message\":\"Friend request accepted\"}");
+    }
+
+
+    @PostMapping("/decline/{requestId}")
+    public ResponseEntity<String> declineFriendRequest(@PathVariable int requestId) {
+        Optional<FriendRequest> friendRequestOpt = friendRequestRepository.findById(requestId);
+        if (!friendRequestOpt.isPresent()) {
+            return ResponseEntity.badRequest().body("{\"message\":\"Friend request not found\"}");
+        }
+
+
+        FriendRequest friendRequest = friendRequestOpt.get();
+        friendRequest.setStatus(RequestStatus.DECLINED);
+        friendRequestRepository.save(friendRequest);
+        return ResponseEntity.ok("{\"message\":\"Friend request declined\"}");
+    }
+
+
+    @DeleteMapping("/cancel/{requestId}")
+    public ResponseEntity<String> cancelFriendRequest(@PathVariable int requestId) {
+        Optional<FriendRequest> friendRequestOpt = friendRequestRepository.findById(requestId);
+        if (!friendRequestOpt.isPresent()) {
+            return ResponseEntity.badRequest().body("{\"message\":\"Friend request not found\"}");
+        }
+
+
+        friendRequestRepository.delete(friendRequestOpt.get());
+        return ResponseEntity.ok("{\"message\":\"Friend request cancelled\"}");
+    }
+
+
+    @GetMapping("/list/{userId}")
+    public ResponseEntity<List<FriendRequestDto>> listFriendRequests(@PathVariable int userId) {
+        Optional<User> userOpt = userRepository.findById((long) userId);
+        if (!userOpt.isPresent()) {
+            return ResponseEntity.badRequest().body(null);
+        }
+
+
+        List<FriendRequest> receivedRequests = friendRequestRepository.findByReceiverId(userId);
+        List<FriendRequest> sentRequests = friendRequestRepository.findBySenderId(userId);
+
+
+        List<FriendRequestDto> dtos = receivedRequests.stream()
+                .map(fr -> new FriendRequestDto(fr.getId(), fr.getSender().getId(), fr.getReceiver().getId(), fr.getStatus()))
+                .collect(Collectors.toList());
+
+
+        dtos.addAll(sentRequests.stream()
+                .map(fr -> new FriendRequestDto(fr.getId(), fr.getSender().getId(), fr.getReceiver().getId(), fr.getStatus()))
+                .collect(Collectors.toList()));
+
+
+        return ResponseEntity.ok(dtos);
+    }
+}

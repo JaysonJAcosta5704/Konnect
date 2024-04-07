@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * 
+ *
  * @author Vivek Bengre
- * 
- */ 
+ *
+ */
 
 @RestController
 public class UserController {
@@ -115,7 +115,7 @@ public class UserController {
           userRepository.save(tempUser);
             return success;
     }
-    
+
 
 
     @DeleteMapping(path = "/users/{email}/{password}")
@@ -130,3 +130,4 @@ public class UserController {
     }
 
 }
+
