@@ -8,6 +8,11 @@
   <artifactId>onetomany</artifactId>
   <version>1.0.0</version>
 
+  <!-- Swagger 2 Dependency -->
+
+  <!-- Swagger UI Dependency -->
+
+
   <!-- To make it a spring boot project -->
   <parent>
     <groupId>org.springframework.boot</groupId>
@@ -80,6 +85,6 @@
       </plugin>
     </plugins>
   </build>
-  
+
 
 </project>
