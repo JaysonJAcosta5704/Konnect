@@ -129,8 +129,19 @@ public class Hobbies {
     public void setHobbyType(HobbyType hobbyType) {
         this.hobbyType = hobbyType;
     }
+    public void addUser(User user){
+        this.users.add(user);
+    }
 
-//    public Set<User> getUsers() {
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    //    public Set<User> getUsers() {
 //        return users;
 //    }
 //

@@ -10,12 +10,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findById(int id);
-    void deleteById(int id);
-    void deleteUserById(int id);
+
     User findUserByUsername(String username);
     User findByEmailId(String emailId);
     User findByUsername(String username);
 
-    @Override
-    void delete(User entity);
+
 }
