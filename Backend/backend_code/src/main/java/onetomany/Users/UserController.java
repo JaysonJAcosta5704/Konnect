@@ -89,10 +89,20 @@ public class UserController {
         return userRepository.findByUsername(username);
     }
     @GetMapping(path = "/users/{id}/getFlashcards")
-    List<User> getMatches(@PathVariable int id){
+    User getMatchess(@PathVariable int id){
       User temp=  userRepository.findById(id);
-
-      return temp.getMatches();
+    List<User> rat =temp.getMatches();
+      return null;
+    }
+    @GetMapping(path = "/users/getFlashcards/{id}/")
+    User getMatchdess(@PathVariable int id){
+        User temp=  userRepository.findById(id);
+        List<User> rat =temp.getMatches();
+        List<User> tempp= new ArrayList<>();
+        for (User usr: rat) {
+           tempp.add(userRepository.findByUsername(usr.getUsername()));
+        }
+        return userRepository.findById(1);
     }
     @GetMapping(path = "/users/getReport/{id}")
     List<Reports> getReports(@PathVariable int id){
@@ -121,13 +131,14 @@ public class UserController {
     @PostMapping(path = "/users/{id}/addHobbie/")
     String addHobbie(@PathVariable int id,@RequestBody Hobbies hobbie){
       User temp=   userRepository.findById(id);
-      temp.addHobbie(hobbie);
 
-    // Hobbies temp2= hobbiesRepository;
 
-//        temp2.addUser(temp);
-//        userRepository.save(temp);
-//        hobbiesRepository.save(temp2);
+      Hobbies temp2= hobbiesRepository.findByName(hobbie.getName());
+       temp2.addUser(temp);
+        hobbiesRepository.save(temp2);
+       temp.addHobbie(temp2);
+        userRepository.save(temp);
+
       return success;
     }
 
