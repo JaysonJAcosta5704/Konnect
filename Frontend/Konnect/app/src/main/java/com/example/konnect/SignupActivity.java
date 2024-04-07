@@ -31,6 +31,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import android.util.Log;
 
 /**
  * This class represents the SignupActivity and handles the signup process for new users. This activity connects to LoginActivity and ChooseHobbiesActivity.
@@ -190,8 +191,7 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Signing up", Toast.LENGTH_LONG).show();
 
 
-                    String url = "http://coms-309-001.class.las.iastate.edu:8080/users";
-
+                    String url = "http://coms-309-001.class.las.iastate.edu:8080/users/";
                     JSONObject params = new JSONObject();
                     try {
                         params.put("name", name);
@@ -203,6 +203,7 @@ public class SignupActivity extends AppCompatActivity {
                         params.put("age", age);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                        Log.e("Error",e.toString());
                     }
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest

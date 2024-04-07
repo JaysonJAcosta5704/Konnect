@@ -32,12 +32,20 @@ public class SettingsActivity extends AppCompatActivity {
         Button chatButton = findViewById(R.id.ChatButton);
         Button accountSettingsButton = findViewById(R.id.Profile_Edit_Button);
         Button profileButton = findViewById(R.id.Profile_Button);
+        Button chooseHobbiesButton = findViewById(R.id.ChooseHobbies_Button);
+        Button reportButton = findViewById(R.id.Report_Button);
         Button friendsButton = findViewById(R.id.Friends_Button);
+
 
         chatButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChatActivity.class)));
         profileButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileActivity.class)));
         accountSettingsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
+
+        chooseHobbiesButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChoosehobbiesActivity.class)));
+        reportButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ReportActivity.class)));
+
         friendsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FriendsActivity.class)));
+
 
         /* Calls to the server to set Profile Information */
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERINFO(), null, response -> {
