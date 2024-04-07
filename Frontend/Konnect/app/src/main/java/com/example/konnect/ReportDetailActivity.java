@@ -49,7 +49,7 @@ public class ReportDetailActivity extends AppCompatActivity {
                 String updatedReportContent = reportContentEditText.getText().toString();
 
                 // URL of your server
-                String url = "http://coms-309-001.class.las.iastate.edu:8080/reports/" + reportId;
+                String url = "http://coms-309-001.class.las.iastate.edu:8080/users/" + reportId;
 
                 // Create a new JSONObject with the updated report content
                 JSONObject reportJson = new JSONObject();

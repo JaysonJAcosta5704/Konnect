@@ -14,7 +14,7 @@ public class GroupChatActivity extends AppCompatActivity implements WebSocketLis
     private Button sendBtn;
     private EditText msgEtx;
     private TextView msgTv;
-    String serverUrl = "ws://10.0.2.2:8080/chat/";
+    String serverUrl = "ws://coms-309-001.class.las.iastate.edu:8080/chat/";
 
     private String userName;
 
