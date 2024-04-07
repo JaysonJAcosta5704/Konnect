@@ -2,11 +2,7 @@ package onetomany.game1Scoreboard;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +30,14 @@ public class game1ScoreboardController {
         if (game1User == null)
             return failure;
         game1ScoreboardRepositoryy.save(game1User);
+        return success;
+    }
+
+    @DeleteMapping(path = "/game1Score/{id}")
+    String Delete(@PathVariable long id){
+       // game1User temp = game1ScoreboardRepositoryy.findById(id);
+//        game1ScoreboardRepositoryy.deleteByUsername(temp.getUsername());
+    game1ScoreboardRepositoryy.deleteById(id);
         return success;
     }
 

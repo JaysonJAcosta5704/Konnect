@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class service {
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     // This method is just a conceptual example
     public Set<User> findUsersWithHobby(String hobbyName) {

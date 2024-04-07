@@ -13,4 +13,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface HobbiesRepository extends JpaRepository<Hobbies, Integer> {
     // No need to override findById and deleteById, they are already provided by JpaRepository
+
 }

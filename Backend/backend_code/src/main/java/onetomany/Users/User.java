@@ -1,9 +1,7 @@
 
 package onetomany.Users;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import jakarta.persistence.*;
 
@@ -11,9 +9,6 @@ import onetomany.Matches.Match;
 import onetomany.Reports.Reports;
 import onetomany.hobbies.Hobbies;
 import onetomany.userLogIn.userLogin;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name="Users")
@@ -34,6 +29,7 @@ public class User {
     private int age;
     private String UserPassword;
     private Date lastLoggin;
+    public int appearences =1;
     @Column(unique = true)
     private String username;
 
@@ -225,4 +221,39 @@ public class User {
     public void setUserBio(String userBio) {
         UserBio = userBio;
     }
+    public void addHobbie(Hobbies hobbie){
+        this.hobbies.add(hobbie);
+    }
+    public void addCount(){
+        this.viewCount++;
+    }
+
+    public List<User> getMatches(){
+        List<Hobbies> list = new ArrayList<>();
+        List<User> list1= new ArrayList<>();
+        for (Hobbies hobbie: this.hobbies) {
+            for (User user: hobbie.getUsers()) {
+                user.addCount();
+                if(!list1.contains(user))
+                    list1.add(user);
+                else {
+                  int temp=  list1.indexOf(user);
+                  list1.get(temp).appearences++;
+                }
+            }
+        }
+
+//        Collections.sort(list1, new Comparator<User>() {
+//            @Override
+//            public int compare(User u1, User u2) {
+//                return Integer.compare(u2.appearences, u1.appearences);
+//            }
+//        });
+
+
+
+        return list1;
+    }
+
+
 }

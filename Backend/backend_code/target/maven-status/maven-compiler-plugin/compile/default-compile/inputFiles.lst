@@ -6,6 +6,7 @@
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/Reports/ReportsRepository.java
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/hobbies/Hobbies.java
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/userLogIn/userLoginRepository.java
+/Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/game1Scoreboard/game1ScoreboardController.java
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/WebSocketAdminNot/Message.java
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/Reports/Reports.java
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/adminUser/adminUserController.java
@@ -22,7 +23,10 @@
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/Matches/MatchesController.java
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/hobbies/service.java
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/Users/UserRepository.java
+/Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/game1Scoreboard/game1User.java
+/Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/game1Scoreboard/game1ScoreboardRepository.java
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/adminUser/adminUser.java
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/WebSocketAdminNot/adminChat.java
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/adminUser/adminUserRepository.java
 /Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/AdminActivityReport/adminActivityReport.java
+/Users/danielpinilla/309/hb1_1/Backend/backend_code/src/main/java/onetomany/game1Scoreboard/mergeService.java
