@@ -25,6 +25,7 @@ import java.util.List;
 public class UpdateReportActivity extends AppCompatActivity {
 
         private ListView reportsListView;
+        private List<Integer> reportIds;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +47,12 @@ public class UpdateReportActivity extends AppCompatActivity {
                             // The response is a JSON array of reports
                             // Parse this JSON array and display the reports in the ListView
                             List<String> reports = new ArrayList<>();
+                            reportIds = new ArrayList<>(); // List to store the report IDs
                             for (int i = 0; i < response.length(); i++) {
                                 try {
                                     JSONObject report = response.getJSONObject(i);
-                                    reports.add(report.getString("report")); // Assuming "report" is the key for the report content
+                                    reports.add(report.getString("report")); // Get the report content
+                                    reportIds.add(report.getInt("id")); // Get the report ID
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -60,6 +63,7 @@ public class UpdateReportActivity extends AppCompatActivity {
                                     android.R.layout.simple_list_item_1, reports);
                             reportsListView.setAdapter(adapter);
                         }
+
                     }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
@@ -76,10 +80,11 @@ public class UpdateReportActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     // When a report is clicked, start the ReportDetailActivity
                     Intent intent = new Intent(UpdateReportActivity.this, ReportDetailActivity.class);
-                    intent.putExtra("reportId", position); // Pass the report ID to the ReportDetailActivity
+                    intent.putExtra("reportId", reportIds.get(position)); // Pass the report ID to the ReportDetailActivity
                     startActivity(intent);
                 }
             });
+
         }
 
 
