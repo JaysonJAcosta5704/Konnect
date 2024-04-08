@@ -146,7 +146,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
->>>>>>> Frontend/Konnect/app/src/main/AndroidManifest.xml
             </intent-filter>
         </activity>
 
