@@ -100,7 +100,7 @@
             </intent-filter>
         </activity>
 
-        <activity>
+        <activity
             android:name=".MinigamesActivity"
             android:exported="true">
             <intent-filter>
@@ -109,7 +109,7 @@
             </intent-filter>
         </activity>
 
-        <activity>
+        <activity
             android:name=".ReportActivity"
             android:exported="true">
             <intent-filter>
