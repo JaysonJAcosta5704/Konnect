@@ -62,9 +62,9 @@ public class MinigamesActivity extends AppCompatActivity {
         btnMainSubmitAnswer.setOnClickListener(view -> onAnswerSubmission());
 
         // Starts the game
-        int score = startNewGame();
+        startNewGame();
 
-        JsonObjectRequest jsonObjectRequest = getJsonObjectRequest(score);
+        JsonObjectRequest jsonObjectRequest = getJsonObjectRequest(totalCorrect);
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(jsonObjectRequest);
     }
@@ -197,7 +197,7 @@ public class MinigamesActivity extends AppCompatActivity {
     }
 
     // Starts a new game, creating questions objects and adding them to an ArrayList
-    int startNewGame() {
+    void startNewGame() {
         questions = new ArrayList<>();
 
         Question question0 = new Question(R.drawable.img_quote_0, "Pretty good advice, and perhaps a scientist did say it... Who actually did?", "Albert Einstein", "Isaac Newton", "Rita Mae Brown", "Rosalind Franklin", 2);
@@ -237,7 +237,6 @@ public class MinigamesActivity extends AppCompatActivity {
         displayQuestionsRemaining(questions.size());
 
         displayQuestion(firstQuestion);
-        return totalCorrect;
     }
 
     // Chooses a new question at random

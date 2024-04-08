@@ -82,7 +82,7 @@ public class FriendsActivity extends AppCompatActivity {
 
 
 
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, User.getInstance().getURL_FR(), null, response -> {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, "http://coms-309-001.class.las.iastate.edu:8080/friend-requests/list/Jhi", null, response -> {
 
             try {
                 for (int i = 0; i < response.length(); i++) {

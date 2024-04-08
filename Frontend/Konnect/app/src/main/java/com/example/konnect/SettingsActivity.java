@@ -36,6 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
         Button reportButton = findViewById(R.id.Report_Button);
         Button friendsButton = findViewById(R.id.Friends_Button);
         Button findpeopleButton = findViewById(R.id.GroupChatButton);
+        Button minigameButton = findViewById(R.id.Minigame_Button);
 
 
         chatButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChatActivity.class)));
@@ -46,10 +47,9 @@ public class SettingsActivity extends AppCompatActivity {
         reportButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ReportActivity.class)));
 
         friendsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FriendsActivity.class)));
+        minigameButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), MinigamesActivity.class)));
         findpeopleButton.setOnClickListener(v->startActivity(new Intent(v.getContext(), FindPeopleActivity.class)));
-
-
-
+        
         /* Calls to the server to set Profile Information */
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERINFO(), null, response -> {
             try {
