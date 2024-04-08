@@ -2,7 +2,6 @@ package com.example.konnect;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.konnect.helper.User;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;

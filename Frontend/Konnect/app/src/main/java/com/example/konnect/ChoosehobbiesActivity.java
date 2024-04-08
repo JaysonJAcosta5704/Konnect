@@ -20,6 +20,8 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.konnect.helper.Hobby;
+import com.example.konnect.helper.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;

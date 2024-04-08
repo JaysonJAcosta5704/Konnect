@@ -9,6 +9,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.konnect.helper.User;
+import com.example.konnect.helper.WebSocketListener;
+import com.example.konnect.helper.WebSocketManager;
+
 import org.java_websocket.handshake.ServerHandshake;
 
 /**
@@ -16,7 +20,7 @@ import org.java_websocket.handshake.ServerHandshake;
  *
  * @author Jayson Acosta
  */
-public class ChatActivity extends AppCompatActivity implements WebSocketListener{
+public class ChatActivity extends AppCompatActivity implements WebSocketListener {
 
     TextView chatReceive;
 

@@ -1,4 +1,4 @@
-package com.example.konnect;
+package com.example.konnect.helper;
 
 import android.util.Log;
 
@@ -6,43 +6,6 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 import java.net.URI;
-
-/**
- * This interface defines the methods to handle WebSocket events.
- *
- * @author ComS309
- */
-interface WebSocketListener {
-    /**
-     * Called when the WebSocket connection is successfully opened.
-     *
-     * @param handshakedata Information about the server handshake.
-     */
-    void onWebSocketOpen(ServerHandshake handshakedata);
-
-    /**
-     * Called when a WebSocket message is received.
-     *
-     * @param message The received WebSocket message.
-     */
-    void onWebSocketMessage(String message);
-
-    /**
-     * Called when the WebSocket connection is closed.
-     *
-     * @param code   The status code indicating the reason for closure.
-     * @param reason A human-readable explanation for the closure.
-     * @param remote Indicates whether the closure was initiated by the remote endpoint.
-     */
-    void onWebSocketClose(int code, String reason, boolean remote);
-
-    /**
-     * Called when an error occurs in the WebSocket communication.
-     *
-     * @param ex The exception that describes the error.
-     */
-    void onWebSocketError(Exception ex);
-}
 
 /**
  * Singleton WebSocketManager instance used for managing WebSocket connections

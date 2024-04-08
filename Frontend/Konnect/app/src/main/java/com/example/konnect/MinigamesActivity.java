@@ -16,6 +16,8 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.konnect.helper.Question;
+import com.example.konnect.helper.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -89,12 +91,12 @@ public class MinigamesActivity extends AppCompatActivity {
     }
 
     void displayQuestion(Question currentQuestion){
-        ivMainQuestionImage.setImageResource(currentQuestion.imageId);
-        tvMainQuestionTitle.setText(currentQuestion.questionText);
-        btnMainAnswer0.setText(currentQuestion.answer0);
-        btnMainAnswer1.setText(currentQuestion.answer1);
-        btnMainAnswer2.setText(currentQuestion.answer2);
-        btnMainAnswer3.setText(currentQuestion.answer3);
+        ivMainQuestionImage.setImageResource(currentQuestion.getImageId());
+        tvMainQuestionTitle.setText(currentQuestion.getQuestionText());
+        btnMainAnswer0.setText(currentQuestion.getAnswer0());
+        btnMainAnswer1.setText(currentQuestion.getAnswer1());
+        btnMainAnswer2.setText(currentQuestion.getAnswer2());
+        btnMainAnswer3.setText(currentQuestion.getAnswer3());
     }
 
     // Updates the image view which displays the number of remaining questions
@@ -106,13 +108,13 @@ public class MinigamesActivity extends AppCompatActivity {
     // Updates all buttons and checks if the answer is correct or incorrect and displays a symbol
     void onAnswerSelected(int answerSelected){
         Question currentQuestion = getCurrentQuestion();
-        currentQuestion.playerAnswer = answerSelected;
-        btnMainAnswer0.setText(currentQuestion.answer0);
-        btnMainAnswer1.setText(currentQuestion.answer1);
-        btnMainAnswer2.setText(currentQuestion.answer2);
-        btnMainAnswer3.setText(currentQuestion.answer3);
+        currentQuestion.setPlayerAnswer(answerSelected);
+        btnMainAnswer0.setText(currentQuestion.getAnswer0());
+        btnMainAnswer1.setText(currentQuestion.getAnswer1());
+        btnMainAnswer2.setText(currentQuestion.getAnswer2());
+        btnMainAnswer3.setText(currentQuestion.getAnswer3());
 
-        switch (currentQuestion.playerAnswer){
+        switch (currentQuestion.getPlayerAnswer()){
             case 0:
                 if (currentQuestion.isCorrect()){
                     btnMainAnswer0.setText("✔");
@@ -162,7 +164,7 @@ public class MinigamesActivity extends AppCompatActivity {
     // Checks to see if the last button that was pressed was the correct one.
     void onAnswerSubmission() {
         Question currentQuestion = getCurrentQuestion();
-        if(currentQuestion.playerAnswer == -1){
+        if(currentQuestion.getPlayerAnswer() == -1){
             AlertDialog.Builder gameOverDialogBuilder = new AlertDialog.Builder(MinigamesActivity.this);
             gameOverDialogBuilder.setCancelable(false);
             gameOverDialogBuilder.setTitle("Error");

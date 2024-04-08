@@ -7,6 +7,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.konnect.helper.User;
+import com.example.konnect.helper.WebSocketListener;
+import com.example.konnect.helper.WebSocketManager;
+
 import org.java_websocket.handshake.ServerHandshake;
 
 public class GroupChatActivity extends AppCompatActivity implements WebSocketListener {

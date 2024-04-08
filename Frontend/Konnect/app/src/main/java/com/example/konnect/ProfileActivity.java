@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.konnect.helper.User;
+
 /**
  * This class represents the ProfileActivity and displays the user's profile information. This activity connects to ProfileEditActivity.
  *

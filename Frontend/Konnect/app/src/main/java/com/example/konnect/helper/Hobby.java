@@ -1,4 +1,4 @@
-package com.example.konnect;
+package com.example.konnect.helper;
 
 /**
  * This class represents a Hobby object with various properties and methods.
