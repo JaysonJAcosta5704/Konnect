@@ -38,13 +38,16 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
 
 
         connectButton.setOnClickListener(v -> {
-            String wsURL = String.format("%s%s-%s/%s",User.getWEBSOCKET_URL(), User.getInstance().getUsername(), usernameText.toString(), User.getInstance().getUsername());
+            String wsURL = "ws://coms-309-001.class.las.iastate.edu:8080/admin/chat/" + User.getInstance().getUsername();
             WebSocketManager.getInstance().connectWebSocket(wsURL);
             WebSocketManager.getInstance().setWebSocketListener(this);
         });
 
         sendButton.setOnClickListener(v -> {
-            try { WebSocketManager.getInstance().sendMessage(messageText.getText().toString()); }
+            try {
+                WebSocketManager.getInstance().sendMessage(messageText.getText().toString());
+                messageText.setText("");
+            }
             catch (Exception e) { Log.d("ExceptionSendMessage:", e.toString()); }
         });
 

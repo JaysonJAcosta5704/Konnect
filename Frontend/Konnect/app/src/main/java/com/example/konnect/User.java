@@ -24,7 +24,7 @@ public class User {
     /**
      * The username of the user.
      */
-    private String username;
+    private String username = "Jhi";
 
     /**
      * The gender of the user.
@@ -265,7 +265,7 @@ public class User {
     /**
      * Sets the URL for friend requests with the provided username.
      */
-    protected void setURL_FR(){ USERLOGIN_URL = SERVER_URL + "friend-requests/list/" + username; }
+    protected void setURL_FR(){ FRIENDREQUEST_URL = SERVER_URL + "friend-requests/list/" + username; }
 
     /**
      * Gets the URL for user login.

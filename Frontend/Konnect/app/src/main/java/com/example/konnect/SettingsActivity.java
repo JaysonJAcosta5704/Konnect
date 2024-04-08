@@ -33,11 +33,13 @@ public class SettingsActivity extends AppCompatActivity {
         Button accountSettingsButton = findViewById(R.id.Profile_Edit_Button);
         Button profileButton = findViewById(R.id.Profile_Button);
         Button friendsButton = findViewById(R.id.Friends_Button);
+        Button minigameButton = findViewById(R.id.Minigame_Button);
 
         chatButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChatActivity.class)));
         profileButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileActivity.class)));
         accountSettingsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
         friendsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FriendsActivity.class)));
+        minigameButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), MinigamesActivity.class)));
 
         /* Calls to the server to set Profile Information */
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERINFO(), null, response -> {
