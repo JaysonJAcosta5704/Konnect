@@ -14,7 +14,7 @@ public class GroupChatActivity extends AppCompatActivity implements WebSocketLis
     private Button sendBtn;
     private EditText msgEtx;
     private TextView msgTv;
-    String serverUrl = "ws://localhost:8080/chat/";
+    String serverUrl = "ws://coms-309-001.class.las.iastate.edu:8080/chat/";
 
     private String userName;
 
@@ -29,16 +29,21 @@ public class GroupChatActivity extends AppCompatActivity implements WebSocketLis
         msgTv = (TextView) findViewById(R.id.tx1);
 
         /* connect this activity to the websocket instance */
-        WebSocketManager.getInstance().connectWebSocket(serverUrl + userName);
+        WebSocketManager.getInstance().connectWebSocket(serverUrl + User.getInstance().getUsername());
         WebSocketManager.getInstance().setWebSocketListener(GroupChatActivity.this);
-
-
 
         /* send button listener */
         sendBtn.setOnClickListener(v -> {
             try {
                 // send message
-                WebSocketManager.getInstance().sendMessage(msgEtx.getText().toString());
+                String message = msgEtx.getText().toString();
+                if (message.startsWith("@")) {
+                    String destUsername = message.split("\\s")[0].substring(1);
+                    String actualMessage = message.substring(destUsername.length() + 2);
+                    WebSocketManager.getInstance().sendMessage("@ " + destUsername + " " + actualMessage);
+                } else {
+                    WebSocketManager.getInstance().sendMessage(message);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
