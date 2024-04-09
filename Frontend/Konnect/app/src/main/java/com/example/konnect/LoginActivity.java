@@ -7,13 +7,11 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.User;
-
-import org.json.JSONException;
 
 /**
  * This class represents the LoginActivity and handles the user login process. This activity connects to SignupActivity and SettingsActivity.
@@ -54,20 +52,7 @@ public class LoginActivity extends AppCompatActivity {
                 User.getInstance().setURL_UP();
             }
 
-            /* Request ID from server */
-            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERLOGIN(), null, response -> {
-
-                try {
-                    User.getInstance().setID(response.getString("id"));
-                    User.getInstance().setEmail(response.getString("email"));
-                    User.getInstance().setUsername(response.getString("userName"));
-                    User.getInstance().setURL_USERINFO();
-                    startActivity(new Intent(v.getContext(), SettingsActivity.class));
-                }
-                catch (JSONException e) { User.toastError(this,0,e.toString());}
-
-            }, error -> User.toastError(this,0,error.toString()));
-
+            JsonObjectRequest jsonObjectRequest = RequestJson.login(this);
             RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(jsonObjectRequest);
         });
