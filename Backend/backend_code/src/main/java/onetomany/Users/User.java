@@ -3,6 +3,7 @@ package onetomany.Users;
 
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import onetomany.Matches.Match;
@@ -150,6 +151,7 @@ public class User {
         lastLoggin= new Date();
     }
 
+    @JsonIgnore
     public Set<Hobbies> getHobbies() {
         return hobbies;
     }
@@ -162,6 +164,7 @@ public class User {
         userReports.add(report);
     }
 
+    @JsonIgnore
     public List<Reports> getReports() {
         return userReports;
     }
@@ -228,6 +231,7 @@ public class User {
         this.viewCount++;
     }
 
+    @JsonIgnore
     public List<User> getMatches(){
         List<Hobbies> list = new ArrayList<>();
         List<User> list1= new ArrayList<>();
