@@ -1,8 +1,7 @@
 package com.example.konnect.helper;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.util.Log;
-import android.widget.Toast;
 
 /**
  * This class represents a User object with various properties and methods.
@@ -305,31 +304,39 @@ public class User {
     public static String getWEBSOCKET_URL(){ return WEBSOCKET_URL; }
 
     /*---------------------------------------------- SCREEN POPUPS ----------------------------------------------*/
-    /**
-     * Displays a toast message based on the provided error code and logs the error message.
-     *
-     * @param context   The context in which the toast message will be displayed.
-     * @param errorCode The error code indicating the type of error. 0 is a login error and 1 is a server error.
-     * @param error     The error message to be logged.
-     */
+//    /**
+//     * Displays a toast message based on the provided error code and logs the error message.
+//     *
+//     * @param context   The context in which the toast message will be displayed.
+//     * @param errorCode The error code indicating the type of error. 0 is a login error and 1 is a server error.
+//     * @param error     The error message to be logged.
+//     */
+//
+//    public static void toastError(Context context, int errorCode, String error){
+//        int duration = Toast.LENGTH_LONG;
+//        String text;
+//        switch (errorCode){
+//            case 0:
+//                text = "There was an error while attempting to login";
+//                break;
+//            case 1:
+//                text = "There is an error with the server";
+//                break;
+//            case 2:
+//                text = error;
+//                break;
+//            default:
+//                text = "Something went wrong";
+//        }
+//        Toast.makeText(context, text, duration).show();
+//        Log.e("Error", error);
+//    }
+    public static void dialogError(Context context, String error){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage(error)
+                .setTitle("Error:");
 
-    public static void toastError(Context context, int errorCode, String error){
-        int duration = Toast.LENGTH_LONG;
-        String text;
-        switch (errorCode){
-            case 0:
-                text = "There was an error while attempting to login";
-                break;
-            case 1:
-                text = "There is an error with the server";
-                break;
-            case 2:
-                text = error;
-                break;
-            default:
-                text = "Something went wrong";
-        }
-        Toast.makeText(context, text, duration).show();
-        Log.e("Error", error);
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
    }

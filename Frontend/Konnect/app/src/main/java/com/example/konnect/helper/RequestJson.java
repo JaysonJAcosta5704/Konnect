@@ -3,9 +3,7 @@ package com.example.konnect.helper;
 import static com.example.konnect.FriendsActivity.createFLayout;
 import static com.example.konnect.FriendsActivity.createFRLayout;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.util.Log;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -26,8 +24,8 @@ public class RequestJson {
                 User.getInstance().setUsername(response.getString("userName"));
                 User.getInstance().setURL_USERINFO();
             }
-            catch (JSONException e) { User.toastError(context, 0, e.toString());}
-        }, error -> User.toastError(context, 0, error.toString()));
+            catch (JSONException error) { User.dialogError(context, error.toString());}
+        }, error -> User.dialogError(context, error.toString()));
     }
 
     public static JsonObjectRequest viewProfile(Context context){
@@ -38,8 +36,8 @@ public class RequestJson {
                 User.getInstance().setGender(response.getString("gender"));
                 User.getInstance().setBirthday(response.getString("birthday"));
                 User.getInstance().setAge(response.getString("age"));
-            } catch (JSONException e) { User.toastError(context, 1, e.toString()); Log.e("JSON Error", e.toString());}
-        }, error -> User.toastError(context, 1, error.toString()));
+            } catch (JSONException error) { User.dialogError(context, error.toString());}
+        }, error -> User.dialogError(context, error.toString()));
     }
 
     public static JsonArrayRequest friendRequests(Context context, LinearLayout containerFR, LinearLayout containerF){
@@ -68,13 +66,7 @@ public class RequestJson {
                 throw new RuntimeException(e);
             }
         }, error -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-            builder.setMessage(error.toString())
-                    .setTitle("Error:");
-
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            User.dialogError(context, error.toString());
         });
     }
 
