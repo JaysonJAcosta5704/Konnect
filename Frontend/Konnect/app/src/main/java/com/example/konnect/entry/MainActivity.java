@@ -1,4 +1,4 @@
-package com.example.konnect;
+package com.example.konnect.entry;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.konnect.R;
+import com.example.konnect.SettingsActivity;
 import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.ServerURLs;
 import com.example.konnect.helper.User;
