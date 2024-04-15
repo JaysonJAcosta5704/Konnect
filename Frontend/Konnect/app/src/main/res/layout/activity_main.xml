@@ -134,17 +134,4 @@
         app:layout_constraintStart_toEndOf="@+id/No_Account"
         app:layout_constraintTop_toTopOf="@+id/No_Account"
         tools:ignore="HardcodedText" />
-
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:progressDrawable="@drawable/progress_spinner"
-        app:layout_constraintBottom_toTopOf="@+id/LoginButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/AppName"
-        android:visibility="gone"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
