@@ -51,13 +51,18 @@ public class UserController {
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
 
-//    @GetMapping(path = "/users")
-//    List<User> getAllUsers(){
-//        for (User useer:userRepository.findAll()) {
-//            useer.setLastLoggin();
-//        }
-//        return userRepository.findAll();
-//    }
+    @GetMapping(path = "/users")
+    List<User> getAllUsers(){
+        for (User useer:userRepository.findAll()) {
+            useer.setLastLoggin();
+        }
+        return userRepository.findAll();
+    }
+    @GetMapping(path = "/users/{id}")
+    User getAllUser(@PathVariable int id){
+
+        return  userRepository.findById(id);
+    }
 
 
 //    @GetMapping(path = "/loginEmail/{email}/{password}/")
@@ -84,10 +89,11 @@ public class UserController {
 //        return tempUser.getReports();
 //    }
 
-    @GetMapping(path = "/users/{username}")
-    User getUserbyUsername(@PathVariable String username){
-        return userRepository.findByUsername(username);
-    }
+//    @GetMapping(path = "/user/")
+//    User getUserbyUsername(@PathVariable String username){
+//        User temp =userRepository.findById(1);
+//        return userRepository.findById(1);
+//    }
     @GetMapping(path = "/users/{id}/getFlashcards")
     List<User> getMatches(@PathVariable int id){
       User temp=  userRepository.findById(id);
@@ -121,13 +127,14 @@ public class UserController {
     @PostMapping(path = "/users/{id}/addHobbie/")
     String addHobbie(@PathVariable int id,@RequestBody Hobbies hobbie){
       User temp=   userRepository.findById(id);
-      temp.addHobbie(hobbie);
 
-    // Hobbies temp2= hobbiesRepository;
 
-//        temp2.addUser(temp);
-//        userRepository.save(temp);
-//        hobbiesRepository.save(temp2);
+     Hobbies temp2= hobbiesRepository.findByName(hobbie.getName());
+        temp2.addUser(temp);
+        hobbiesRepository.save(temp2);
+        temp.addHobbie(hobbiesRepository.findByName(hobbie.getName()));
+        userRepository.save(temp);
+        hobbiesRepository.save(temp2);
       return success;
     }
 

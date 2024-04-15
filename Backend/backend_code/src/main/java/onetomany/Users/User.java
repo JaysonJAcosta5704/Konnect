@@ -237,22 +237,24 @@ public class User {
         List<User> list1= new ArrayList<>();
         for (Hobbies hobbie: this.hobbies) {
             for (User user: hobbie.getUsers()) {
-                user.addCount();
-                if(!list1.contains(user))
-                    list1.add(user);
-                else {
-                  int temp=  list1.indexOf(user);
-                  list1.get(temp).appearences++;
+                if(user.getUsername() != this.username) {
+                    user.addCount();
+                    if (!list1.contains(user))
+                        list1.add(user);
+                    else {
+                        int temp = list1.indexOf(user);
+                        list1.get(temp).appearences++;
+                    }
                 }
             }
         }
 
-//        Collections.sort(list1, new Comparator<User>() {
-//            @Override
-//            public int compare(User u1, User u2) {
-//                return Integer.compare(u2.appearences, u1.appearences);
-//            }
-//        });
+        Collections.sort(list1, new Comparator<User>() {
+            @Override
+            public int compare(User u1, User u2) {
+                return Integer.compare(u2.appearences, u1.appearences);
+            }
+        });
 
 
 
