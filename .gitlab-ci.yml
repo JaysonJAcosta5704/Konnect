@@ -8,7 +8,7 @@ stages:             # these stages (jobs) forms the CICD pipeline
 maven-build:            
   stage: mavenbuild     # one of the stages listed above
   tags:                 # to specify which runner to execute this job
-    - hb1_daniel runner    # change to your runner's tag
+    - springboot_tag    # change to your runner's tag
   script:               # what to execute for this job
     - cd Backend/backend_code        # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
     - mvn package       # maven package
@@ -24,7 +24,7 @@ maven-build:
 maven-test:             
   stage: maventest     # one of the stages listed above
   tags:
-     - hb1_daniel runner   # change to your runner's tag
+     - springboot_tag   # change to your runner's tag
   script:
      - cd Backend/backend_code       # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
      - mvn test         # maven test
@@ -37,7 +37,7 @@ maven-test:
 auto-deploy:
   stage: mavendeploy    # one of the stages listed above
   tags:
-  - hb1_daniel runner      # change to your runner's tag
+  - springboot_tag      # change to your runner's tag
   script:               # script to run the deployment service you created
     - cd Backend/backend_code        # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
     - sudo mv target/*.jar /target/web-demo.jar 
