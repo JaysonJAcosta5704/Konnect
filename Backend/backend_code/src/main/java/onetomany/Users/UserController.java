@@ -94,6 +94,11 @@ public class UserController {
 //        User temp =userRepository.findById(1);
 //        return userRepository.findById(1);
 //    }
+//    @GetMapping(path = "/user/")
+//    User getUserbyUsername(@PathVariable String username){
+//        User temp =userRepository.findById(1);
+//        return userRepository.findById(1);
+//    }
     @GetMapping(path = "/users/{id}/getFlashcards")
     List<User> getMatches(@PathVariable int id){
       User temp=  userRepository.findById(id);
