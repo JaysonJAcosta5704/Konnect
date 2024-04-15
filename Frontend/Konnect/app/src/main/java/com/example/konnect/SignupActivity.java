@@ -1,11 +1,9 @@
 package com.example.konnect;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.icu.text.StringPrepParseException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -31,7 +29,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import android.util.Log;
 
 /**
  * This class represents the SignupActivity and handles the signup process for new users. This activity connects to LoginActivity and ChooseHobbiesActivity.
@@ -135,7 +132,7 @@ public class SignupActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 /* when login button is pressed, use intent to switch to Login Activity */
-                Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
+                Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                 startActivity(intent);  // go to LoginActivity
             }
         });

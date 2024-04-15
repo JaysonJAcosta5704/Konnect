@@ -2,7 +2,6 @@ package com.example.konnect;
 
 import static com.example.konnect.helper.RequestJson.friendRequestStatusUpdate;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.User;
 
 import org.json.JSONException;
@@ -74,19 +72,29 @@ public class FriendsActivity extends AppCompatActivity {
         ImageButton imageButton = findViewById(R.id.imageButton);
         imageButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FriendsActivity.class)));
 
-        containerG.addView(createGLayout(this, "ComS-309 Group", 906));
-        containerG.addView(createGLayout(this, "Admin Group", 101));
+        containerG.addView(createGLayout("ComS-309 Group", 906));
+        containerG.addView(createGLayout("Admin Group", 101));
 
-        User.getInstance().setURL_FR();
+        try {
+            for (int i = 0; i < User.getInstance().getFriendRequests().length(); i++) {
+                JSONObject item = User.getInstance().getFriendRequests().getJSONObject(i);
+                int id = item.getInt("id");
+                String senderUsername = item.getString("senderUsername");
+                String status = item.getString("status");
 
-        RequestQueue queue = Volley.newRequestQueue(this);
-        queue.add(RequestJson.friendRequests(this, containerFR, containerF));
-
+                switch (status){
+                    case "DECLINED":
+                        break;
+                    case "PENDING":
+                        containerFR.addView(createFRLayout(containerFR, containerF, senderUsername, senderUsername, id));
+                        break;
+                    case "ACCEPTED":
+                        containerF.addView(createFLayout(senderUsername, senderUsername, id));
+                        break;
+                }
+            }
+        } catch (JSONException e) { User.dialogError(this, e.toString()); }
     }
-
-
-
-
 
     /**
      * context method creates a new constraint layout with an ImageView 2 TextViews and 2 more image views with onClickListeners.
@@ -95,21 +103,21 @@ public class FriendsActivity extends AppCompatActivity {
      * @param num ID of the user friend request
      * @return Constraint layout to be added to screen
      */
-    public static ConstraintLayout createFRLayout(Context context, LinearLayout containerFR, LinearLayout containerF, String userUsername, String userName, int num){
+    public ConstraintLayout createFRLayout(LinearLayout containerFR, LinearLayout containerF, String userUsername, String userName, int num){
 
         /* Set Layout */
-        ConstraintLayout constraintLayout = new ConstraintLayout(context);
+        ConstraintLayout constraintLayout = new ConstraintLayout(this);
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.setMargins(0,10,0,10);
         constraintLayout.setLayoutParams(layoutParams);
         constraintLayout.setId(num);
 
         /* Create Pixel equivalent to DP */
-        int fortyDPtoPX = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40 , context.getResources().getDisplayMetrics());
-        int sixtyDPtoPX = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60 , context.getResources().getDisplayMetrics());
+        int fortyDPtoPX = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 40 , this.getResources().getDisplayMetrics());
+        int sixtyDPtoPX = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60 , this.getResources().getDisplayMetrics());
 
         /* Set Views */
-        ImageView pfp = new ImageView(context);
+        ImageView pfp = new ImageView(this);
         pfp.setId(100000 + num);
         pfp.setImageResource(R.drawable.default_pfp);
         pfp.setBackgroundResource(R.drawable.circle_bg);
@@ -117,7 +125,7 @@ public class FriendsActivity extends AppCompatActivity {
         pfp.setLayoutParams(new ViewGroup.LayoutParams(sixtyDPtoPX, sixtyDPtoPX));
         constraintLayout.addView(pfp);
 
-        TextView username = new TextView(context);
+        TextView username = new TextView(this);
         username.setId(200000 + num);
         username.setText(userUsername);
         ConstraintLayout.LayoutParams layoutParams2 = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -127,20 +135,20 @@ public class FriendsActivity extends AppCompatActivity {
         username.setTextSize(16);
         constraintLayout.addView(username);
 
-        TextView name = new TextView(context);
+        TextView name = new TextView(this);
         name.setId(300000 + num);
         name.setText(userName);
         name.setTextColor(Color.DKGRAY);
         name.setTextSize(14);
         constraintLayout.addView(name);
 
-        ImageView accept = new ImageView(context);
+        ImageView accept = new ImageView(this);
         accept.setId(400000 + num);
         accept.setImageResource(R.drawable.check);
         accept.setAdjustViewBounds(true);
         accept.setLayoutParams(new ViewGroup.LayoutParams(fortyDPtoPX, fortyDPtoPX));
 
-        ImageView deny = new ImageView(context);
+        ImageView deny = new ImageView(this);
         deny.setId(500000 + num);
         deny.setImageResource(R.drawable.close);
         deny.setAdjustViewBounds(true);
@@ -150,8 +158,8 @@ public class FriendsActivity extends AppCompatActivity {
             try {
                 JSONObject params = new JSONObject();
                 params.put("requestId", num);
-                JsonObjectRequest jsonObjectRequest = friendRequestStatusUpdate(context, params, "accept", num);
-                RequestQueue queue = Volley.newRequestQueue(context);
+                JsonObjectRequest jsonObjectRequest = friendRequestStatusUpdate(this, params, "accept", num);
+                RequestQueue queue = Volley.newRequestQueue(this);
                 queue.add(jsonObjectRequest);
                 accept.setVisibility(View.GONE);
                 deny.setVisibility(View.GONE);
@@ -166,8 +174,8 @@ public class FriendsActivity extends AppCompatActivity {
             try {
                 JSONObject params = new JSONObject();
                 params.put("requestId", num);
-                JsonObjectRequest jsonObjectRequest = friendRequestStatusUpdate(context, params, "decline", num);
-                RequestQueue queue = Volley.newRequestQueue(context);
+                JsonObjectRequest jsonObjectRequest = friendRequestStatusUpdate(this, params, "decline", num);
+                RequestQueue queue = Volley.newRequestQueue(this);
                 queue.add(jsonObjectRequest);
                 accept.setVisibility(View.GONE);
                 deny.setVisibility(View.GONE);
@@ -214,20 +222,20 @@ public class FriendsActivity extends AppCompatActivity {
      * @param num ID of the user friend request
      * @return Constraint layout to be added to screen
      */
-    public static ConstraintLayout createFLayout(Context context, String userUsername, String userName, int num){
+    public ConstraintLayout createFLayout(String userUsername, String userName, int num){
 
         /* Set Layout */
-        ConstraintLayout constraintLayout = new ConstraintLayout(context);
+        ConstraintLayout constraintLayout = new ConstraintLayout(this);
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.setMargins(0,10,0,10);
         constraintLayout.setLayoutParams(layoutParams);
         constraintLayout.setId(num);
 
         /* Create Pixel equivalent to DP */
-        int sixtyDPtoPX = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60 , context.getResources().getDisplayMetrics());
+        int sixtyDPtoPX = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60 , this.getResources().getDisplayMetrics());
 
         /* Set Views */
-        ImageView pfp = new ImageView(context);
+        ImageView pfp = new ImageView(this);
         pfp.setId(100000 + num);
         pfp.setImageResource(R.drawable.default_pfp);
         pfp.setBackgroundResource(R.drawable.circle_bg);
@@ -235,7 +243,7 @@ public class FriendsActivity extends AppCompatActivity {
         pfp.setLayoutParams(new ViewGroup.LayoutParams(sixtyDPtoPX, sixtyDPtoPX));
         constraintLayout.addView(pfp);
 
-        TextView username = new TextView(context);
+        TextView username = new TextView(this);
         username.setId(200000 + num);
         username.setText(userUsername);
         ConstraintLayout.LayoutParams layoutParams2 = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -245,7 +253,7 @@ public class FriendsActivity extends AppCompatActivity {
         username.setTextSize(16);
         constraintLayout.addView(username);
 
-        TextView name = new TextView(context);
+        TextView name = new TextView(this);
         name.setId(300000 + num);
         name.setText(userName);
         name.setTextColor(Color.DKGRAY);
@@ -277,20 +285,20 @@ public class FriendsActivity extends AppCompatActivity {
      * @param num id of the group
      * @return Constraint layout to be added to screen
      */
-    public static ConstraintLayout createGLayout(Context context, String groupName, int num){
+    public ConstraintLayout createGLayout(String groupName, int num){
 
         /* Set Layout */
-        ConstraintLayout constraintLayout = new ConstraintLayout(context);
+        ConstraintLayout constraintLayout = new ConstraintLayout(this);
         ConstraintLayout.LayoutParams layoutParams = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         layoutParams.setMargins(0,10,0,10);
         constraintLayout.setLayoutParams(layoutParams);
         constraintLayout.setId(num);
 
         /* Create Pixel equivalent to DP */
-        int sixtyDPtoPX = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60 , context.getResources().getDisplayMetrics());
+        int sixtyDPtoPX = (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 60 , this.getResources().getDisplayMetrics());
 
         /* Set Views */
-        ImageView pfp = new ImageView(context);
+        ImageView pfp = new ImageView(this);
         pfp.setId(100000 + num);
         pfp.setImageResource(R.drawable.default_pfp);
         pfp.setBackgroundResource(R.drawable.circle_bg);
@@ -298,7 +306,7 @@ public class FriendsActivity extends AppCompatActivity {
         pfp.setLayoutParams(new ViewGroup.LayoutParams(sixtyDPtoPX, sixtyDPtoPX));
         constraintLayout.addView(pfp);
 
-        TextView group = new TextView(context);
+        TextView group = new TextView(this);
         group.setId(200000 + num);
         group.setText(groupName);
         ConstraintLayout.LayoutParams layoutParams2 = new ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

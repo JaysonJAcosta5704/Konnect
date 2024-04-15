@@ -7,10 +7,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.User;
 
 /**
@@ -45,11 +41,6 @@ public class SettingsActivity extends AppCompatActivity {
         friendsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FriendsActivity.class)));
         minigameButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), MinigamesActivity.class)));
         findpeopleButton.setOnClickListener(v->startActivity(new Intent(v.getContext(), FindPeopleActivity.class)));
-
-        /* Calls to the server to set Profile Information */
-        JsonObjectRequest jsonObjectRequest = RequestJson.viewProfile(this);
-        RequestQueue queue = Volley.newRequestQueue(this);
-        queue.add(jsonObjectRequest);
 
         settingsName.setText(User.getInstance().getName());
         settingsEmail.setText(User.getInstance().getEmail());
