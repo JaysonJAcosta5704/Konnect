@@ -128,7 +128,9 @@ public class User {
         this.joiningDate = joiningDate;
     }
 
-
+    public int test(){
+        return 0;
+    }
 
 
     public boolean isIfActive() {
