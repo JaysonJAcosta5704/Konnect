@@ -6,7 +6,7 @@ android-build:
   image: afirefly/android-ci:java17
   stage: androidbuild
   tags:
-    - JaysonAcosta_tag                   # <-- change to your runner's tag
+    - Daniek_Tag                   # <-- change to your runner's tag
   before_script:                    # change 'Frontend' to where you have 'gradlew'
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - chmod +x ./Frontend/Konnect/gradlew
@@ -15,7 +15,7 @@ android-build:
     - ./gradlew build
   only:
     refs:
-      - Jayson-Acosta-Runner
+      - Daniel_CICD
     changes:
       - Frontend/Konnect/**/*
 
@@ -23,7 +23,7 @@ android-test:
   image: afirefly/android-ci:java17
   stage: androidtest
   tags:
-    - JaysonAcosta_tag                  # <-- change to your runner's tag
+    - Daniel_Tag                  # <-- change to your runner's tag
   before_script:                   # change 'Frontend' to where you have 'gradlew'
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - chmod +x ./Frontend/Konnect/gradlew
@@ -32,6 +32,6 @@ android-test:
     - ./gradlew test
   only:
     refs:
-      - Jayson-Acosta-Runner
+      - DanielP_CICD
     changes:
       - Frontend/Konnect/**/*
