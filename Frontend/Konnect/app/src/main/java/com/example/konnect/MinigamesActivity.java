@@ -17,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.konnect.helper.Question;
+import com.example.konnect.helper.ServerURLs;
 import com.example.konnect.helper.User;
 
 import org.json.JSONException;
@@ -81,7 +82,7 @@ public class MinigamesActivity extends AppCompatActivity {
             throw new RuntimeException(e);
         }
 
-        return new JsonObjectRequest(Request.Method.POST, User.getServerUrl() + "game1Score/", jsonObject, response -> {
+        return new JsonObjectRequest(Request.Method.POST, ServerURLs.getServerUrl() + "game1Score/", jsonObject, response -> {
             try {
                 Toast.makeText(this, response.getString("message"), Toast.LENGTH_SHORT).show();
             } catch (JSONException e) {

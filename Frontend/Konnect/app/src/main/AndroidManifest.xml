@@ -13,10 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Konnect"
         tools:targetApi="31"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:screenOrientation="portrait"
+        tools:ignore="DiscouragedApi">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".entry.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,19 +26,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".entry.SignupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignupActivity"
+            android:name=".dashboard.DashboardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
+
+
+
+
+
         <activity
             android:name=".ChoosehobbiesActivity"
             android:exported="true">
@@ -91,14 +98,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".FriendsActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
+
 
         <activity
             android:name=".MinigamesActivity"
