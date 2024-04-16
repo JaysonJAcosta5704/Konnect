@@ -53,7 +53,7 @@ public class FriendRequest {
     public User getReceiver() {
         return receiver;
     }
-
+// added get receiver
 
     public void setReceiver(User receiver) {
         this.receiver = receiver;
