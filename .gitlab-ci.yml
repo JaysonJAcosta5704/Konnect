@@ -1,30 +1,48 @@
-stages:
-  - mavenbuild
-  - maventest
+stages:             # these stages (jobs) forms the CICD pipeline
+  - mavenbuild      # this is a JOB to build your Springboot application
+  - maventest       # this is a JOB to run tests in your Springboot application (it's okay you don't have any test for now)
+  - mavendeploy     # this is a JOB to deploy your Springboot application on your server
 
 maven-build:
-  stage: mavenbuild
-  tags:
-    - Daniel_Tag      # <-- change to your runner's tag
-  script:
-    - cd Backend        # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
-    - mvn package
+  stage: mavenbuild     # one of the stages listed above
+  tags:                 # to specify which runner to execute this job
+    - Daniel_Tag    # change to your runner's tag
+  script:               # what to execute for this job
+    - cd Backend/backend_code        # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
+    - mvn package       # maven package
+  artifacts:            # where to output the packaged jar file, change 'Backend' to to where you have the pom.xml
+    paths:
+      - Backend/backend_code/target/*.jar
   only:
     refs:
-      - DanielP_CICD
+      - DanielP_CICD            # only to trigger the pipeline when changes are pushed to 'main'
     changes:
-      - Backend/**/*
-
+      - Backend/backend_code/**/*    # more specifically - only when changes are made inside the 'Backend' folder
 
 maven-test:
-  stage: maventest
+  stage: maventest     # one of the stages listed above
   tags:
-    - Daniel_Tag     # <-- change to your runner's tag
+    - Daniel_Tag   # change to your runner's tag
   script:
-    - cd Backend       # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
-    - mvn test
+    - cd Backend/backend_code       # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
+    - mvn test         # maven test
   only:
     refs:
-      - DanielP_CICD
+      - DanielP_CICD            # only to trigger the pipeline when changes are pushed to 'main'
     changes:
-      - Backend/**/*
+      - Backend/backend_code/**/*    # more specifically - only when changes are made inside the 'Backend' folder
+
+auto-deploy:
+  stage: mavendeploy    # one of the stages listed above
+  tags:
+    - Daniel_Tag      # change to your runner's tag
+  script:               # script to run the deployment service you created
+    - cd Backend/backend_code        # change 'Backend' to to where you have the pom.xml (do not add / in the beginning)
+    - sudo mv target/*.jar /target/web-demo.jar
+    - sudo systemctl stop system-web-demo
+    - sudo systemctl start system-web-demo
+  only:
+    refs:
+      - DanielP_CICD            # only to trigger the pipeline when changes are pushed to 'main'
+    changes:
+      - Backend/backend_code/**/*    # more specifically - only when changes are made inside the 'Backend' folder
