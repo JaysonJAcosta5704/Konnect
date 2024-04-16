@@ -17,10 +17,10 @@ public class RequestJson {
     public static JsonObjectRequest login(Context context){
         return new JsonObjectRequest(Request.Method.GET, ServerURLs.getURL_USERLOGIN(), null, response -> {
             try {
-                User.getInstance().setID(response.getString("id"));
-                User.getInstance().setEmail(response.getString("email"));
-                User.getInstance().setUsername(response.getString("userName"));
-                User.getInstance().dataValid = true;
+                User.getInstance().setID(response.getString("id"))
+                                  .setEmail(response.getString("email"))
+                                  .setUsername(response.getString("userName"))
+                                  .dataValid = true;
             }
             catch (JSONException error) { User.dialogError(context, error.toString());}
         }, error -> User.getInstance().dataValid = false);
@@ -30,26 +30,22 @@ public class RequestJson {
         ServerURLs.setURL_USERINFO();
         return new JsonObjectRequest(Request.Method.GET, ServerURLs.getURL_USERINFO(), null, response -> {
             try {
-                User.getInstance().setName(response.getString("name"));
-                User.getInstance().setBio(response.getString("userBio"));
-                User.getInstance().setGender(response.getString("gender"));
-                User.getInstance().setBirthday(response.getString("birthday"));
-                User.getInstance().setAge(response.getString("age"));
-                User.getInstance().dataValid = true;
+                User.getInstance().setName(response.getString("name"))
+                                  .setBio(response.getString("userBio"))
+                                  .setGender(response.getString("gender"))
+                                  .setBirthday(response.getString("birthday"))
+                                  .setAge(response.getString("age"))
+                                  .dataValid = true;
             } catch (JSONException error) { User.dialogError(context, error.toString()); User.getInstance().dataValid = false;}
-        }, error -> {
-            User.getInstance().dataValid = false;
-        });
+        }, error -> User.getInstance().dataValid = false);
     }
 
     public static JsonArrayRequest friendRequests(Context context){
         ServerURLs.setURL_FR();
         return new JsonArrayRequest(Request.Method.GET, ServerURLs.getURL_FR(), null, response -> {
-            User.getInstance().setFriendRequests(response);
-            User.getInstance().dataValid = true;
-        }, error -> {
-            User.getInstance().dataValid = false;
-        }); }
+            User.getInstance().setFriendRequests(response)
+                              .dataValid = true;
+        }, error -> User.getInstance().dataValid = false); }
 
     public static JsonObjectRequest friendRequestStatusUpdate(Context context, JSONObject params, String path, int id){
         String url = String.format("%s/friend-requests/%s/%s", ServerURLs.getServerUrl(), path, id);

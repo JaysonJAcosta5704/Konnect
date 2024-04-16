@@ -88,72 +88,72 @@ public class User {
      *
      * @param username The username to be set.
      */
-    public void setUsername(String username) { this.username = username; }
+    public User setUsername(String username) { this.username = username; return instance;}
 
     /**
      * Sets the email of the user.
      *
      * @param email The email to be set.
      */
-    public void setEmail(String email) { this.email = email; }
+    public User setEmail(String email) { this.email = email; return instance;}
 
     /**
      * Sets the ID of the user.
      *
      * @param ID The ID to be set.
      */
-    public void setID(String ID) { this.ID = ID;}
+    public User setID(String ID) { this.ID = ID; return instance;}
 
     /**
      * Sets the password of the user.
      *
      * @param password The password to be set.
      */
-    public void setPassword(String password) { this.password = password; }
+    public User setPassword(String password) { this.password = password; return instance;}
 
     /**
      * Sets the name of the user.
      *
      * @param name The name to be set.
      */
-    public void setName(String name) { this.name = name; }
+    public User setName(String name) { this.name = name; return instance;}
 
     /**
      * Sets the age of the user.
      *
      * @param age The age to be set.
      */
-    public void setAge(String age) { this.age = age;}
+    public User setAge(String age) { this.age = age; return instance;}
 
     /**
      * Sets the Join date of the user.
      *
      * @param joinDate The join date to be set.
      */
-    public void setJoinDate(String joinDate){ this.joinDate = joinDate;}
+    public User setJoinDate(String joinDate){ this.joinDate = joinDate; return instance;}
 
     /**
      * Sets the gender of the user.
      *
      * @param gender The gender to be set.
      */
-    public void setGender(String gender) { this.gender = gender; }
+    public User setGender(String gender) { this.gender = gender; return instance;}
 
     /**
      * Sets the bio of the user.
      *
      * @param bio The bio to be set.
      */
-    public void setBio(String bio) { this.bio = bio; }
+    public User setBio(String bio) { this.bio = bio; return instance;}
 
     /**
      * Sets the birthday of the user.
      *
      * @param birthday The birthday to be set.
      */
-    public void setBirthday(String birthday) { this.birthday = birthday; }
+    public User setBirthday(String birthday) { this.birthday = birthday; return instance;}
 
-    public void setFriendRequests(JSONArray friendRequests) { this.friendRequests = friendRequests; }
+    public User setFriendRequests(JSONArray friendRequests) { this.friendRequests = friendRequests; return instance;}
 
     /*---------------------------------------------- GETTER METHODS ----------------------------------------------*/
     /**
@@ -276,4 +276,4 @@ public class User {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-   }
+}
