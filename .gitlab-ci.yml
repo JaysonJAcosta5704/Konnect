@@ -17,7 +17,7 @@ maven-build:
     - Backend/backend_code/target/*.jar
   only:
     refs:
-      - hb1_daniel runner            # only to trigger the pipeline when changes are pushed to 'main'
+      - DanielP_CICD            # only to trigger the pipeline when changes are pushed to 'main'
     changes:
       - Backend/backend_code/**/*    # more specifically - only when changes are made inside the 'Backend' folder
 
@@ -30,7 +30,7 @@ maven-test:
      - mvn test         # maven test
   only:
     refs:
-      - hb1_daniel runner            # only to trigger the pipeline when changes are pushed to 'main'
+      - DanielP_CICD            # only to trigger the pipeline when changes are pushed to 'main'
     changes:
       - Backend/backend_code/**/*    # more specifically - only when changes are made inside the 'Backend' folder
 
@@ -45,7 +45,7 @@ auto-deploy:
     - sudo systemctl start system-web-demo
   only:
     refs:
-      - hb1_daniel runner            # only to trigger the pipeline when changes are pushed to 'main'
+      - DanielP_CICD            # only to trigger the pipeline when changes are pushed to 'main'
     changes:
       - Backend/backend_code/**/*    # more specifically - only when changes are made inside the 'Backend' folder
 
@@ -53,7 +53,7 @@ android-build:
   image: afirefly/android-ci:java17 # Docker image that has Android environments installed     gjandres/android-ci:latest
   stage: androidbuild               # one of the stages listed above
   tags:
-   - Daniel_Tag                     # change to your runner's tag
+   - Daniel_tag                    # change to your runner's tag
   before_script:                    # enable gradlew, change 'Frontend' to where you have 'gradlew'
     - export GRADLE_USER_HOME=`pwd`/.gradle
     - chmod +x ./Frontend/Konnect/gradlew
@@ -62,7 +62,7 @@ android-build:
     - ./gradlew build               # gradle build
   only:
     refs:
-      - hb1_daniel runner                        # only to trigger the pipeline when changes are pushed to 'main'
+      - DanielP_CICD                        # only to trigger the pipeline when changes are pushed to 'main'
     changes:
       - Frontend/Konnect/**/*               # more specifically - only when changes are made inside the 'Frontend' folder
 #teest
@@ -79,6 +79,6 @@ android-test:
      - ./gradlew test               # gradle test
   only:
     refs:
-      - hb1_daniel runner          # only to trigger the pipeline when changes are pushed to 'main'
+      - DanielP_CICD          # only to trigger the pipeline when changes are pushed to 'main'
     changes:
       - Frontend/Konnect/**/*               # more specifically - only when changes are made inside the 'Frontend' folder
