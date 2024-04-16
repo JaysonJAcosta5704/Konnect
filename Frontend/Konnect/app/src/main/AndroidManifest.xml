@@ -33,6 +33,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".dashboard.DashboardActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+
+
+
+
+        <activity
             android:name=".ChoosehobbiesActivity"
             android:exported="true">
             <intent-filter>
@@ -86,14 +98,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".FriendsActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT"/>
-            </intent-filter>
-        </activity>
+
 
         <activity
             android:name=".MinigamesActivity"

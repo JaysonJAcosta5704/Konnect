@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.konnect.R;
-import com.example.konnect.SettingsActivity;
+import com.example.konnect.dashboard.DashboardActivity;
 import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.ServerURLs;
 import com.example.konnect.helper.User;
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) { User.dialogError(this, e.toString()); }
 
             if(User.getInstance().dataValid){
-                startActivity(new Intent(this, SettingsActivity.class));
+                startActivity(new Intent(this, DashboardActivity.class));
                 finish();
             }else {
                 User.dialogError(this, "There was an error attempting to login, try again");
