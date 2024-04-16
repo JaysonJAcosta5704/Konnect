@@ -47,6 +47,8 @@ public class UserController {
 
     @Autowired
     userLoginRepository userLoginRepository;
+//    @Autowired
+//    userLoginRepository userLoginRepository;
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
