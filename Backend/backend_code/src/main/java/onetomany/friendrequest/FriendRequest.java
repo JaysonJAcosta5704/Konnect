@@ -39,7 +39,7 @@ public class FriendRequest {
         this.id = id;
     }
 
-
+//setId
     public User getSender() {
         return sender;
     }
