@@ -19,7 +19,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.dashboard_fragment_profile);
 
         /* Initialize Buttons used in activity_login.xml */
         ImageView profilePicture= findViewById(R.id.ProfilePicture);
