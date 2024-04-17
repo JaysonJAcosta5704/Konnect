@@ -19,7 +19,7 @@ public class DashboardActivity extends AppCompatActivity {
         bottomNavigationView.setOnItemSelectedListener(navListener);
 
         if (savedInstanceState == null) {
-            loadFragment(new Fragment());
+            loadFragment(new ProfileFragment());
         }
     }
 
