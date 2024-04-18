@@ -5,12 +5,14 @@ import android.content.Context;
 
 import org.json.JSONArray;
 
+import java.io.Serializable;
+
 /**
  * This class represents a User object with various properties and methods.
  *
  * @author Jayson Acosta
  */
-public class User {
+public class User implements Serializable {
 
     /*---------------------------------------------- USER VARIABLES ----------------------------------------------*/
 
@@ -90,6 +92,11 @@ public class User {
         if (instance == null){ instance = new User(); }
         return instance;
     }
+
+    public static synchronized void setInstance(User oldInstance) {
+        instance = oldInstance;
+    }
+
 
     /*---------------------------------------------- SETTER METHODS ----------------------------------------------*/
 
