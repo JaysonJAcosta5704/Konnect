@@ -40,7 +40,10 @@ public class JaysonAcostaTest {
 
     private static final int SIMULATED_DELAY_MS = 500;
 
-    /* Login the user and make sure that the Username and Email get put into the user class then put into ProfileFragment */
+    /* Login the user
+     * Make sure that the Username and Email get put into the user class
+     * Put into ProfileFragment
+     */
    @Test
     public void login(){
        try (ActivityScenario<MainActivity> activityScenario = ActivityScenario.launch(MainActivity.class)){
@@ -59,7 +62,7 @@ public class JaysonAcostaTest {
        }
    }
 
-   /* Checks to see if the fragments are switching when clicked inside of Dashboard Activity */
+   /* Checks if the fragments are switching when clicked inside of Dashboard Activity */
     @Test
     public void switchFragments(){
         try (ActivityScenario<DashboardActivity> scenario = ActivityScenario.launch(DashboardActivity.class)) {
@@ -82,7 +85,7 @@ public class JaysonAcostaTest {
         }
     }
 
-    /* Checks to see if the methods of creating constraint layouts for Friend requests, Friends and Groups are working properly */
+    /* Checks to see if the methods of creating constraint layouts are working properly */
     @Test
     public void friendsFragment(){
         try (FragmentScenario<FriendsFragment> scenario = FragmentScenario.launchInContainer(FriendsFragment.class)){
@@ -99,7 +102,11 @@ public class JaysonAcostaTest {
         }
     }
 
-    /* Adds new views into containers, then checks if the containers are visible. Then clicks on the containers and checks if they are gone */
+    /* Adds new views into containers
+     * Checks if the containers are visible
+     * Clicks on the containers
+     * Checks if they are gone
+     */
     @Test
     public void collapseContainers(){
         try (FragmentScenario<FriendsFragment> scenario = FragmentScenario.launchInContainer(FriendsFragment.class)) {
