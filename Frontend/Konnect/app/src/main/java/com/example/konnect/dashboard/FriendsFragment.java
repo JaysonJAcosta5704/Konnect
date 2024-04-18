@@ -74,25 +74,27 @@ public class FriendsFragment extends Fragment {
         containerG.addView(createGLayout("ComS-309 Group", 906));
         containerG.addView(createGLayout("Admin Group", 101));
 
-        try {
-            for (int i = 0; i < User.getInstance().getFriendRequests().length(); i++) {
-                JSONObject item = User.getInstance().getFriendRequests().getJSONObject(i);
-                int id = item.getInt("id");
-                String senderUsername = item.getString("senderUsername");
-                String status = item.getString("status");
+        if (User.getInstance().getFriendRequests() != null){
+            try {
+                for (int i = 0; i < User.getInstance().getFriendRequests().length(); i++) {
+                    JSONObject item = User.getInstance().getFriendRequests().getJSONObject(i);
+                    int id = item.getInt("id");
+                    String senderUsername = item.getString("senderUsername");
+                    String status = item.getString("status");
 
-                switch (status){
-                    case "DECLINED":
-                        break;
-                    case "PENDING":
-                        containerFR.addView(createFRLayout(containerFR, containerF, senderUsername, senderUsername, id));
-                        break;
-                    case "ACCEPTED":
-                        containerF.addView(createFLayout(senderUsername, senderUsername, id));
-                        break;
+                    switch (status){
+                        case "DECLINED":
+                            break;
+                        case "PENDING":
+                            containerFR.addView(createFRLayout(containerFR, containerF, senderUsername, senderUsername, id));
+                            break;
+                        case "ACCEPTED":
+                            containerF.addView(createFLayout(senderUsername, senderUsername, id));
+                            break;
+                    }
                 }
-            }
-        } catch (JSONException e) { User.dialogError(view.getContext(), e.toString()); }
+            } catch (JSONException e) { User.dialogError(view.getContext(), e.toString()); }
+        }
 
         return view;
     }
