@@ -3,7 +3,6 @@ package com.example.konnect.helper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -31,7 +30,7 @@ public class RequestJson {
             catch (JSONException error) { User.dialogError(context, error.toString());}
                 queue.add(viewProfile(context));
                 queue.add(friendRequests(activity, context, progressBar));
-        }, error -> Log.e("error", error.toString()));
+        }, error -> {User.dialogError(context, error.toString()); progressBar.setVisibility(View.GONE);});
     }
 
     public static JsonObjectRequest viewProfile(Context context){
@@ -44,12 +43,12 @@ public class RequestJson {
                                   .setBirthday(response.getString("birthday"))
                                   .setAge(response.getString("age"));
             } catch (JSONException error) { User.dialogError(context, error.toString()); }
-        }, error -> Log.e("error", error.toString()));
+        }, error -> User.dialogError(context, error.toString()));
     }
 
     public static JsonArrayRequest friendRequests(Activity activity, Context context, ProgressBar progressBar){
         ServerURLs.setURL_FR();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ServerURLs.getURL_FR(), null, response -> User.getInstance().setFriendRequests(response), error -> Log.e("error", error.toString()));
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ServerURLs.getURL_FR(), null, response -> User.getInstance().setFriendRequests(response), error -> {User.dialogError(context, error.toString()); progressBar.setVisibility(View.GONE);});
         progressBar.setVisibility(View.GONE);
         activity.startActivity(new Intent(context, DashboardActivity.class));
         activity.finish();
