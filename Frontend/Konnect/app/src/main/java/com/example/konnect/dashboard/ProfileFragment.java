@@ -31,7 +31,6 @@ public class ProfileFragment extends Fragment {
         TextView profileEmail= view.findViewById(R.id.ProfileEmail);
         TextView profileBio= view.findViewById(R.id.ProfileBio);
         TextView profileGender= view.findViewById(R.id.ProfileGender);
-        TextView profileAge = view.findViewById(R.id.ProfileAge);
         TextView profileBirthday= view.findViewById(R.id.ProfileBirthday);
         TextView profileJoinDate= view.findViewById(R.id.ProfileJoinDate);
 
@@ -39,11 +38,10 @@ public class ProfileFragment extends Fragment {
         profileName.setText(User.getInstance().getName());
         profileUsername.setText(User.getInstance().getUsername());
         profileEmail.setText(User.getInstance().getEmail());
-        profileBio.setText(User.getInstance().getBio());
-        profileGender.setText(String.format("%s%s", profileGender.getText(), User.getInstance().getGender()));
-        profileAge.setText(String.format("%s%s", profileAge.getText(), User.getInstance().getAge()));
-        profileBirthday.setText(String.format("%s%s", profileBirthday.getText(), User.getInstance().getBirthday()));
-        profileJoinDate.setText(String.format("%s%s", profileJoinDate.getText(), User.getInstance().getJoinDate()));
+ //       profileBio.setText(User.getInstance().getBio());
+        profileGender.setText(User.getInstance().getGender());
+        profileBirthday.setText(User.getInstance().getBirthday());
+        profileJoinDate.setText(User.getInstance().getJoinDate());
 
         /* Initialize and set onClick listener for edit button*/
         Button editButton = view.findViewById(R.id.Edit_Button);
