@@ -13,6 +13,7 @@ import org.json.JSONArray;
 public class User {
 
     /*---------------------------------------------- USER VARIABLES ----------------------------------------------*/
+
     /**
      * The name of the user.
      */
@@ -68,9 +69,8 @@ public class User {
      */
     private JSONArray friendRequests;
 
-    public boolean dataValid = false;
-
     /*---------------------------------------------- USER INSTANCE ----------------------------------------------*/
+
     /**
      * The singleton instance of the User class.
      */
@@ -80,6 +80,16 @@ public class User {
      * Default constructor for the User class.
      */
     private User(){}
+
+    /**
+     * Gets the singleton instance of the User class.
+     *
+     * @return The instance of the User class.
+     */
+    public static synchronized User getInstance() {
+        if (instance == null){ instance = new User(); }
+        return instance;
+    }
 
     /*---------------------------------------------- SETTER METHODS ----------------------------------------------*/
 
@@ -109,7 +119,7 @@ public class User {
      *
      * @param password The password to be set.
      */
-    public User setPassword(String password) { this.password = password; return instance;}
+    public void setPassword(String password) { this.password = password; }
 
     /**
      * Sets the name of the user.
@@ -123,7 +133,7 @@ public class User {
      *
      * @param age The age to be set.
      */
-    public User setAge(String age) { this.age = age; return instance;}
+    public void setAge(String age) { this.age = age; }
 
     /**
      * Sets the Join date of the user.
@@ -153,9 +163,14 @@ public class User {
      */
     public User setBirthday(String birthday) { this.birthday = birthday; return instance;}
 
-    public User setFriendRequests(JSONArray friendRequests) { this.friendRequests = friendRequests; return instance;}
+    /** Sets the friend requests of the user
+     *
+     * @param friendRequests friend requests the user has received/sent
+     */
+    public void setFriendRequests(JSONArray friendRequests) { this.friendRequests = friendRequests;}
 
     /*---------------------------------------------- GETTER METHODS ----------------------------------------------*/
+
     /**
      * Gets the username of the user.
      *
@@ -226,19 +241,6 @@ public class User {
     public String getBirthday() { return birthday; }
 
     public JSONArray getFriendRequests() { return friendRequests; }
-
-    /*------------------------------------------------- USER -------------------------------------------------*/
-
-    /**
-     * Gets the singleton instance of the User class.
-     *
-     * @return The instance of the User class.
-     */
-    public static synchronized User getInstance() {
-        if (instance == null){ instance = new User(); }
-        return instance;
-    }
-
 
     /*---------------------------------------------- SCREEN POPUPS ----------------------------------------------*/
 //    /**
