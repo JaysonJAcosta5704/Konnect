@@ -33,7 +33,7 @@ public class FriendsFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        view = inflater.inflate(R.layout.fragment_friends, container, false);
+        view = inflater.inflate(R.layout.dashboard_fragment_friends, container, false);
 
         containerFR = view.findViewById(R.id.Container_FR);
         containerF = view.findViewById(R.id.Container_F);

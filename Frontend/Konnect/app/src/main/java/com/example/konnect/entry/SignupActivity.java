@@ -60,7 +60,7 @@ public class SignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_signup);
+        setContentView(R.layout.entry_activity_signup);
 
         /* initialize UI elements */
         usernameEditText = findViewById(R.id.signup_username_edt);  // link to username edtext in the Signup activity XML

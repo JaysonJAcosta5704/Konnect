@@ -1,29 +1,36 @@
 package com.example.konnect.helper;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
+import com.example.konnect.dashboard.DashboardActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RequestJson {
 
-    public static JsonObjectRequest login(Context context){
+    /*---------------------------------------------- GET REQUESTS ----------------------------------------------*/
+
+    public static JsonObjectRequest login(Activity activity, Context context, RequestQueue queue, ProgressBar progressBar){
         return new JsonObjectRequest(Request.Method.GET, ServerURLs.getURL_USERLOGIN(), null, response -> {
             try {
                 User.getInstance().setID(response.getString("id"))
                                   .setEmail(response.getString("email"))
-                                  .setUsername(response.getString("userName"))
-                                  .dataValid = true;
+                                  .setUsername(response.getString("userName"));
             }
             catch (JSONException error) { User.dialogError(context, error.toString());}
-        }, error -> User.getInstance().dataValid = false);
+                queue.add(viewProfile(context));
+                queue.add(friendRequests(activity, context, progressBar));
+        }, error -> {User.dialogError(context, error.toString()); progressBar.setVisibility(View.GONE);});
     }
 
     public static JsonObjectRequest viewProfile(Context context){
@@ -34,18 +41,20 @@ public class RequestJson {
                                   .setBio(response.getString("userBio"))
                                   .setGender(response.getString("gender"))
                                   .setBirthday(response.getString("birthday"))
-                                  .setAge(response.getString("age"))
-                                  .dataValid = true;
-            } catch (JSONException error) { User.dialogError(context, error.toString()); User.getInstance().dataValid = false;}
-        }, error -> User.getInstance().dataValid = false);
+                                  .setAge(response.getString("age"));
+            } catch (JSONException error) { User.dialogError(context, error.toString()); }
+        }, error -> User.dialogError(context, error.toString()));
     }
 
-    public static JsonArrayRequest friendRequests(Context context){
+    public static JsonArrayRequest friendRequests(Activity activity, Context context, ProgressBar progressBar){
         ServerURLs.setURL_FR();
-        return new JsonArrayRequest(Request.Method.GET, ServerURLs.getURL_FR(), null, response -> {
-            User.getInstance().setFriendRequests(response)
-                              .dataValid = true;
-        }, error -> User.getInstance().dataValid = false); }
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ServerURLs.getURL_FR(), null, response -> User.getInstance().setFriendRequests(response), error -> {User.dialogError(context, error.toString()); progressBar.setVisibility(View.GONE);});
+        progressBar.setVisibility(View.GONE);
+        activity.startActivity(new Intent(context, DashboardActivity.class));
+        activity.finish();
+        return jsonArrayRequest;}
+
+    /*---------------------------------------------- POST REQUESTS ---------------------------------------------*/
 
     public static JsonObjectRequest friendRequestStatusUpdate(Context context, JSONObject params, String path, int id){
         String url = String.format("%s/friend-requests/%s/%s", ServerURLs.getServerUrl(), path, id);
@@ -59,13 +68,4 @@ public class RequestJson {
         }, error -> {});
     }
 
-    public static void makeAllRequest(Context context) throws InterruptedException {
-        RequestQueue queue = Volley.newRequestQueue(context);
-        synchronized (queue){
-            queue.add(login(context));
-            queue.wait(300);
-            queue.add(viewProfile(context));
-            queue.add(friendRequests(context));
-        }
-    }
 }

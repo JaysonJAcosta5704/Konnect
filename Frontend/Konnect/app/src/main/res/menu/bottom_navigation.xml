@@ -11,15 +11,15 @@
         tools:ignore="AlwaysShowAction, HardcodedText" />
 
     <item
-        android:id="@+id/profile"
-        android:icon="@drawable/account_circle"
+        android:id="@+id/friends"
+        android:icon="@drawable/group"
         android:title=""
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction, HardcodedText" />
 
     <item
-        android:id="@+id/friends"
-        android:icon="@drawable/group"
+        android:id="@+id/profile"
+        android:icon="@drawable/account_circle"
         android:title=""
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction, HardcodedText" />

@@ -1,6 +1,5 @@
 package com.example.konnect;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -87,7 +86,7 @@ public class ProfileEditActivity extends AppCompatActivity {
                     if (status.equals("success")) {
                         // Display success message
                         Toast.makeText(ProfileEditActivity.this, "Accessing profile data successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(ProfileEditActivity.this, ProfileActivity.class));
+                        finish();
                     } else {
                         // Display failure message
                         Toast.makeText(ProfileEditActivity.this, "Accessing profile data failed", Toast.LENGTH_SHORT).show();

@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.konnect.helper.User;
 
 /**
- * This class represents the SettingsActivity and handles the display of user settings and profile information. This Activity connects to ChatActivity and ProfileActivity.
+ * This class represents the SettingsActivity and handles the display of user settings and profile information.
  *
  * @author Jayson Acosta
  */
@@ -34,7 +34,6 @@ public class SettingsActivity extends AppCompatActivity {
         Button minigameButton = findViewById(R.id.Minigame_Button);
 
         chatButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChatActivity.class)));
-        profileButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileActivity.class)));
         accountSettingsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
         chooseHobbiesButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChoosehobbiesActivity.class)));
         reportButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ReportActivity.class)));

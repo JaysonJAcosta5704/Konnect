@@ -13,13 +13,13 @@ public class DashboardActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.dashboard_activity);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(navListener);
 
         if (savedInstanceState == null) {
-            loadFragment(new Fragment());
+            loadFragment(new ProfileFragment());
         }
     }
 
@@ -29,7 +29,7 @@ public class DashboardActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.flashcards) {
             selectedFragment = new Fragment();
         } else if (item.getItemId() == R.id.profile) {
-            selectedFragment = new Fragment();
+            selectedFragment = new ProfileFragment();
         } else if (item.getItemId() == R.id.friends) {
             selectedFragment = new FriendsFragment();
         } else if (item.getItemId() == R.id.chat) {
