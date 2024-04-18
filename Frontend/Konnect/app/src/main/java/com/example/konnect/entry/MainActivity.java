@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.example.konnect.R;
-import com.example.konnect.dashboard.DashboardActivity;
 import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.ServerURLs;
 import com.example.konnect.helper.User;
@@ -33,25 +32,27 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-        SharedPreferences userData = getSharedPreferences(PREFSNAME, 0);
-        if (userData.contains("user")) {
-            String json = userData.getString("user", "");
-            User user = new Gson().fromJson(json, User.class);
-
-            if(!user.getUsername().isEmpty()){
-                User.setInstance(user);
-                startActivity(new Intent(this, DashboardActivity.class));
-                finish();
-            }
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.entry_activity_main);
 
         Button loginButton = findViewById(R.id.LoginButton);
         TextView signupButton = findViewById(R.id.Signup);
         ProgressBar progressBar = findViewById(R.id.ProgressBar);
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        SharedPreferences userData = getSharedPreferences(PREFSNAME, 0);
+        if (userData.contains("user")) {
+            String json = userData.getString("user", "");
+            User user = new Gson().fromJson(json, User.class);
+
+            if(User.isDataValid(user)){
+                User.setInstance(user);
+                ServerURLs.setURL_EP();
+                queue.add(RequestJson.login(this, this, queue, progressBar));
+            }
+        }
+
 
         loginButton.setOnClickListener(v -> {
             progressBar.setVisibility(View.VISIBLE);
@@ -68,8 +69,6 @@ public class MainActivity extends AppCompatActivity {
                 User.getInstance().setUsername(input);
                 ServerURLs.setURL_UP();
             }
-
-            RequestQueue queue = Volley.newRequestQueue(this);
             queue.add(RequestJson.login(this, this, queue, progressBar));
         });
         signupButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), SignupActivity.class)));
@@ -82,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = userData.edit();
 
         Gson gson = new Gson();
+        editor.clear();
         String json = gson.toJson(User.getInstance());
         editor.putString("user", json);
         editor.apply();

@@ -6,6 +6,8 @@ import android.content.Context;
 import org.json.JSONArray;
 
 import java.io.Serializable;
+import java.util.Objects;
+import java.util.stream.Stream;
 
 /**
  * This class represents a User object with various properties and methods.
@@ -96,6 +98,8 @@ public class User implements Serializable {
     public static synchronized void setInstance(User oldInstance) {
         instance = oldInstance;
     }
+
+    public static synchronized boolean isDataValid(User instance){ return Stream.of(instance.username, instance.password, instance.email).allMatch(Objects::nonNull); }
 
 
     /*---------------------------------------------- SETTER METHODS ----------------------------------------------*/
