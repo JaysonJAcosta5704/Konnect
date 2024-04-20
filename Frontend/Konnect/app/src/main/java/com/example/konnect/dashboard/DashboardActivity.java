@@ -18,25 +18,17 @@ public class DashboardActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnItemSelectedListener(navListener);
 
-        if (savedInstanceState == null) {
-            loadFragment(new ProfileFragment());
-        }
+        if (savedInstanceState == null) { loadFragment(new ProfileFragment()); }
     }
 
     private final NavigationBarView.OnItemSelectedListener navListener = item -> {
         Fragment selectedFragment = null;
 
-        if (item.getItemId() == R.id.flashcards) {
-            selectedFragment = new Fragment();
-        } else if (item.getItemId() == R.id.profile) {
-            selectedFragment = new ProfileFragment();
-        } else if (item.getItemId() == R.id.friends) {
-            selectedFragment = new FriendsFragment();
-        } else if (item.getItemId() == R.id.chat) {
-            selectedFragment = new Fragment();
-        }else if (item.getItemId() == R.id.minigames) {
-            selectedFragment = new Fragment();
-        }
+        if (item.getItemId() == R.id.flashcards) { selectedFragment = new Fragment(); }
+        else if (item.getItemId() == R.id.profile) { selectedFragment = new ProfileFragment(); }
+        else if (item.getItemId() == R.id.friends) { selectedFragment = new FriendsFragment(); }
+        else if (item.getItemId() == R.id.minigames) { selectedFragment = new Fragment(); }
+        else if (item.getItemId() == R.id.settings) { selectedFragment = new SettingsFragment(); }
 
         return loadFragment(selectedFragment);
     };
