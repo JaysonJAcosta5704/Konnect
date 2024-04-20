@@ -66,14 +66,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
-
-        <activity
             android:name=".ChatActivity"
             android:exported="true">
             <intent-filter>
@@ -94,7 +86,7 @@
 
 
         <activity
-            android:name=".MinigamesActivity"
+            android:name=".minigames.UnquoteActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
