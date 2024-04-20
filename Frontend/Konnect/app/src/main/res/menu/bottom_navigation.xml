@@ -25,17 +25,17 @@
         tools:ignore="AlwaysShowAction, HardcodedText" />
 
     <item
-        android:id="@+id/chat"
-        android:icon="@drawable/chat"
-        android:title=""
-        app:showAsAction="always"
-        tools:ignore="AlwaysShowAction, HardcodedText" />
-
-    <item
         android:id="@+id/minigames"
         android:icon="@drawable/games_controller"
         android:title=""
         app:showAsAction="always"
         tools:ignore="AlwaysShowAction, HardcodedText"
         />
+
+    <item
+        android:id="@+id/settings"
+        android:icon="@drawable/settings"
+        android:title=""
+        app:showAsAction="always"
+        tools:ignore="AlwaysShowAction, HardcodedText" />
 </menu>
