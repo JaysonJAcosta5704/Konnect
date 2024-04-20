@@ -1,4 +1,4 @@
-package com.example.konnect;
+package com.example.konnect.minigames;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -16,6 +16,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.konnect.R;
 import com.example.konnect.helper.Question;
 import com.example.konnect.helper.ServerURLs;
 import com.example.konnect.helper.User;
@@ -25,7 +26,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class MinigamesActivity extends AppCompatActivity {
+public class UnquoteActivity extends AppCompatActivity {
 
     int currentQuestionIndex;
     int totalCorrect;
@@ -166,7 +167,7 @@ public class MinigamesActivity extends AppCompatActivity {
     void onAnswerSubmission() {
         Question currentQuestion = getCurrentQuestion();
         if(currentQuestion.getPlayerAnswer() == -1){
-            AlertDialog.Builder gameOverDialogBuilder = new AlertDialog.Builder(MinigamesActivity.this);
+            AlertDialog.Builder gameOverDialogBuilder = new AlertDialog.Builder(UnquoteActivity.this);
             gameOverDialogBuilder.setCancelable(false);
             gameOverDialogBuilder.setTitle("Error");
             gameOverDialogBuilder.setMessage("Please select an answer before submitting.");
@@ -185,7 +186,7 @@ public class MinigamesActivity extends AppCompatActivity {
         if (questions.isEmpty()) {
             String gameOverMessage = getGameOverMessage(totalCorrect, totalQuestions);
 
-            AlertDialog.Builder gameOverDialogBuilder = new AlertDialog.Builder(MinigamesActivity.this);
+            AlertDialog.Builder gameOverDialogBuilder = new AlertDialog.Builder(UnquoteActivity.this);
             gameOverDialogBuilder.setCancelable(false);
             gameOverDialogBuilder.setTitle("Game Over!");
             gameOverDialogBuilder.setMessage(gameOverMessage);
