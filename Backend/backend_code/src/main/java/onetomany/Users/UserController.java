@@ -3,6 +3,10 @@ package onetomany.Users;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import onetomany.WebSocketAdminNot.Message;
+import onetomany.WebSocketAdminNot.MessageRepository;
+import onetomany.WebSocketAdminNot.adminChat;
 import org.springframework.http.ResponseEntity;
 
 import onetomany.Matches.MatchesRepository;
@@ -47,22 +51,28 @@ public class UserController {
 
     @Autowired
     userLoginRepository userLoginRepository;
-//    @Autowired
-//    userLoginRepository userLoginRepository;
+
+    @Autowired
+    MessageRepository messageRepository;
+
+    @Autowired
+    adminChat adminChatt;
+
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
 
-    @GetMapping(path = "/users")
-    List<User> getAllUsers(){
+    @GetMapping(path = "/usersss")
+    List<User> getAllUsersss(){
         for (User useer:userRepository.findAll()) {
             useer.setLastLoggin();
+            userRepository.save(useer);
         }
         return userRepository.findAll();
     }
     @GetMapping(path = "/users/{id}")
     User getAllUser(@PathVariable int id){
-
+        User test= userRepository.findById(id);
         return  userRepository.findById(id);
     }
 
@@ -91,16 +101,7 @@ public class UserController {
 //        return tempUser.getReports();
 //    }
 
-//    @GetMapping(path = "/user/")
-//    User getUserbyUsername(@PathVariable String username){
-//        User temp =userRepository.findById(1);
-//        return userRepository.findById(1);
-//    }
-//    @GetMapping(path = "/user/")
-//    User getUserbyUsername(@PathVariable String username){
-//        User temp =userRepository.findById(1);
-//        return userRepository.findById(1);
-//    }
+
     @GetMapping(path = "/users/{id}/getFlashcards")
     List<User> getMatches(@PathVariable int id){
       User temp=  userRepository.findById(id);
@@ -166,6 +167,7 @@ public class UserController {
           reportsRepository.save(report);
           tempUser.addReport(reportsRepository.findById(1));
           userRepository.save(tempUser);
+        adminChatt.broadcast(tempUser.getUsername() +"has made a new report on user " + tempUser2.getUsername());
             return success;
     }
 

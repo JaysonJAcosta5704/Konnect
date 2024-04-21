@@ -123,7 +123,7 @@ public class adminChat {
     }
 
 
-    private void broadcast(String message) {
+    public void broadcast(String message) {
         sessionUsernameMap.forEach((session, username) -> {
             try {
                 session.getBasicRemote().sendText(message);
