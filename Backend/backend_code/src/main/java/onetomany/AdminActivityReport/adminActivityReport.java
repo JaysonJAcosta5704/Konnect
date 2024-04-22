@@ -23,6 +23,8 @@ public class adminActivityReport {
     //added userName
     private String username;
 
+    private char status = 'O';
+
 
     @Column(unique = true)
     private int reportID;
@@ -104,5 +106,11 @@ public class adminActivityReport {
         return adminUser;
     }
 
+    public void setStatus(char status) {
+        this.status = status;
+    }
 
+    public char getStatus() {
+        return status;
+    }
 }
