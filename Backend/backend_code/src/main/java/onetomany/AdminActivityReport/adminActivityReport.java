@@ -2,6 +2,8 @@
 package onetomany.AdminActivityReport;
 import jakarta.persistence.*;
 import onetomany.adminUser.adminUser;
+import onetomany.adminUser.adminUserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name="admin_Activities")
@@ -31,6 +33,8 @@ public class adminActivityReport {
 
     @ManyToOne
     adminUser adminUser;
+
+
 
 
 
