@@ -9,4 +9,6 @@ public interface adminUserRepository  extends JpaRepository<adminUser, Long> {
     adminUser findById(int id);
 
     adminUser findByEmailId(String emailId);
+
+
 }

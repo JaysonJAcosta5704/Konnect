@@ -112,7 +112,7 @@ public class adminChat {
     }
 
 
-    private void sendMessageToPArticularUser(String username, String message) {
+    public void sendMessageToPArticularUser(String username, String message) {
         try {
             usernameSessionMap.get(username).getBasicRemote().sendText(message);
         }
@@ -123,7 +123,7 @@ public class adminChat {
     }
 
 
-    private void broadcast(String message) {
+    public void broadcast(String message) {
         sessionUsernameMap.forEach((session, username) -> {
             try {
                 session.getBasicRemote().sendText(message);
