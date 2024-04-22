@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="whiteSmoke">#ececec</color>
     <color name="cobalt_blue">#0047AB</color>
+    <color name="grey">#606060</color>
+    <color name="hippieBlue"> #6194BC</color>
+    <color name="BlizzardBlue">#A5E2F4</color>
 </resources>

@@ -7,14 +7,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.User;
 
 /**
- * This class represents the SettingsActivity and handles the display of user settings and profile information. This Activity connects to ChatActivity and ProfileActivity.
+ * This class represents the SettingsActivity and handles the display of user settings and profile information.
  *
  * @author Jayson Acosta
  */
@@ -38,18 +34,11 @@ public class SettingsActivity extends AppCompatActivity {
         Button minigameButton = findViewById(R.id.Minigame_Button);
 
         chatButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChatActivity.class)));
-        profileButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileActivity.class)));
         accountSettingsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
         chooseHobbiesButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChoosehobbiesActivity.class)));
         reportButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ReportActivity.class)));
-        friendsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), FriendsActivity.class)));
         minigameButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), MinigamesActivity.class)));
         findpeopleButton.setOnClickListener(v->startActivity(new Intent(v.getContext(), FindPeopleActivity.class)));
-
-        /* Calls to the server to set Profile Information */
-        JsonObjectRequest jsonObjectRequest = RequestJson.viewProfile(this);
-        RequestQueue queue = Volley.newRequestQueue(this);
-        queue.add(jsonObjectRequest);
 
         settingsName.setText(User.getInstance().getName());
         settingsEmail.setText(User.getInstance().getEmail());

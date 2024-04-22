@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">Konnect</string>
-    <string name="log_in">Log In</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="Konnect_explanation">"Discover. Chat. Collaborate."</string>
 
     <string-array name="gender_array">
         <item>Male</item>

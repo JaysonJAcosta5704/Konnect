@@ -3,14 +3,21 @@ package com.example.konnect.helper;
 import android.app.AlertDialog;
 import android.content.Context;
 
+import org.json.JSONArray;
+
+import java.io.Serializable;
+import java.util.Objects;
+import java.util.stream.Stream;
+
 /**
  * This class represents a User object with various properties and methods.
  *
  * @author Jayson Acosta
  */
-public class User {
+public class User implements Serializable {
 
     /*---------------------------------------------- USER VARIABLES ----------------------------------------------*/
+
     /**
      * The name of the user.
      */
@@ -24,7 +31,7 @@ public class User {
     /**
      * The username of the user.
      */
-    private String username = "Jhi";
+    private String username;
 
     /**
      * The gender of the user.
@@ -61,43 +68,39 @@ public class User {
      */
     private String joinDate;
 
+    /**
+     * The friend requests of the user, regardless of the status
+     */
+    private JSONArray friendRequests;
+
     /*---------------------------------------------- USER INSTANCE ----------------------------------------------*/
+
     /**
      * The singleton instance of the User class.
      */
     private static User instance;
 
-    /*---------------------------------------------- SERVER URLS ----------------------------------------------*/
-    /**
-     * The URL of the server.
-     */
-    private static final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
-//    private static final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
-
-    /**
-     * The URL of the websocket
-     */
-    private static final String WEBSOCKET_URL = "ws://coms-309-001.class.las.iastate.edu:8080/";
-
-    /**
-     * The URL for user login.
-     */
-    private String USERLOGIN_URL;
-
-    /**
-     * The URL for user information.
-     */
-    private String USERINFO_URL;
-
-    /**
-     * The URL for friend requests.
-     */
-    private String FRIENDREQUEST_URL;
-
     /**
      * Default constructor for the User class.
      */
     private User(){}
+
+    /**
+     * Gets the singleton instance of the User class.
+     *
+     * @return The instance of the User class.
+     */
+    public static synchronized User getInstance() {
+        if (instance == null){ instance = new User(); }
+        return instance;
+    }
+
+    public static synchronized void setInstance(User oldInstance) {
+        instance = oldInstance;
+    }
+
+    public static synchronized boolean isDataValid(User instance){ return Stream.of(instance.username, instance.password, instance.email).allMatch(Objects::nonNull); }
+
 
     /*---------------------------------------------- SETTER METHODS ----------------------------------------------*/
 
@@ -106,21 +109,21 @@ public class User {
      *
      * @param username The username to be set.
      */
-    public void setUsername(String username) { this.username = username; }
+    public User setUsername(String username) { this.username = username; return instance;}
 
     /**
      * Sets the email of the user.
      *
      * @param email The email to be set.
      */
-    public void setEmail(String email) { this.email = email; }
+    public User setEmail(String email) { this.email = email; return instance;}
 
     /**
      * Sets the ID of the user.
      *
      * @param ID The ID to be set.
      */
-    public void setID(String ID) { this.ID = ID;}
+    public User setID(String ID) { this.ID = ID; return instance;}
 
     /**
      * Sets the password of the user.
@@ -134,44 +137,51 @@ public class User {
      *
      * @param name The name to be set.
      */
-    public void setName(String name) { this.name = name; }
+    public User setName(String name) { this.name = name; return instance;}
 
     /**
      * Sets the age of the user.
      *
      * @param age The age to be set.
      */
-    public void setAge(String age) { this.age = age;}
+    public void setAge(String age) { this.age = age; }
 
     /**
      * Sets the Join date of the user.
      *
      * @param joinDate The join date to be set.
      */
-    public void setJoinDate(String joinDate){ this.joinDate = joinDate;}
+    public User setJoinDate(String joinDate){ this.joinDate = joinDate; return instance;}
 
     /**
      * Sets the gender of the user.
      *
      * @param gender The gender to be set.
      */
-    public void setGender(String gender) { this.gender = gender; }
+    public User setGender(String gender) { this.gender = gender; return instance;}
 
     /**
      * Sets the bio of the user.
      *
      * @param bio The bio to be set.
      */
-    public void setBio(String bio) { this.bio = bio; }
+    public User setBio(String bio) { this.bio = bio; return instance;}
 
     /**
      * Sets the birthday of the user.
      *
      * @param birthday The birthday to be set.
      */
-    public void setBirthday(String birthday) { this.birthday = birthday; }
+    public User setBirthday(String birthday) { this.birthday = birthday; return instance;}
+
+    /** Sets the friend requests of the user
+     *
+     * @param friendRequests friend requests the user has received/sent
+     */
+    public void setFriendRequests(JSONArray friendRequests) { this.friendRequests = friendRequests;}
 
     /*---------------------------------------------- GETTER METHODS ----------------------------------------------*/
+
     /**
      * Gets the username of the user.
      *
@@ -192,6 +202,12 @@ public class User {
      * @return The ID of the user.
      */
     public String getID() { return ID; }
+
+    /**
+     * Gets the password of the user.
+     *
+     */
+    public String getPassword() { return password; }
 
     /**
      * Gets the name of the user.
@@ -235,73 +251,7 @@ public class User {
      */
     public String getBirthday() { return birthday; }
 
-    /*------------------------------------------------- USER -------------------------------------------------*/
-
-    /**
-     * Gets the singleton instance of the User class.
-     *
-     * @return The instance of the User class.
-     */
-    public static synchronized User getInstance() {
-        if (instance == null){ instance = new User(); }
-        return instance;
-    }
-
-    /*---------------------------------------------- SERVER URL ----------------------------------------------*/
-
-    /**
-     * Gets the URL for the server.
-     *
-     * @return The URL for the server.
-     */
-    public static String getServerUrl(){ return SERVER_URL; }
-
-    /*---------------------------------------------- USER LOGIN ----------------------------------------------*/
-    /**
-     * Sets the URL for user login with the provided username and password.
-     */
-    public void setURL_UP(){ USERLOGIN_URL = SERVER_URL + "login/u/" + username + "/" + password + "/"; }
-
-    /**
-     * Sets the URL for user login with the provided email and password.
-     */
-    public void setURL_EP(){ USERLOGIN_URL = SERVER_URL + "login/e/" + email + "/" + password + "/"; }
-
-    /**
-     * Sets the URL for friend requests with the provided username.
-     */
-    public void setURL_FR(){ FRIENDREQUEST_URL = SERVER_URL + "friend-requests/list/" + username; }
-
-    /**
-     * Gets the URL for user login.
-     *
-     * @return The URL for user login.
-     */
-    public String getURL_USERLOGIN(){ return USERLOGIN_URL; }
-
-    /*-------------------------------------------- USER INFORMATION --------------------------------------------*/
-    /**
-     * Sets the URL for user information with the provided ID.
-     */
-    public void setURL_USERINFO(){ USERINFO_URL = SERVER_URL + "users/" + username; }
-
-    /**
-     * Gets the URL for user information.
-     *
-     * @return The URL for user information.
-     */
-    public String getURL_USERINFO(){ return USERINFO_URL; }
-
-
-    public String getURL_FR(){ return FRIENDREQUEST_URL; }
-
-    /*---------------------------------------------- WEBSOCKETS ----------------------------------------------*/
-    /**
-     * Gets the URL for Websockets.
-     *
-     * @return The URL for websockets
-     */
-    public static String getWEBSOCKET_URL(){ return WEBSOCKET_URL; }
+    public JSONArray getFriendRequests() { return friendRequests; }
 
     /*---------------------------------------------- SCREEN POPUPS ----------------------------------------------*/
 //    /**
@@ -339,4 +289,4 @@ public class User {
         AlertDialog dialog = builder.create();
         dialog.show();
     }
-   }
+}

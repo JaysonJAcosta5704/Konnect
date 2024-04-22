@@ -1,77 +1,63 @@
 package com.example.konnect.helper;
 
-import static com.example.konnect.FriendsActivity.createFLayout;
-import static com.example.konnect.FriendsActivity.createFRLayout;
-
+import android.app.Activity;
 import android.content.Context;
-import android.widget.LinearLayout;
+import android.content.Intent;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.konnect.dashboard.DashboardActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RequestJson {
 
-    public static JsonObjectRequest login(Context context){
-        return new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERLOGIN(), null, response -> {
+    /*---------------------------------------------- GET REQUESTS ----------------------------------------------*/
+
+    public static JsonObjectRequest login(Activity activity, Context context, RequestQueue queue, ProgressBar progressBar){
+        return new JsonObjectRequest(Request.Method.GET, ServerURLs.getURL_USERLOGIN(), null, response -> {
             try {
-                User.getInstance().setID(response.getString("id"));
-                User.getInstance().setEmail(response.getString("email"));
-                User.getInstance().setUsername(response.getString("userName"));
-                User.getInstance().setURL_USERINFO();
+                User.getInstance().setID(response.getString("id"))
+                                  .setEmail(response.getString("email"))
+                                  .setUsername(response.getString("userName"));
             }
             catch (JSONException error) { User.dialogError(context, error.toString());}
-        }, error -> User.dialogError(context, error.toString()));
+                queue.add(viewProfile(context));
+                queue.add(friendRequests(activity, context, progressBar));
+        }, error -> {User.dialogError(context, error.toString()); progressBar.setVisibility(View.GONE);});
     }
 
     public static JsonObjectRequest viewProfile(Context context){
-        return new JsonObjectRequest(Request.Method.GET, User.getInstance().getURL_USERINFO(), null, response -> {
+        ServerURLs.setURL_USERINFO();
+        return new JsonObjectRequest(Request.Method.GET, ServerURLs.getURL_USERINFO(), null, response -> {
             try {
-                User.getInstance().setName(response.getString("name"));
-                User.getInstance().setBio(response.getString("bio"));
-                User.getInstance().setGender(response.getString("gender"));
-                User.getInstance().setBirthday(response.getString("birthday"));
-                User.getInstance().setAge(response.getString("age"));
-            } catch (JSONException error) { User.dialogError(context, error.toString());}
+                User.getInstance().setName(response.getString("name"))
+                                  .setBio(response.getString("userBio"))
+                                  .setGender(response.getString("gender"))
+                                  .setBirthday(response.getString("birthday"))
+                                  .setAge(response.getString("age"));
+            } catch (JSONException error) { User.dialogError(context, error.toString()); }
         }, error -> User.dialogError(context, error.toString()));
     }
 
-    public static JsonArrayRequest friendRequests(Context context, LinearLayout containerFR, LinearLayout containerF){
-        User.getInstance().setURL_FR();
-        return new JsonArrayRequest(Request.Method.GET, User.getInstance().getURL_FR(), null, response -> {
+    public static JsonArrayRequest friendRequests(Activity activity, Context context, ProgressBar progressBar){
+        ServerURLs.setURL_FR();
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ServerURLs.getURL_FR(), null, response -> User.getInstance().setFriendRequests(response), error -> {User.dialogError(context, error.toString()); progressBar.setVisibility(View.GONE);});
+        progressBar.setVisibility(View.GONE);
+        activity.startActivity(new Intent(context, DashboardActivity.class));
+        activity.finish();
+        return jsonArrayRequest;}
 
-            try {
-                for (int i = 0; i < response.length(); i++) {
-                    JSONObject item = response.getJSONObject(i);
-                    int id = item.getInt("id");
-                    String senderUsername = item.getString("senderUsername");
-                    String status = item.getString("status");
-
-                    switch (status){
-                        case "DECLINED":
-                            break;
-                        case "PENDING":
-                            containerFR.addView(createFRLayout(context, containerFR, containerF, senderUsername, senderUsername, id));
-                            break;
-                        case "ACCEPTED":
-                            containerF.addView(createFLayout(context, senderUsername, senderUsername, id));
-                            break;
-                    }
-                }
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-        }, error -> {
-            User.dialogError(context, error.toString());
-        });
-    }
+    /*---------------------------------------------- POST REQUESTS ---------------------------------------------*/
 
     public static JsonObjectRequest friendRequestStatusUpdate(Context context, JSONObject params, String path, int id){
-        String url = String.format("%s/friend-requests/%s/%s",User.getServerUrl(), path, id);
+        String url = String.format("%s/friend-requests/%s/%s", ServerURLs.getServerUrl(), path, id);
 
         return new JsonObjectRequest(Request.Method.POST, url, params, response -> {
             try {
@@ -81,4 +67,5 @@ public class RequestJson {
             }
         }, error -> {});
     }
+
 }
