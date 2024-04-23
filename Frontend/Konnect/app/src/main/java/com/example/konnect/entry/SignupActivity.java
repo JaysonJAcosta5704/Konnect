@@ -150,7 +150,8 @@ public class SignupActivity extends AppCompatActivity {
                 String password = passwordEditText.getText().toString();
                 String confirm = confirmEditText.getText().toString();
                 String email = emailAccountEditText.getText().toString();
-                int age = Integer.parseInt(ageEditText.getText().toString());
+                String ageString = ageEditText.getText().toString();
+                int age = Integer.parseInt(ageString);
 
                 //check if user didn't left the blank
                 if(username.isEmpty()){
