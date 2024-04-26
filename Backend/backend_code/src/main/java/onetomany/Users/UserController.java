@@ -3,6 +3,10 @@ package onetomany.Users;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 
 import onetomany.AdminActivityReport.adminActivityReport;
 import onetomany.AdminActivityReport.adminActivityReportRepository;
@@ -22,14 +26,6 @@ import onetomany.hobbies.HobbyType;
 import onetomany.userLogIn.userLogin;
 import onetomany.userLogIn.userLoginRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 
 
 /**
@@ -155,7 +151,14 @@ public class UserController {
         hobbiesRepository.save(temp2);
       return success;
     }
-
+    @GetMapping("/users/{id}/profile-picture")
+    public ResponseEntity<byte[]> getProfilePicture(@PathVariable int id) {
+        User user = userRepository.findById(id);
+        if (user == null || user.getProfilePicture() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(user.getProfilePicture());
+    }
     @PutMapping("/users/{id}/{password}")
     User updateUser(@PathVariable int id, @PathVariable String password, @RequestBody User request){
         User user = userRepository.findById(id);
@@ -164,6 +167,18 @@ public class UserController {
             return null;
         userRepository.save(request);
         return userRepository.findById(id);
+    }
+    @PostMapping("/users/{id}/profile-picture")
+    public ResponseEntity<String> uploadProfilePicture(
+            @PathVariable int id,
+            @RequestParam("file") MultipartFile file) throws IOException {
+        User user = userRepository.findById(id);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        user.setProfilePicture(file.getBytes());
+        userRepository.save(user);
+        return ResponseEntity.ok("Profile picture uploaded successfully");
     }
 
     @PostMapping("/users/addReport/{id}/{id2}/")

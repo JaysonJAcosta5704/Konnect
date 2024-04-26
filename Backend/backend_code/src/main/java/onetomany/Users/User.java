@@ -25,7 +25,8 @@ public class User {
     private String gender;
     private boolean ifActive;
 
-
+    @Lob
+    private byte[] profilePicture;
 
     private int age;
     private String UserPassword;
@@ -129,7 +130,13 @@ public class User {
     }
 
 
+    public byte[] getProfilePicture() {
+        return profilePicture;
+    }
 
+    public void setProfilePicture(byte[] profilePicture) {
+        this.profilePicture = profilePicture;
+    }
 
     public boolean isIfActive() {
         return ifActive;

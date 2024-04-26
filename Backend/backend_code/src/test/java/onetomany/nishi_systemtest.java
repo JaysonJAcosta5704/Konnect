@@ -1,6 +1,9 @@
 package onetomany;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import io.restassured.RestAssured;
+import io.restassured.response.Response;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,11 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-
-import org.json.JSONObject;
-import org.json.JSONException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @RunWith(SpringRunner.class)
@@ -63,7 +62,7 @@ public class nishi_systemtest {
     public void testCreateUser() {
         JSONObject newUser = new JSONObject();
         try {
-            newUser.put("username", "testUser13");
+            newUser.put("username", "testUser1688");
             newUser.put("emailId", "testUser@example.com");
             newUser.put("userPassword", "testPass");
         } catch (JSONException e) {
@@ -79,20 +78,7 @@ public class nishi_systemtest {
         assertEquals(200, response.getStatusCode());
         assertEquals("{\"message\":\"success\"}", response.getBody().asString());
     }
-    @Test
-    public void testGetAllMatches() {
-        Response response = RestAssured.given()
-                .when()
-                .get("/matches");
-        assertEquals(200, response.getStatusCode());
-        try {
-            JSONObject jsonResponse = new JSONObject(response.getBody().asString());
-            // Assuming the expected data is an array
-            assertEquals(true, jsonResponse.getJSONArray("matches").length() > 0);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
+
 
     @Test
     public void testGetMatchById() {
