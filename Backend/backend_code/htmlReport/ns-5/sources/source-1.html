@@ -1,0 +1,418 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > User</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">onetomany.Users</a>
+</div>
+
+<h1>Coverage Summary for Class: User (onetomany.Users)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">User</td>
+<td class="coverageStat">
+  <span class="percent">
+    29.3%
+  </span>
+  <span class="absValue">
+    (12/41)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    18.7%
+  </span>
+  <span class="absValue">
+    (14/75)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">User$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">User$HibernateInstantiator$CuPZTXne</td>
+  </tr>
+  <tr>
+    <td class="name">User$HibernateProxy$StOsApf2</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    27.9%
+  </span>
+  <span class="absValue">
+    (12/43)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    18.2%
+  </span>
+  <span class="absValue">
+    (14/77)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;
+&nbsp;package onetomany.Users;
+&nbsp;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;import com.fasterxml.jackson.annotation.JsonIgnore;
+&nbsp;import jakarta.persistence.*;
+&nbsp;
+&nbsp;import onetomany.Matches.Match;
+&nbsp;import onetomany.Reports.Reports;
+&nbsp;import onetomany.hobbies.Hobbies;
+&nbsp;import onetomany.userLogIn.userLogin;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name=&quot;Users&quot;)
+&nbsp;public class User {
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    private int id;
+&nbsp;    private String name;
+&nbsp;    private String emailId;
+&nbsp;    private Date joiningDate;
+&nbsp;    private Date birthday;
+&nbsp;    private String gender;
+&nbsp;    private boolean ifActive;
+&nbsp;
+&nbsp;    @Lob
+&nbsp;    private byte[] profilePicture;
+&nbsp;
+&nbsp;    private int age;
+&nbsp;    private String UserPassword;
+&nbsp;    private Date lastLoggin;
+<b class="fc">&nbsp;    public int appearences =1;</b>
+&nbsp;    @Column(unique = true)
+&nbsp;    private String username;
+&nbsp;
+<b class="fc">&nbsp;    @ManyToMany(cascade = CascadeType.ALL)</b>
+&nbsp;    @JoinTable(
+&nbsp;            name = &quot;user_hobbies&quot;,
+&nbsp;            joinColumns = @JoinColumn(name = &quot;user_id&quot;),
+&nbsp;            inverseJoinColumns = @JoinColumn(name = &quot;hobby_id&quot;)
+&nbsp;    )
+&nbsp;    private Set&lt;Hobbies&gt; hobbies = new HashSet&lt;&gt;();
+&nbsp;    private String UserBio;
+&nbsp;    private int viewCount;
+&nbsp;    private int acceptanceCount;
+&nbsp;    private String UserImagePath;
+&nbsp;    @ElementCollection
+&nbsp;    private List&lt;Integer&gt; UserHobbiesLists;
+&nbsp;
+&nbsp;    @OneToOne(cascade = CascadeType.ALL)
+&nbsp;    @JoinColumn(name = &quot;match_id&quot;)
+&nbsp;    private Match match;
+&nbsp;
+&nbsp;    @OneToMany(mappedBy = &quot;user&quot;)
+&nbsp;    List&lt;Reports&gt; userReports;
+&nbsp;
+&nbsp;    @OneToMany
+&nbsp;    List&lt;Match&gt; UserMatches;
+&nbsp;
+&nbsp;    @OneToOne
+&nbsp;    userLogin  userLogin;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    // =============================== Constructors ================================== //
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;    public User(String name, String emailId, String userPassword,String userName, Date birthday, int age, String gender  ) {</b>
+<b class="nc">&nbsp;        this.name = name;</b>
+<b class="nc">&nbsp;        this.emailId = emailId;</b>
+<b class="nc">&nbsp;        this.joiningDate = new Date();</b>
+<b class="nc">&nbsp;        this.ifActive = true;</b>
+<b class="nc">&nbsp;        userReports = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        this.UserPassword= userPassword;</b>
+<b class="nc">&nbsp;        this.UserMatches= new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        this.username = userName;</b>
+<b class="nc">&nbsp;        this.age= age;</b>
+<b class="nc">&nbsp;        this.lastLoggin=new Date();</b>
+<b class="nc">&nbsp;        this.gender=gender;</b>
+<b class="nc">&nbsp;        this.birthday= birthday;</b>
+<b class="nc">&nbsp;        this.UserBio=UserBio;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+<b class="fc">&nbsp;    public User() {</b>
+<b class="fc">&nbsp;        userReports = new ArrayList&lt;&gt;();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getId(){
+<b class="nc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setId(int id){
+<b class="nc">&nbsp;        this.id = id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getName(){
+<b class="nc">&nbsp;        return name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setName(String name){
+<b class="nc">&nbsp;        this.name = name;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getUsername() {
+<b class="fc">&nbsp;        return username;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUsername(String username) {
+<b class="fc">&nbsp;        this.username = username;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getEmailId(){
+<b class="fc">&nbsp;        return emailId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setEmailId(String emailId){
+<b class="fc">&nbsp;        this.emailId = emailId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Date getJoiningDate(){
+<b class="nc">&nbsp;        return joiningDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setJoiningDate(Date joiningDate){
+<b class="fc">&nbsp;        this.joiningDate = joiningDate;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public byte[] getProfilePicture() {
+<b class="nc">&nbsp;        return profilePicture;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setProfilePicture(byte[] profilePicture) {
+<b class="nc">&nbsp;        this.profilePicture = profilePicture;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isIfActive() {
+<b class="nc">&nbsp;        return ifActive;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setIfActive(boolean ifActive){
+<b class="fc">&nbsp;        this.ifActive = ifActive;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getUserPassword(){
+<b class="fc">&nbsp;        return this.UserPassword;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUserPassword(String userPassword) {
+<b class="fc">&nbsp;        this.UserPassword = userPassword;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setLastLoggin(){
+<b class="fc">&nbsp;        lastLoggin= new Date();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @JsonIgnore
+&nbsp;    public Set&lt;Hobbies&gt; getHobbies() {
+<b class="nc">&nbsp;        return hobbies;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setHobbies(Set&lt;Hobbies&gt; hobbies) {
+<b class="nc">&nbsp;        this.hobbies = hobbies;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUserReports(Reports report){
+<b class="nc">&nbsp;        userReports.add(report);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @JsonIgnore
+&nbsp;    public List&lt;Reports&gt; getReports() {
+<b class="nc">&nbsp;        return userReports;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setReports(List&lt;Reports&gt; reports) {
+<b class="nc">&nbsp;        this.userReports = reports;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addReport(Reports report){
+<b class="nc">&nbsp;        this.userReports.add(report);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void addUserMatch(Match match){
+<b class="nc">&nbsp;        this.UserMatches.add(match);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Match&gt; getUserMatches(){
+<b class="nc">&nbsp;        return this.UserMatches;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Date getLastLoggin(){
+<b class="nc">&nbsp;        return this.lastLoggin;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUserLogin(userLogin userLogin) {
+<b class="fc">&nbsp;        this.userLogin = userLogin;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getAge() {
+<b class="nc">&nbsp;        return age;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getViewCount() {
+<b class="nc">&nbsp;        return viewCount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getGender() {
+<b class="nc">&nbsp;        return gender;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setGender(String gender) {
+<b class="nc">&nbsp;        this.gender = gender;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Date getBirthday() {
+<b class="nc">&nbsp;        return birthday;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setBirthday(Date birthday) {
+<b class="nc">&nbsp;        this.birthday = birthday;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getUserBio() {
+<b class="nc">&nbsp;        return UserBio;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUserBio(String userBio) {
+<b class="nc">&nbsp;        UserBio = userBio;</b>
+&nbsp;    }
+&nbsp;    public void addHobbie(Hobbies hobbie){
+<b class="nc">&nbsp;        this.hobbies.add(hobbie);</b>
+&nbsp;    }
+&nbsp;    public void addCount(){
+<b class="nc">&nbsp;        this.viewCount++;</b>
+&nbsp;    }
+&nbsp;    public int getRate(){
+<b class="nc">&nbsp;        return this.acceptanceCount/this.viewCount;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @JsonIgnore
+&nbsp;    public List&lt;User&gt; getMatches(){
+<b class="nc">&nbsp;        List&lt;Hobbies&gt; list = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        List&lt;User&gt; list1= new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (Hobbies hobbie: this.hobbies) {</b>
+<b class="nc">&nbsp;            for (User user: hobbie.getUsers()) {</b>
+<b class="nc">&nbsp;                if(user.getUsername() != this.username) {</b>
+<b class="nc">&nbsp;                    user.addCount();</b>
+<b class="nc">&nbsp;                    if (!list1.contains(user))</b>
+<b class="nc">&nbsp;                        list1.add(user);</b>
+&nbsp;                    else {
+<b class="nc">&nbsp;                        int temp = list1.indexOf(user);</b>
+<b class="nc">&nbsp;                        list1.get(temp).appearences++;</b>
+&nbsp;                    }
+&nbsp;                }
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        Collections.sort(list1, new Comparator&lt;User&gt;() {</b>
+&nbsp;            @Override
+&nbsp;            public int compare(User u1, User u2) {
+<b class="nc">&nbsp;                return Integer.compare(u2.appearences, u1.appearences);</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        for(int i=0; i&lt; list1.size()-1; i++){</b>
+<b class="nc">&nbsp;            if(list1.get(i).appearences == list1.get(i+1).appearences  &amp;&amp; list1.get(i).getRate() &lt; list1.get(i+1).getRate()){</b>
+<b class="nc">&nbsp;                User temp= list1.get(i);</b>
+<b class="nc">&nbsp;                list1.set(i, list1.get(i+1));</b>
+<b class="nc">&nbsp;                list1.set(i+1, temp);</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;        return list1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-26 22:40</div>
+</div>
+</body>
+</html>

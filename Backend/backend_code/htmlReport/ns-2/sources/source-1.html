@@ -1,0 +1,237 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > adminActivityReport</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">onetomany.AdminActivityReport</a>
+</div>
+
+<h1>Coverage Summary for Class: adminActivityReport (onetomany.AdminActivityReport)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">adminActivityReport</td>
+<td class="coverageStat">
+  <span class="percent">
+    12.5%
+  </span>
+  <span class="absValue">
+    (2/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    9.5%
+  </span>
+  <span class="absValue">
+    (2/21)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">adminActivityReport$HibernateInstantiator$mS7uPY2C</td>
+  </tr>
+  <tr>
+    <td class="name">adminActivityReport$HibernateProxy$YcnSYUft</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    12.5%
+  </span>
+  <span class="absValue">
+    (2/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    9.5%
+  </span>
+  <span class="absValue">
+    (2/21)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;
+&nbsp;package onetomany.AdminActivityReport;
+&nbsp;import jakarta.persistence.*;
+&nbsp;import onetomany.adminUser.adminUser;
+&nbsp;import onetomany.adminUser.adminUserRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;
+&nbsp;@Entity
+&nbsp;@Table(name=&quot;admin_Activities&quot;)
+&nbsp;public class adminActivityReport {
+&nbsp;
+&nbsp;    /*
+&nbsp;     * The annotation @ID marks the field below as the primary key for the table created by springboot
+&nbsp;     * The @GeneratedValue generates a value if not already present, The strategy in this case is to start from 1 and increment for each table
+&nbsp;     */
+&nbsp;
+&nbsp;
+&nbsp;    @Id
+&nbsp;    @GeneratedValue(strategy = GenerationType.IDENTITY)
+&nbsp;    private int id;
+&nbsp;    private String descriptionOfActivity;
+&nbsp;    private String emailId;
+&nbsp;
+&nbsp;
+&nbsp;    //added userName
+&nbsp;    private String username;
+&nbsp;
+<b class="fc">&nbsp;    private char status = &#39;O&#39;;</b>
+&nbsp;
+&nbsp;
+&nbsp;    @Column(unique = true)
+&nbsp;    private int reportID;
+&nbsp;
+&nbsp;    @ManyToOne
+&nbsp;    adminUser adminUser;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    // =============================== Constructors ================================== //
+&nbsp;
+&nbsp;
+<b class="nc">&nbsp;    public adminActivityReport(String emailId,String username, int ReportID, String descriptionOfActivity) {</b>
+<b class="nc">&nbsp;        this.emailId = emailId;</b>
+<b class="nc">&nbsp;        this.username = username;</b>
+<b class="nc">&nbsp;        this.reportID= ReportID;</b>
+<b class="nc">&nbsp;        this.descriptionOfActivity= descriptionOfActivity;</b>
+&nbsp;
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    public adminActivityReport() {</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    // =============================== Getters and Setters for each field ================================== //
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;
+&nbsp;    public int getId(){
+<b class="nc">&nbsp;        return id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setId(int id){
+<b class="nc">&nbsp;        this.id = id;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getUsername() {
+<b class="nc">&nbsp;        return username;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setUsername(String username) {
+<b class="nc">&nbsp;        this.username = username;</b>
+&nbsp;    }
+&nbsp;    public String getEmailId(){
+<b class="nc">&nbsp;        return emailId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setEmailId(String emailId){
+<b class="nc">&nbsp;        this.emailId = emailId;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setReportID(int reportID) {
+<b class="nc">&nbsp;        this.reportID = reportID;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setDescriptionOfActivity(String descriptionOfActivity) {
+<b class="nc">&nbsp;        this.descriptionOfActivity = descriptionOfActivity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int getReportID() {
+<b class="nc">&nbsp;        return reportID;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public String getDescriptionOfActivity() {
+<b class="nc">&nbsp;        return descriptionOfActivity;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAdminUser(adminUser adminUser) {
+<b class="nc">&nbsp;        this.adminUser = adminUser;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public adminUser getAdminUser() {
+<b class="nc">&nbsp;        return adminUser;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setStatus(char status) {
+<b class="nc">&nbsp;        this.status = status;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public char getStatus() {
+<b class="nc">&nbsp;        return status;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-04-26 22:40</div>
+</div>
+</body>
+</html>

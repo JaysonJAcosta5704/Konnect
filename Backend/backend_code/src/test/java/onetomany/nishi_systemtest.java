@@ -62,7 +62,7 @@ public class nishi_systemtest {
     public void testCreateUser() {
         JSONObject newUser = new JSONObject();
         try {
-            newUser.put("username", "testUser1688");
+            newUser.put("username", "testUser1691");
             newUser.put("emailId", "testUser@example.com");
             newUser.put("userPassword", "testPass");
         } catch (JSONException e) {
