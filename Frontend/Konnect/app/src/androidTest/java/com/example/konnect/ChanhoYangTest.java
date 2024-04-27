@@ -31,6 +31,8 @@ import androidx.test.espresso.intent.Intents;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
 import com.example.konnect.entry.SignupActivity;
+import com.example.konnect.SettingsActivity;
+import com.example.konnect.MinigamesActivity;
 
 import org.hamcrest.Matchers;
 import org.junit.After;
@@ -134,5 +136,29 @@ public class ChanhoYangTest {
             }
         }
     }
+
+    
+
+
+
+    @Test
+    public void testGameOverMessage() {
+        try (ActivityScenario<MinigamesActivity> activityScenario = ActivityScenario.launch(MinigamesActivity.class)) {
+
+            // Perform actions to simulate answering each question
+            // This will depend on your game logic and how the user interacts with the game
+            for (int i = 0; i < 13; i++) {
+                // Simulate selecting an answer
+                onView(withId(R.id.btn_main_answer_0)).perform(click());
+
+                // Simulate submitting the answer
+                onView(withId(R.id.btn_main_submit_answer)).perform(click());
+            }
+
+            // Check if the game over message is displayed
+            onView(withText("Game Over!")).check(matches(isDisplayed()));
+        }
+    }
+
 
 }
