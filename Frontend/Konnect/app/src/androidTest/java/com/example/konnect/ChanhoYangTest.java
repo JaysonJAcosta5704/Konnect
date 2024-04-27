@@ -1,7 +1,7 @@
 package com.example.konnect;
 
-import android.support.test.rule.ActivityTestRule;
-import android.support.test.runner.AndroidJUnit4;
+import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.AndroidJUnit4;
 
 import com.example.konnect.entry.SignupActivity;
 
@@ -13,11 +13,6 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
-
-
-
-import org.junit.Rule;
-import org.junit.runner.RunWith;
 
 @RunWith(AndroidJUnit4.class)
 public class ChanhoYangTest {
@@ -48,4 +43,22 @@ public class ChanhoYangTest {
 
 
     }
+
+    @Test
+    public void testSubmitHobbies(){
+        // IDs of your checkboxes and button
+        int[] checkBoxIds = {
+                R.id.checkBox1, R.id.checkBox2, R.id.checkBox3, R.id.checkBox4, R.id.checkBox5,
+                R.id.checkBox6, R.id.checkBox7, R.id.checkBox8, R.id.checkBox9, R.id.checkBox10
+        };
+        int submitButtonId = R.id.hobby_choose_btn;
+
+        // Perform click actions on the checkboxes and the submit button
+        for (int checkBoxId : checkBoxIds) {
+            onView(withId(checkBoxId)).perform(click());
+        }
+        onView(withId(submitButtonId)).perform(click());
+
+    }
+
 }
