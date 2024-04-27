@@ -72,9 +72,10 @@
 package onetomany.hobbies;
 
 import jakarta.persistence.*;
-
-import java.util.Set;
 import onetomany.Users.User;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "hobbies")
@@ -101,7 +102,7 @@ public class Hobbies {
     public Hobbies(String name, HobbyType hobbyType) {
         this.name = name;
         this.hobbyType = hobbyType;
-
+        users= new HashSet<>();
 
     }
 
@@ -139,6 +140,10 @@ public class Hobbies {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public void removeUser(User user){
+        this.users.remove(user);
     }
 
     //    public Set<User> getUsers() {

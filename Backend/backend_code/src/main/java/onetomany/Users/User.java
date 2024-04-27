@@ -1,15 +1,14 @@
 
 package onetomany.Users;
 
-import java.util.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-
 import onetomany.Matches.Match;
 import onetomany.Reports.Reports;
 import onetomany.hobbies.Hobbies;
 import onetomany.userLogIn.userLogin;
+
+import java.util.*;
 
 @Entity
 @Table(name="Users")
@@ -56,7 +55,7 @@ public class User {
     List<Reports> userReports;
 
     @OneToMany
-    List<Match> UserMatches;
+    List<User> UserMatches;
 
     @OneToOne
     userLogin  userLogin;
@@ -177,11 +176,11 @@ public class User {
         this.userReports.add(report);
     }
 
-    public void addUserMatch(Match match){
+    public void addUserMatch(User match){
         this.UserMatches.add(match);
     }
 
-    public List<Match> getUserMatches(){
+    public List<User> getUserMatches(){
         return this.UserMatches;
     }
 
@@ -266,10 +265,17 @@ public class User {
                 list1.set(i+1, temp);
             }
         }
+        this.UserMatches = list1;
 
 
         return list1;
+
     }
+
+    public void removeHobbie(Hobbies hobbie){
+        this.hobbies.remove(hobbie);
+    }
+
 
 
 }
