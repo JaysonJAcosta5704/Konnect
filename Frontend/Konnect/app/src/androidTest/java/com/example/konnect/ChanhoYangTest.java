@@ -12,6 +12,7 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
@@ -137,7 +138,27 @@ public class ChanhoYangTest {
         }
     }
 
-    
+    @Test
+    public void testRestartQuiz() {
+        try (ActivityScenario<MinigamesActivity> activityScenario = ActivityScenario.launch(MinigamesActivity.class)) {
+
+            // Perform actions to simulate answering each question
+            for (int i = 0; i < 13; i++) {  // replace 13 with the actual number of questions in your game
+                // Simulate selecting an answer
+                onView(withId(R.id.btn_main_answer_0)).perform(click());
+
+                // Simulate submitting the answer
+                onView(withId(R.id.btn_main_submit_answer)).perform(click());
+            }
+
+            // Simulate clicking the "Play Again!" button in the game over dialog
+            onView(withText("Play Again!")).perform(click());
+
+            // Add an assertion to check if a question is displayed
+            onView(withId(R.id.tv_main_question_title)).check(matches(not(withText(" "))));
+        }
+    }
+
 
 
 
