@@ -24,6 +24,8 @@ public class AdminUserActivity extends AppCompatActivity {
 
         Signup.setOnClickListener(v->startActivity(new Intent(v.getContext(), AdminSignupActivity.class)));
 
+
+
         adminName.setText(User.getInstance().getName());
         adminEmail.setText(User.getInstance().getEmail());
         adminID.setText(String.format("ID: %s", User.getInstance().getID()));
