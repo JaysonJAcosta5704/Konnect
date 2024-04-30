@@ -13,7 +13,7 @@ import onetomany.adminUser.adminUser;
 import onetomany.adminUser.adminUserRepository;
 import org.springframework.http.ResponseEntity;
 
-import onetomany.Matches.MatchesRepository;
+
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
 import onetomany.hobbies.Hobbies;
@@ -50,8 +50,7 @@ public class UserController {
     @Autowired
     HobbiesRepository hobbiesRepository;
 
-    @Autowired
-    MatchesRepository matchesRepository;
+
 
     @Autowired
     userLoginRepository userLoginRepository;
@@ -215,14 +214,22 @@ public class UserController {
 
 
 
-//    @DeleteMapping(path = "/users/{id}")
-//    String deleteUser(@PathVariable long id){
-//
-//        userRepository.deleteById(id);
-//        //userRepository.deleteById(temp.getId());
-//
-//        return success;
-//    }
+    @DeleteMapping(path = "/users/{id}")
+    String deleteUser(@PathVariable int id){
+        User temp= userRepository.findById(id);
+        userLoginRepository.delete(userLoginRepository.findByUserName(temp.getUsername()));
+        for(Hobbies hobbie: temp.getHobbies()){
+            hobbie.removeUser(temp);
+            temp.removeHobbie(hobbie);
+        }
+        for(Reports report: temp.getReports()){
+            report.deleteUSer();
+            reportsRepository.delete(report);
+        }
+        userRepository.delete(temp);
+
+        return success;
+    }
 
 }
 

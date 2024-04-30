@@ -6,7 +6,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import onetomany.Matches.Match;
+
 import onetomany.Reports.Reports;
 import onetomany.hobbies.Hobbies;
 import onetomany.userLogIn.userLogin;
@@ -48,17 +48,15 @@ public class User {
     @ElementCollection
     private List<Integer> UserHobbiesLists;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "match_id")
-    private Match match;
+
+
 
     @OneToMany(mappedBy = "user")
     List<Reports> userReports;
 
-    @OneToMany
-    List<Match> UserMatches;
 
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     userLogin  userLogin;
 
 
@@ -74,7 +72,7 @@ public class User {
         this.ifActive = true;
         userReports = new ArrayList<>();
         this.UserPassword= userPassword;
-        this.UserMatches= new ArrayList<>();
+
         this.username = userName;
         this.age= age;
         this.lastLoggin=new Date();
@@ -177,13 +175,7 @@ public class User {
         this.userReports.add(report);
     }
 
-    public void addUserMatch(Match match){
-        this.UserMatches.add(match);
-    }
 
-    public List<Match> getUserMatches(){
-        return this.UserMatches;
-    }
 
     public Date getLastLoggin(){
         return this.lastLoggin;
@@ -236,6 +228,8 @@ public class User {
         return this.acceptanceCount/this.viewCount;
     }
 
+
+
     @JsonIgnore
     public List<User> getMatches(){
         List<Hobbies> list = new ArrayList<>();
@@ -271,6 +265,10 @@ public class User {
 
 
         return list1;
+    }
+
+    public void removeReport(Reports reports){
+        this.userReports.remove(reports);
     }
 
     public void removeHobbie(Hobbies hobbie){
