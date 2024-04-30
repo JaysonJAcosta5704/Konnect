@@ -228,6 +228,8 @@ public class User {
         return this.acceptanceCount/this.viewCount;
     }
 
+
+
     @JsonIgnore
     public List<User> getMatches(){
         List<Hobbies> list = new ArrayList<>();
@@ -263,6 +265,10 @@ public class User {
 
 
         return list1;
+    }
+
+    public void removeReport(Reports reports){
+        this.userReports.remove(reports);
     }
 
     public void removeHobbie(Hobbies hobbie){
