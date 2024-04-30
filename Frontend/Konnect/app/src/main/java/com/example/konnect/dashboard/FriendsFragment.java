@@ -124,7 +124,7 @@ public class FriendsFragment extends Fragment {
                             if(!senderUsername.equalsIgnoreCase(User.getInstance().getUsername())){ containerFR.addView(createFRLayout(containerFR, containerF, senderUsername, senderUsername, id, false)); }
                             else{
                                 String receiverUsername = item.getString("receiverUsername");
-                                containerFR.addView(createFRLayout(containerP, containerF, receiverUsername, receiverUsername, id, true));
+                                containerP.addView(createFRLayout(containerP, containerF, receiverUsername, receiverUsername, id, true));
                             }
                             break;
                         case "ACCEPTED":
@@ -145,7 +145,7 @@ public class FriendsFragment extends Fragment {
      * @param num ID of the user friend request
      * @return Constraint layout to be added to screen
      */
-    public ConstraintLayout createFRLayout(LinearLayout containerFR, LinearLayout containerF, String userUsername, String userName, int num, Boolean hideAcceptButton){
+    public ConstraintLayout createFRLayout(LinearLayout container1, LinearLayout container2, String userUsername, String userName, int num, Boolean hideAcceptButton){
 
         /* Set Layout */
         ConstraintLayout constraintLayout = new ConstraintLayout(view.getContext());
@@ -205,8 +205,8 @@ public class FriendsFragment extends Fragment {
                 queue.add(jsonObjectRequest);
                 accept.setVisibility(View.GONE);
                 deny.setVisibility(View.GONE);
-                containerFR.removeView(constraintLayout);
-                containerF.addView(constraintLayout);
+                container1.removeView(constraintLayout);
+                container2.addView(constraintLayout);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
@@ -221,7 +221,7 @@ public class FriendsFragment extends Fragment {
                 queue.add(jsonObjectRequest);
                 accept.setVisibility(View.GONE);
                 deny.setVisibility(View.GONE);
-                containerFR.removeView(constraintLayout);
+                container1.removeView(constraintLayout);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
