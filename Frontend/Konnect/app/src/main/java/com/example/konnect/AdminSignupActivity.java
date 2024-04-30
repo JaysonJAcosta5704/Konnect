@@ -85,9 +85,9 @@ public class AdminSignupActivity extends AppCompatActivity {
                     JSONObject params = new JSONObject();
                     try {
                         params.put("name", name);
-                        params.put("userName", username);
+                        params.put("username", username);
                         params.put("emailId", email);
-                        params.put("userPassword", password);
+                        params.put("adminPassword", password);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.e("Error",e.toString());
