@@ -82,8 +82,14 @@ public class UserController {
     }
     @GetMapping(path = "/users/{id}")
     User getAllUser(@PathVariable int id){
-        User test= userRepository.findById(id);
+
+
         return  userRepository.findById(id);
+    }
+
+    @GetMapping(path = "/users/u/{username}")
+    User getUser (@PathVariable String username){
+      return userRepository.findByUsername(username);
     }
 
 

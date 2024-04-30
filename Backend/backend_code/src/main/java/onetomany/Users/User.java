@@ -230,9 +230,9 @@ public class User {
     public void addCount(){
         this.viewCount++;
     }
-    public int getRate(){
-        return this.acceptanceCount/this.viewCount;
-    }
+//    public int getRate(){
+//        return this.acceptanceCount/this.viewCount;
+//    }
 
     @JsonIgnore
     public List<User> getMatches(){
@@ -259,16 +259,25 @@ public class User {
             }
         });
 
-        for(int i=0; i< list1.size()-1; i++){
-            if(list1.get(i).appearences == list1.get(i+1).appearences  && list1.get(i).getRate() < list1.get(i+1).getRate()){
-                User temp= list1.get(i);
-                list1.set(i, list1.get(i+1));
-                list1.set(i+1, temp);
-            }
-        }
+//        for(int i=0; i< list1.size()-1; i++){
+//            if(list1.get(i).appearences == list1.get(i+1).appearences  && list1.get(i).getRate() < list1.get(i+1).getRate()){
+//                User temp= list1.get(i);
+//                list1.set(i, list1.get(i+1));
+//                list1.set(i+1, temp);
+//            }
+//        }
 
 
         return list1;
+    }
+
+    public void removeHobbie(Hobbies hobbie){
+        this.hobbies.remove(hobbie);
+    }
+
+    public User getUser(User user){
+        User temp = new User();
+        return temp;
     }
 
 
