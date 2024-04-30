@@ -110,6 +110,7 @@ public class AdminSignupActivity extends AppCompatActivity {
                                             Intent intent = new Intent(AdminSignupActivity.this, AdminFindActivity.class);
                                             intent.putExtra("AD_USERNAME", username);
                                             intent.putExtra("AD_EMAIL", email);
+                                            intent.putExtra("AD_PW", password);
                                             startActivity(intent);
                                         } else {
                                             // Display failure message
