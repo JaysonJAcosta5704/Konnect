@@ -8,6 +8,7 @@ public class ServerURLs {
      */
     private static final String SERVER_URL = "http://coms-309-001.class.las.iastate.edu:8080/";
 //    private static final String SERVER_URL = "https://df952b3b-a205-4a2f-a0e0-a0f471c5f2bb.mock.pstmn.io/";
+//    private static final String SERVER_URL = "http://10.0.2.2:8080/";
 
     /**
      * The URL of the websocket

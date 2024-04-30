@@ -91,7 +91,7 @@ public class JaysonAcostaTest {
         try (FragmentScenario<FriendsFragment> scenario = FragmentScenario.launchInContainer(FriendsFragment.class)){
             scenario.onFragment(fragment -> {
 
-                ConstraintLayout layoutFR = fragment.createFRLayout(new LinearLayout(fragment.getContext()), new LinearLayout(fragment.getContext()), "user1", "User One", 1);
+                ConstraintLayout layoutFR = fragment.createFRLayout(new LinearLayout(fragment.getContext()), new LinearLayout(fragment.getContext()), "user1", "User One", 1, false);
                 ConstraintLayout layoutF = fragment.createFLayout("user2", "User Two", 2);
                 ConstraintLayout layoutG = fragment.createGLayout("Group One", 1);
 
@@ -115,7 +115,7 @@ public class JaysonAcostaTest {
                 LinearLayout containerF = Objects.requireNonNull(fragment.getView()).findViewById(R.id.Container_F);
                 LinearLayout containerG = Objects.requireNonNull(fragment.getView()).findViewById(R.id.Container_G);
 
-                containerFR.addView(fragment.createFRLayout(new LinearLayout(fragment.getContext()), new LinearLayout(fragment.getContext()), "user1", "User One", 1));
+                containerFR.addView(fragment.createFRLayout(new LinearLayout(fragment.getContext()), new LinearLayout(fragment.getContext()), "user1", "User One", 1, false));
                 containerF.addView(fragment.createFLayout("user2", "User Two", 2));
                 containerG.addView(fragment.createGLayout("Group One", 1));
             });

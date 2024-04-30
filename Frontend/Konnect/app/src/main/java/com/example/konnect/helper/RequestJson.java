@@ -3,6 +3,7 @@ package com.example.konnect.helper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -20,7 +21,7 @@ public class RequestJson {
 
     /*---------------------------------------------- GET REQUESTS ----------------------------------------------*/
 
-    public static JsonObjectRequest login(Activity activity, Context context, RequestQueue queue, ProgressBar progressBar){
+    public static synchronized JsonObjectRequest login(Activity activity, Context context, RequestQueue queue, ProgressBar progressBar){
         return new JsonObjectRequest(Request.Method.GET, ServerURLs.getURL_USERLOGIN(), null, response -> {
             try {
                 User.getInstance().setID(response.getString("id"))
@@ -33,7 +34,7 @@ public class RequestJson {
         }, error -> {User.dialogError(context, error.toString()); progressBar.setVisibility(View.GONE);});
     }
 
-    public static JsonObjectRequest viewProfile(Context context){
+    public static synchronized JsonObjectRequest viewProfile(Context context){
         ServerURLs.setURL_USERINFO();
         return new JsonObjectRequest(Request.Method.GET, ServerURLs.getURL_USERINFO(), null, response -> {
             try {
@@ -46,7 +47,7 @@ public class RequestJson {
         }, error -> User.dialogError(context, error.toString()));
     }
 
-    public static JsonArrayRequest friendRequests(Activity activity, Context context, ProgressBar progressBar){
+    public static synchronized JsonArrayRequest friendRequests(Activity activity, Context context, ProgressBar progressBar){
         ServerURLs.setURL_FR();
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ServerURLs.getURL_FR(), null, response -> User.getInstance().setFriendRequests(response), error -> {User.dialogError(context, error.toString()); progressBar.setVisibility(View.GONE);});
         progressBar.setVisibility(View.GONE);
@@ -56,16 +57,24 @@ public class RequestJson {
 
     /*---------------------------------------------- POST REQUESTS ---------------------------------------------*/
 
-    public static JsonObjectRequest friendRequestStatusUpdate(Context context, JSONObject params, String path, int id){
-        String url = String.format("%s/friend-requests/%s/%s", ServerURLs.getServerUrl(), path, id);
+    public static synchronized JsonObjectRequest friendRequestStatusUpdate(Context context, JSONObject params, String path, int id){
+        String url = String.format("%sfriend-requests/%s/%s", ServerURLs.getServerUrl(), path, id);
 
         return new JsonObjectRequest(Request.Method.POST, url, params, response -> {
-            try {
-                Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
+            try { Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show(); }
+            catch (JSONException e) { throw new RuntimeException(e); }
         }, error -> {});
     }
 
+    public static synchronized JsonObjectRequest sendFriendRequest(Context context, JSONObject params){
+        String url = String.format("%sfriend-requests/send", ServerURLs.getServerUrl());
+
+        return new JsonObjectRequest(Request.Method.POST, url, params, response -> {
+            try { Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show(); }
+            catch (JSONException e) { throw new RuntimeException(e); }
+        }, error -> {
+            Log.e("Volley", error.toString());
+            error.printStackTrace();
+        });
+    }
 }

@@ -4,10 +4,12 @@ import static com.example.konnect.helper.RequestJson.friendRequestStatusUpdate;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,13 +22,14 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.konnect.R;
+import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class FriendsFragment extends Fragment {
-    LinearLayout containerFR, containerF, containerG;
+    LinearLayout containerFR, containerF, containerG, containerP;
     View view;
 
     public FriendsFragment() {}
@@ -38,10 +41,12 @@ public class FriendsFragment extends Fragment {
         containerFR = view.findViewById(R.id.Container_FR);
         containerF = view.findViewById(R.id.Container_F);
         containerG = view.findViewById(R.id.Container_G);
+        containerP = view.findViewById(R.id.Container_P);
 
         ImageView imageViewVFR = view.findViewById(R.id.ImageView_VFR);
         ImageView imageViewVF = view.findViewById(R.id.ImageView_VF);
         ImageView imageViewG = view.findViewById(R.id.ImageView_G);
+        ImageView imageViewP = view.findViewById(R.id.ImageView_P);
 
         imageViewVFR.setOnClickListener(v -> {
             if(containerFR.isShown()){
@@ -70,9 +75,39 @@ public class FriendsFragment extends Fragment {
                 imageViewG.setImageResource(R.drawable.expand_less);
             }
         });
+        imageViewP.setOnClickListener(v -> {
+            if(containerP.isShown()){
+                containerP.setVisibility(View.GONE);
+                imageViewP.setImageResource(R.drawable.expand_more);
+            } else {
+                containerP.setVisibility(View.VISIBLE);
+                imageViewP.setImageResource(R.drawable.expand_less);
+            }
+        });
 
         containerG.addView(createGLayout("ComS-309 Group", 906));
         containerG.addView(createGLayout("Admin Group", 101));
+
+        EditText sendToUsername = view.findViewById(R.id.Send_FR_username);
+        ImageView sendFr = view.findViewById(R.id.Send_FR);
+        sendFr.setOnClickListener(v -> {
+
+            try {
+                JSONObject params = new JSONObject();
+                params.put("senderUsername", User.getInstance().getUsername());
+                params.put("receiverUsername", sendToUsername.getText().toString());
+                JsonObjectRequest jsonObjectRequest = RequestJson.sendFriendRequest(view.getContext(), params);
+                RequestQueue queue = Volley.newRequestQueue(view.getContext());
+                queue.add(jsonObjectRequest);
+            } catch (JSONException e) {
+                User.dialogError(view.getContext(), e.toString());
+                Log.e("Error", e.toString());
+            }
+
+
+        });
+
+
 
         if (User.getInstance().getFriendRequests() != null){
             try {
@@ -86,7 +121,11 @@ public class FriendsFragment extends Fragment {
                         case "DECLINED":
                             break;
                         case "PENDING":
-                            containerFR.addView(createFRLayout(containerFR, containerF, senderUsername, senderUsername, id));
+                            if(!senderUsername.equalsIgnoreCase(User.getInstance().getUsername())){ containerFR.addView(createFRLayout(containerFR, containerF, senderUsername, senderUsername, id, false)); }
+                            else{
+                                String receiverUsername = item.getString("receiverUsername");
+                                containerFR.addView(createFRLayout(containerP, containerF, receiverUsername, receiverUsername, id, true));
+                            }
                             break;
                         case "ACCEPTED":
                             containerF.addView(createFLayout(senderUsername, senderUsername, id));
@@ -106,7 +145,7 @@ public class FriendsFragment extends Fragment {
      * @param num ID of the user friend request
      * @return Constraint layout to be added to screen
      */
-    public ConstraintLayout createFRLayout(LinearLayout containerFR, LinearLayout containerF, String userUsername, String userName, int num){
+    public ConstraintLayout createFRLayout(LinearLayout containerFR, LinearLayout containerF, String userUsername, String userName, int num, Boolean hideAcceptButton){
 
         /* Set Layout */
         ConstraintLayout constraintLayout = new ConstraintLayout(view.getContext());
@@ -214,6 +253,8 @@ public class FriendsFragment extends Fragment {
         constraintSet.connect(accept.getId(), ConstraintSet.BOTTOM, deny.getId(), ConstraintSet.BOTTOM);
 
         constraintSet.applyTo(constraintLayout);
+
+        if (hideAcceptButton){ accept.setVisibility(View.GONE); }
 
         return constraintLayout;
     }
