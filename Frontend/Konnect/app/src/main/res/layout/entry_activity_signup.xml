@@ -71,7 +71,6 @@
                 android:id="@+id/signup_dob_edt"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:inputType="date"
                 android:hint="MM/dd/yyyy"
                 android:textColorHint="#FFFFFF"
                 android:textColor="#ffffff">
@@ -93,13 +92,15 @@
             android:textSize="20dp"
             android:textColor="#FFFFFF">
         </TextView>
+            <EditText
+                android:id="@+id/signup_gender_edt"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:hint="Male/Female"
+                android:textColorHint="#FFFFFF"
+                android:textColor="#ffffff">
+            </EditText>
 
-        <Spinner
-            android:id="@+id/signup_gender_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor = "#FFFFFF">
-        </Spinner>
 
     </LinearLayout>
 

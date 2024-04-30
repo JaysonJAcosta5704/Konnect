@@ -32,6 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
         Button friendsButton = findViewById(R.id.Friends_Button);
         Button findpeopleButton = findViewById(R.id.GroupChatButton);
         Button minigameButton = findViewById(R.id.Minigame_Button);
+        Button adminButton = findViewById(R.id.Admin_Button);
 
         chatButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChatActivity.class)));
         accountSettingsButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
@@ -39,6 +40,7 @@ public class SettingsActivity extends AppCompatActivity {
         reportButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ReportActivity.class)));
         minigameButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), MinigamesActivity.class)));
         findpeopleButton.setOnClickListener(v->startActivity(new Intent(v.getContext(), FindPeopleActivity.class)));
+        adminButton.setOnClickListener(v->startActivity(new Intent(v.getContext(), AdminUserActivity.class)));
 
         settingsName.setText(User.getInstance().getName());
         settingsEmail.setText(User.getInstance().getEmail());

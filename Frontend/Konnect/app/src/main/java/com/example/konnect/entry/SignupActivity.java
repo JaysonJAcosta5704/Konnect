@@ -1,6 +1,5 @@
 package com.example.konnect.entry;
 
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,7 +7,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -21,7 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.konnect.ChoosehobbiesActivity;
+import com.example.konnect.SettingsActivity;
 import com.example.konnect.R;
 
 import org.json.JSONException;
@@ -29,7 +27,6 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -47,11 +44,10 @@ public class SignupActivity extends AppCompatActivity {
     private EditText nameEditText;
     private EditText ageEditText;
     private EditText dobEditText;
-    private Spinner genderSpinner;
+    private EditText genderEditText;
     private Button loginButton;         // define login button variable
     private Button signupButton;        // define signup button variable
     private Button homeButton;
-    private String gender;
     private Date birthday;
 
     /**
@@ -70,13 +66,12 @@ public class SignupActivity extends AppCompatActivity {
         emailAccountEditText = findViewById(R.id.signup_email_edt);
         nameEditText = findViewById(R.id.signup_name_edt);
         ageEditText = findViewById(R.id.signup_age_edt);
-        genderSpinner = findViewById(R.id.signup_gender_spinner);
         dobEditText = findViewById(R.id.signup_dob_edt);
         loginButton = findViewById(R.id.signup_login_btn);    // link to login button in the Signup activity XML
         signupButton = findViewById(R.id.signup_signup_btn);  // link to signup button in the Signup activity XML
         homeButton = findViewById(R.id.signup_home_btn);
-
-
+        genderEditText = findViewById(R.id.signup_gender_edt);
+/**
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.gender_array, android.R.layout.simple_spinner_item);
@@ -99,7 +94,7 @@ public class SignupActivity extends AppCompatActivity {
                 // Do nothing
             }
         });
-
+**/
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +119,7 @@ public class SignupActivity extends AppCompatActivity {
                 String email = emailAccountEditText.getText().toString();
                 String ageString = ageEditText.getText().toString();
                 String dob = dobEditText.getText().toString();
+                String gender = genderEditText.getText().toString();
                 int age = Integer.parseInt(ageString);
 
                 SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
@@ -132,7 +128,7 @@ public class SignupActivity extends AppCompatActivity {
                 }catch (ParseException e) {
                     e.printStackTrace();
                     // Handle the exception
-                    Toast.makeText(SignupActivity.this, "Plesase, provide the correct form of DOB", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Please, provide the correct form of DOB", Toast.LENGTH_SHORT).show();
 
                 }
                 //check if user didn't left the blank
@@ -145,7 +141,7 @@ public class SignupActivity extends AppCompatActivity {
                     return;
 
                 }else if(password.isEmpty()){
-                    Toast.makeText(SignupActivity.this, "Plesae, provide your password.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignupActivity.this, "Please, provide your password.", Toast.LENGTH_SHORT).show();
                     return;
 
                 }else if(confirm.isEmpty()){
@@ -177,15 +173,16 @@ public class SignupActivity extends AppCompatActivity {
                     JSONObject params = new JSONObject();
                     try {
                         params.put("name", name);
-                        params.put("userName", username);
                         params.put("emailId", email);
                         params.put("userPassword", password);
+                        params.put("userName", username);
+                        params.put("age", age);
                         params.put("birthday", birthday);
                         params.put("gender", gender);
-                        params.put("age", age);
+
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        Log.e("Error",e.toString());
+                        Log.e("Error Json",e.toString());
                     }
 
                     JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -201,9 +198,8 @@ public class SignupActivity extends AppCompatActivity {
                                             // Display success message
                                             Toast.makeText(SignupActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
 
-                                            // Start ChoosehobbiesActivity
-                                            Intent intent = new Intent(SignupActivity.this, ChoosehobbiesActivity.class);
-                                            intent.putExtra("USERNAME", username);
+                                            // Start SettingsActivity
+                                            Intent intent = new Intent(SignupActivity.this, SettingsActivity.class);
                                             startActivity(intent);
                                         } else {
                                             // Display failure message
@@ -218,7 +214,14 @@ public class SignupActivity extends AppCompatActivity {
 
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_LONG).show();
+
+                                    // Check if the error is a network error
+                                    if (error instanceof com.android.volley.NoConnectionError) {
+                                        Toast.makeText(SignupActivity.this, "Network error", Toast.LENGTH_LONG).show();
+                                    } else {
+                                        Toast.makeText(SignupActivity.this, "Error", Toast.LENGTH_LONG).show();
+                                    }
                                 }
                             });
 
