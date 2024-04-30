@@ -100,4 +100,8 @@ public class userLogin {
     public void setAdminUser(adminUser newAdminUser){
         this.adminUser = newAdminUser;
     }
+    public void deleteLoginUser(User user){
+        this.user= null;
+        this.userName= null;
+    }
 }
