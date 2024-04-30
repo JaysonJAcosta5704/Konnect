@@ -85,9 +85,9 @@ public class AdminSignupActivity extends AppCompatActivity {
                     JSONObject params = new JSONObject();
                     try {
                         params.put("name", name);
-                        params.put("userName", username);
+                        params.put("username", username);
                         params.put("emailId", email);
-                        params.put("userPassword", password);
+                        params.put("adminPassword", password);
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.e("Error",e.toString());
@@ -106,7 +106,7 @@ public class AdminSignupActivity extends AppCompatActivity {
                                             // Display success message
                                             Toast.makeText(AdminSignupActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
 
-                                            // Start AdminLogin
+                                            // Start AdminFind
                                             Intent intent = new Intent(AdminSignupActivity.this, AdminFindActivity.class);
                                             intent.putExtra("AD_USERNAME", username);
                                             intent.putExtra("AD_EMAIL", email);

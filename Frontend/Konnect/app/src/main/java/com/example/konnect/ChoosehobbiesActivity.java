@@ -28,6 +28,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.konnect.dashboard.DashboardActivity;
 
 /**
  * This class represents the ChooseHobbiesActivity and handles the process of choosing hobbies. This activity connects to ShowChosenHobbiesActivity.
@@ -190,8 +191,8 @@ public class ChoosehobbiesActivity extends AppCompatActivity {
                             if (status.equals("success")) {
                                 // Display success message
                                 Toast.makeText(ChoosehobbiesActivity.this, "Hobby submitted successfully!", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(ChoosehobbiesActivity.this, ShowChosenHobbiesActivity.class);
-                                intent.putExtra("USERNAME", username_hobby);
+                                Intent intent = new Intent(ChoosehobbiesActivity.this, DashboardActivity.class);
+                                //intent.putExtra("USERNAME", username_hobby);
                                 startActivity(intent);
                             } else {
                                 // Display failure message

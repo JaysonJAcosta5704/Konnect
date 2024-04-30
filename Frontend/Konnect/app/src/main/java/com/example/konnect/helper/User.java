@@ -54,6 +54,12 @@ public class User implements Serializable {
     private String ID;
 
     /**
+     * The int value id of the user
+     */
+
+    private int int_id;
+
+    /**
      * The birthday of the user.
      */
     private String birthday;
@@ -125,6 +131,7 @@ public class User implements Serializable {
      */
     public User setID(String ID) { this.ID = ID; return instance;}
 
+
     /**
      * Sets the password of the user.
      *
@@ -144,7 +151,7 @@ public class User implements Serializable {
      *
      * @param age The age to be set.
      */
-    public User setAge(String age) { this.age = age; return instance; }
+    public User setAge(String age) { this.age = age; return instance;}
 
     /**
      * Sets the Join date of the user.

@@ -14,6 +14,8 @@ import com.example.konnect.ChoosehobbiesActivity;
 import com.example.konnect.R;
 import com.example.konnect.ReportActivity;
 import com.example.konnect.entry.MainActivity;
+import com.example.konnect.AdminUserActivity;
+import com.google.android.material.circularreveal.CircularRevealHelper;
 
 public class SettingsFragment extends Fragment {
     @SuppressLint("ApplySharedPref")
@@ -24,9 +26,11 @@ public class SettingsFragment extends Fragment {
         Button chooseHobbiesButton = view.findViewById(R.id.ChooseHobbies_Button);
         Button reportButton = view.findViewById(R.id.Report_Button);
         Button logoutButton = view.findViewById(R.id.Logout_Button);
+        Button AdminButton = view.findViewById(R.id.Admin_Button);
 
         chooseHobbiesButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChoosehobbiesActivity.class)));
         reportButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ReportActivity.class)));
+        AdminButton.setOnClickListener(v-> startActivity(new Intent(v.getContext(), AdminUserActivity.class)));
         logoutButton.setOnClickListener(v -> {
             v.getContext().getSharedPreferences("USERDATA", 0).edit().clear().commit();
             startActivity(new Intent(v.getContext(), MainActivity.class));
