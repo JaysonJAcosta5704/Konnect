@@ -154,10 +154,9 @@ public class TicTacToeActivity extends AppCompatActivity {
             JSONObject params = new JSONObject();
             params.put("username", User.getInstance().getUsername());
             params.put("score", Math.max(score, 0));
-            JsonObjectRequest jsonObjectRequest = RequestJson.updateScoreboard(this, this, params, "TTT");
+            JsonObjectRequest jsonObjectRequest = RequestJson.updateScoreboard(this, this, params, "/api/tictactoe/results");
             RequestQueue queue = Volley.newRequestQueue(this);
- //           queue.add(jsonObjectRequest);
-            finish();
+            queue.add(jsonObjectRequest);
         } catch (JSONException ignored) {}
     }
 

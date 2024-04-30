@@ -78,6 +78,6 @@ public class RequestJson {
     public static synchronized JsonObjectRequest updateScoreboard(Activity activity, Context context, JSONObject params, String game){
         String url = String.format("%s%s/", ServerURLs.getServerUrl(), game);
 
-        return new JsonObjectRequest(Request.Method.POST, url, params, response -> { activity.finish(); }, error -> Log.e("Volley", error.toString()));
+        return new JsonObjectRequest(Request.Method.POST, url, params, response -> { activity.finish(); }, error -> { Log.e("Volley", error.toString()); activity.finish(); });
     }
 }
