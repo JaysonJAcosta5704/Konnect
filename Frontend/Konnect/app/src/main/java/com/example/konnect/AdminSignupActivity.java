@@ -107,8 +107,9 @@ public class AdminSignupActivity extends AppCompatActivity {
                                             Toast.makeText(AdminSignupActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
 
                                             // Start AdminLogin
-                                            Intent intent = new Intent(AdminSignupActivity.this, AdminLoginActivity.class);
-                                            intent.putExtra("USERNAME", username);
+                                            Intent intent = new Intent(AdminSignupActivity.this, AdminFindActivity.class);
+                                            intent.putExtra("AD_USERNAME", username);
+                                            intent.putExtra("AD_EMAIL", email);
                                             startActivity(intent);
                                         } else {
                                             // Display failure message

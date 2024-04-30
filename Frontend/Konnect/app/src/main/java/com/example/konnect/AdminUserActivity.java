@@ -20,11 +20,9 @@ public class AdminUserActivity extends AppCompatActivity {
         TextView adminID = findViewById(R.id.Admin_id);
 
         Button Signup = findViewById(R.id.admin_signup_btn);
-        Button Login = findViewById(R.id.admin_login_btn);
 
 
         Signup.setOnClickListener(v->startActivity(new Intent(v.getContext(), AdminSignupActivity.class)));
-        Login.setOnClickListener(v->startActivity(new Intent(v.getContext(), AdminLoginActivity.class)));
 
         adminName.setText(User.getInstance().getName());
         adminEmail.setText(User.getInstance().getEmail());

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AdminUserActivity"
+    tools:context=".AdminFindActivity"
     android:background="@color/whiteSmoke">
 
     <ScrollView
@@ -90,7 +90,27 @@
                     app:layout_constraintTop_toBottomOf="@+id/Admin_Email">
 
                     <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/admin_signup_btn"
+                        android:id="@+id/findAll_btn"
+                        style="@android:style/Widget.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginStart="32dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="32dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/btn_background_1"
+                        android:drawableStart="@drawable/group"
+                        android:drawablePadding="20dp"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:text="Find All Users"
+                        android:textAlignment="viewStart"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        tools:ignore="HardcodedText" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/find_user_btn"
                         style="@android:style/Widget.Button"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
@@ -103,12 +123,11 @@
                         android:drawablePadding="20dp"
                         android:paddingStart="20dp"
                         android:paddingEnd="20dp"
-                        android:text="Admin Signup"
+                        android:text="Find user by id"
                         android:textAlignment="viewStart"
                         android:textSize="18sp"
                         android:textStyle="bold"
                         tools:ignore="HardcodedText" />
-
 
 
                 </LinearLayout>
