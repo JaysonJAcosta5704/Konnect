@@ -48,8 +48,6 @@ public class SignupActivity extends AppCompatActivity {
     private Button loginButton;         // define login button variable
     private Button signupButton;        // define signup button variable
     private Button homeButton;
-    private Date birthday;
-
     /**
      *
      * @param savedInstanceState
@@ -118,19 +116,11 @@ public class SignupActivity extends AppCompatActivity {
                 String confirm = confirmEditText.getText().toString();
                 String email = emailAccountEditText.getText().toString();
                 String ageString = ageEditText.getText().toString();
-                String dob = dobEditText.getText().toString();
+                String dobString = dobEditText.getText().toString();
                 String gender = genderEditText.getText().toString();
+
                 int age = Integer.parseInt(ageString);
 
-                SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-                try {
-                    birthday = df.parse(dob);
-                }catch (ParseException e) {
-                    e.printStackTrace();
-                    // Handle the exception
-                    Toast.makeText(SignupActivity.this, "Please, provide the correct form of DOB", Toast.LENGTH_SHORT).show();
-
-                }
                 //check if user didn't left the blank
                 if(username.isEmpty()){
                     Toast.makeText(SignupActivity.this, "Please, provide your username", Toast.LENGTH_SHORT).show();
@@ -148,7 +138,7 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(SignupActivity.this, "Please, provide your confirm password.", Toast.LENGTH_SHORT).show();
                     return;
 
-                }else if(dob.isEmpty()){
+                }else if(dobString.isEmpty()){
                     Toast.makeText(SignupActivity.this, "Please, provide your date of birth.", Toast.LENGTH_SHORT).show();
                     return;
 
@@ -161,12 +151,27 @@ public class SignupActivity extends AppCompatActivity {
                     return;
 
                 }
-                /**
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                String currentDate = df.format(new Date());
-                 **/
+
+                /**SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String currentDate = df.format(new Date());**/
+
                 if (password.equals(confirm)){
                     Toast.makeText(getApplicationContext(), "Signing up", Toast.LENGTH_LONG).show();
+
+                    // Parse the date string into a Date object
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                    Date dob;
+                    try {
+                        dob = df.parse(dobString);
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        Toast.makeText(SignupActivity.this, "Please, provide the correct form of DOB", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    // Format the Date object into an ISO 8601 string
+                    df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.getDefault());
+                    String dobISO = df.format(dob);
 
 
                     String url = "http://coms-309-001.class.las.iastate.edu:8080/users/";
@@ -177,7 +182,7 @@ public class SignupActivity extends AppCompatActivity {
                         params.put("userPassword", password);
                         params.put("userName", username);
                         params.put("age", age);
-                        params.put("birthday", birthday);
+                        params.put("birthday", dobISO);
                         params.put("gender", gender);
 
                     } catch (JSONException e) {

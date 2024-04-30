@@ -71,7 +71,8 @@
                 android:id="@+id/signup_dob_edt"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:hint="MM/dd/yyyy"
+                android:hint="yyyy-MM-dd"
+                android:inputType="date"
                 android:textColorHint="#FFFFFF"
                 android:textColor="#ffffff">
             </EditText>
