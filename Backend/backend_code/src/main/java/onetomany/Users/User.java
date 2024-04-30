@@ -6,7 +6,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import onetomany.Matches.Match;
+
 import onetomany.Reports.Reports;
 import onetomany.hobbies.Hobbies;
 import onetomany.userLogIn.userLogin;
@@ -42,23 +42,22 @@ public class User {
     )
     private Set<Hobbies> hobbies = new HashSet<>();
     private String UserBio;
-    private int viewCount;
-    private int acceptanceCount;
-    private String UserImagePath;
+    private int viewCount= 1;
+    private int acceptanceCount=1;
+    @Lob
+    private byte[] profileImage;
     @ElementCollection
     private List<Integer> UserHobbiesLists;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "match_id")
-    private Match match;
+
+
 
     @OneToMany(mappedBy = "user")
     List<Reports> userReports;
 
-    @OneToMany
-    List<Match> UserMatches;
 
-    @OneToOne
+
+    @OneToOne(cascade = CascadeType.ALL)
     userLogin  userLogin;
 
 
@@ -74,7 +73,7 @@ public class User {
         this.ifActive = true;
         userReports = new ArrayList<>();
         this.UserPassword= userPassword;
-        this.UserMatches= new ArrayList<>();
+
         this.username = userName;
         this.age= age;
         this.lastLoggin=new Date();
@@ -177,13 +176,7 @@ public class User {
         this.userReports.add(report);
     }
 
-    public void addUserMatch(Match match){
-        this.UserMatches.add(match);
-    }
 
-    public List<Match> getUserMatches(){
-        return this.UserMatches;
-    }
 
     public Date getLastLoggin(){
         return this.lastLoggin;
@@ -231,8 +224,12 @@ public class User {
         this.viewCount++;
     }
     public int getRate(){
+        if(this.acceptanceCount ==0 || this.viewCount ==0 )
+            return 1;
         return this.acceptanceCount/this.viewCount;
     }
+
+
 
     @JsonIgnore
     public List<User> getMatches(){
@@ -269,6 +266,25 @@ public class User {
 
 
         return list1;
+    }
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
+    }
+    public void removeReport(Reports reports){
+        this.userReports.remove(reports);
+    }
+
+    public void removeHobbie(Hobbies hobbie){
+        this.hobbies.remove(hobbie);
+    }
+
+    public User getUser(User user){
+        User temp = new User();
+        return temp;
     }
 
 

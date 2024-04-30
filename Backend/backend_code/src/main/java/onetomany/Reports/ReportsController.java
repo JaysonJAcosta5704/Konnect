@@ -2,6 +2,8 @@ package onetomany.Reports;
 import java.util.List;
 
 
+import onetomany.Users.User;
+import onetomany.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReportsController {
     @Autowired
     ReportsRepository reportsRepository;
+
+    @Autowired
+    UserRepository userRepository;
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
 
@@ -46,7 +51,11 @@ public class ReportsController {
 
     @DeleteMapping(path = "/reports/{id}")
     String deleteReport(@PathVariable long id){
+        User temp= reportsRepository.findById(id).getUser();
+        temp.removeReport(reportsRepository.findById(id));
+        userRepository.save(temp);
         reportsRepository.deleteById(id);
+
         return success;
     }
 

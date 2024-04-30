@@ -140,6 +140,9 @@ public class Hobbies {
     public void setUsers(Set<User> users) {
         this.users = users;
     }
+    public void removeUser(User user){
+        this.users.remove(user);
+    }
 
     //    public Set<User> getUsers() {
 //        return users;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import onetomany.AdminActivityReport.adminActivityReport;
-import onetomany.Matches.MatchesRepository;
+
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
 import onetomany.Users.User;
@@ -43,8 +43,7 @@ public class adminUserController {
     @Autowired
     HobbiesRepository hobbiesRepository;
 
-    @Autowired
-    MatchesRepository matchesRepository;
+
 
     @Autowired
     userLoginRepository userLoginRepository;

@@ -86,7 +86,7 @@ package onetomany;
 
 import java.util.Date;
 
-import onetomany.Matches.MatchesRepository;
+
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
 import onetomany.friendrequest.FriendRequestRepository;
@@ -113,7 +113,7 @@ class Main {
     }
 
     @Bean
-    CommandLineRunner initUser(UserRepository userRepository, MatchesRepository matchesRepository, ReportsRepository reportsRepository, HobbiesRepository hobbiesRepository, FriendRequestRepository friendRequestRepository){
+    CommandLineRunner initUser(UserRepository userRepository, ReportsRepository reportsRepository, HobbiesRepository hobbiesRepository, FriendRequestRepository friendRequestRepository){
         return args -> {
 //            User user1= new User("Daniel", "dmvp01@iastate.edu", new Date(), "Daniel123", "DanielNew1", 21);
 //            User user2= new User("Nishi", "Nishi@iastate.edu", new Date(), "Nishi456", "NishiNew",22);

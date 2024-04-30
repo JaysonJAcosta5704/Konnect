@@ -3,9 +3,17 @@ package onetomany.Users;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.springframework.http.MediaType;
+import onetomany.AdminActivityReport.adminActivityReport;
+import onetomany.AdminActivityReport.adminActivityReportRepository;
+import onetomany.WebSocketAdminNot.Message;
+import onetomany.WebSocketAdminNot.MessageRepository;
+import onetomany.WebSocketAdminNot.adminChat;
+import onetomany.adminUser.adminUser;
+import onetomany.adminUser.adminUserRepository;
 import org.springframework.http.ResponseEntity;
-
-import onetomany.Matches.MatchesRepository;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
 import onetomany.hobbies.Hobbies;
@@ -21,8 +29,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-
+import org.springframework.web.bind.annotation.RequestParam;
+import java.io.IOException;
 
 /**
  *
@@ -42,26 +50,45 @@ public class UserController {
     @Autowired
     HobbiesRepository hobbiesRepository;
 
-    @Autowired
-    MatchesRepository matchesRepository;
+
 
     @Autowired
     userLoginRepository userLoginRepository;
+
+    @Autowired
+    MessageRepository messageRepository;
+
+    @Autowired
+    adminChat adminChatt;
+
+    @Autowired
+    adminUserRepository adminUserRepository;
+
+    @Autowired
+    adminActivityReportRepository adminActivityReportRepository;
+
 
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
 
     @GetMapping(path = "/users")
-    List<User> getAllUsers(){
+    List<User> getAllUsersss(){
         for (User useer:userRepository.findAll()) {
             useer.setLastLoggin();
+            userRepository.save(useer);
         }
         return userRepository.findAll();
     }
     @GetMapping(path = "/users/{id}")
     User getAllUser(@PathVariable int id){
 
+
         return  userRepository.findById(id);
+    }
+
+    @GetMapping(path = "/users/u/{username}")
+    User getUser (@PathVariable String username){
+      return userRepository.findByUsername(username);
     }
 
 
@@ -89,16 +116,7 @@ public class UserController {
 //        return tempUser.getReports();
 //    }
 
-//    @GetMapping(path = "/user/")
-//    User getUserbyUsername(@PathVariable String username){
-//        User temp =userRepository.findById(1);
-//        return userRepository.findById(1);
-//    }
-//    @GetMapping(path = "/user/")
-//    User getUserbyUsername(@PathVariable String username){
-//        User temp =userRepository.findById(1);
-//        return userRepository.findById(1);
-//    }
+
     @GetMapping(path = "/users/{id}/getFlashcards")
     List<User> getMatches(@PathVariable int id){
       User temp=  userRepository.findById(id);
@@ -162,21 +180,96 @@ public class UserController {
             report.setUser1(tempUser);
             report.setUser2(tempUser2);
           reportsRepository.save(report);
-          tempUser.addReport(reportsRepository.findById(1));
+          tempUser.addReport(reportsRepository.findByReport(report.getReport()));
           userRepository.save(tempUser);
+          adminUser temp= null;
+        for (adminUser admin: adminUserRepository.findAll()) {
+                if (temp==null || temp.getAdminActivityReportList().size() > admin.getAdminActivityReportList().size() ){
+                    temp= admin;
+                }
+        }
+        int reportId= reportsRepository.findByReport(report.getReport()).getId();
+        adminActivityReport adminrep= new adminActivityReport(temp.getEmailId(),temp.getUsername(),reportId,"User has made a new report");
+
+        adminActivityReportRepository.save(adminrep);
+        temp.addAminActivityReport(adminActivityReportRepository.findByReportID(reportId));
+        adminUserRepository.save(temp);
+        adminChatt.broadcast(tempUser.getUsername() +"has made a new report on user " + tempUser2.getUsername());
+        adminChatt.sendMessageToPArticularUser(temp.getUsername(),"You have been assigned a new Admin assignment, with user report" + reportId);
             return success;
+    }
+
+    @DeleteMapping(path = "/users/{id}/removeHobbie")
+    String deleteHobbie(@PathVariable int id, @RequestBody Hobbies hoobie){
+        User tempUser= userRepository.findById(id);
+        Hobbies hobbieTemp= hobbiesRepository.findByName(hoobie.getName());
+        if(tempUser==null || hobbieTemp==null || !tempUser.getHobbies().contains(hobbieTemp))
+            return failure;
+        hobbieTemp.removeUser(tempUser);
+        tempUser.removeHobbie(hobbieTemp);
+        hobbiesRepository.save(hobbieTemp);
+        userRepository.save(tempUser);
+        return success;
     }
 
 
 
-//    @DeleteMapping(path = "/users/{id}")
-//    String deleteUser(@PathVariable long id){
-//
-//        userRepository.deleteById(id);
-//        //userRepository.deleteById(temp.getId());
-//
-//        return success;
-//    }
+    @DeleteMapping(path = "/users/{id}")
+    String deleteUser(@PathVariable int id){
+        User temp= userRepository.findById(id);
+        userLoginRepository.delete(userLoginRepository.findByUserName(temp.getUsername()));
+        for(Hobbies hobbie: temp.getHobbies()){
+            hobbie.removeUser(temp);
+            temp.removeHobbie(hobbie);
+        }
+        for(Reports report: temp.getReports()){
+            report.deleteUSer();
+            reportsRepository.delete(report);
+        }
+        userRepository.delete(temp);
+
+        return success;
+    }
+    @PostMapping("/users/{username}/profile-image")
+    public String uploadProfileImage(@PathVariable String username, @RequestParam("image") MultipartFile imageFile) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return "User not found";
+        }
+
+        try {
+            user.setProfileImage(imageFile.getBytes());
+            userRepository.save(user);
+            return "Profile image uploaded successfully";
+        } catch (IOException e) {
+            return "Failed to upload profile image";
+        }
+    }
+
+    @GetMapping("/users/{username}/profile-image")
+    public ResponseEntity<byte[]> getProfileImage(@PathVariable String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null || user.getProfileImage() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(user.getProfileImage());
+    }
+
+    @DeleteMapping("/users/{username}/profile-image")
+    public String deleteProfileImage(@PathVariable String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null || user.getProfileImage() == null) {
+            return "User not found or profile image not set";
+        }
+
+        user.setProfileImage(null);
+        userRepository.save(user);
+        return "Profile image deleted successfully";
+    }
+
 
 }
 

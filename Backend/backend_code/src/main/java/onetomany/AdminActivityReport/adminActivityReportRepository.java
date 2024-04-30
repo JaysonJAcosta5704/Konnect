@@ -3,8 +3,10 @@ package onetomany.AdminActivityReport;
 import onetomany.adminUser.adminUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface adminActivityReportRepository  extends JpaRepository<adminUser, Long> {
+public interface adminActivityReportRepository  extends JpaRepository<adminActivityReport, Long> {
 
 
-    adminUser findById(int id);
+    adminActivityReport findById(int id);
+    adminActivityReport findByReportID(int id);
+
 }

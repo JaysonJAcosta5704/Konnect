@@ -51,33 +51,34 @@
             android:textColor="#ffffff">
         </EditText>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="30dp"
-        android:orientation="horizontal">
-
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Date of Birth: "
-            android:textSize="20dp"
-            android:textColor="#FFFFFF">
-        </TextView>
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/signup_birthday_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="Select Birthday"
-            android:textColor="#ffffff">
-        </Button>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date of Birth: "
+                android:textSize="20dp"
+                android:textColor="#FFFFFF">
+            </TextView>
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/signup_dob_edt"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:hint="yyyy-MM-dd"
+                android:inputType="date"
+                android:textColorHint="#FFFFFF"
+                android:textColor="#ffffff">
+            </EditText>
 
-    <LinearLayout
+        </LinearLayout>
+
+        <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -91,13 +92,15 @@
             android:textSize="20dp"
             android:textColor="#FFFFFF">
         </TextView>
+            <EditText
+                android:id="@+id/signup_gender_edt"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:hint="Male/Female"
+                android:textColorHint="#FFFFFF"
+                android:textColor="#ffffff">
+            </EditText>
 
-        <Spinner
-            android:id="@+id/signup_gender_spinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor = "#FFFFFF">
-        </Spinner>
 
     </LinearLayout>
 
