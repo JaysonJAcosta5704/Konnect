@@ -56,6 +56,7 @@ public class ChanhoYangTest {
             String name = "Test User";
             String age = "25";
             String gender = "Male";
+            String birthday = "01/01/2020";
 
             onView(withId(R.id.signup_username_edt)).perform(typeText(username), closeSoftKeyboard());
             onView(withId(R.id.signup_password_edt)).perform(typeText(password), closeSoftKeyboard());
@@ -63,12 +64,11 @@ public class ChanhoYangTest {
             onView(withId(R.id.signup_email_edt)).perform(typeText(email), closeSoftKeyboard());
             onView(withId(R.id.signup_name_edt)).perform(typeText(name), closeSoftKeyboard());
             onView(withId(R.id.signup_age_edt)).perform(typeText(age), closeSoftKeyboard());
+            onView(withId(R.id.signup_dob_edt)).perform(typeText(birthday), closeSoftKeyboard());
 
             onView(withId(R.id.signup_gender_spinner)).perform(click());
             onData(allOf(is(instanceOf(String.class)), is(gender))).perform(click());
 
-            onView(withId(R.id.signup_birthday_btn)).perform(click());
-            onView(withClassName(Matchers.equalTo(DatePicker.class.getName()))).perform(PickerActions.setDate(1996, 8, 25));
             onView(withText("OK")).perform(click());
 
 

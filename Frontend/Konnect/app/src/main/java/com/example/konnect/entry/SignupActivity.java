@@ -27,6 +27,7 @@ import com.example.konnect.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -45,13 +46,13 @@ public class SignupActivity extends AppCompatActivity {
     private EditText emailAccountEditText; // define emailAccount edittext variable
     private EditText nameEditText;
     private EditText ageEditText;
+    private EditText dobEditText;
     private Spinner genderSpinner;
-    private Button DOBButton;
     private Button loginButton;         // define login button variable
     private Button signupButton;        // define signup button variable
     private Button homeButton;
-    private Date birthday;
     private String gender;
+    private Date birthday;
 
     /**
      *
@@ -70,7 +71,7 @@ public class SignupActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.signup_name_edt);
         ageEditText = findViewById(R.id.signup_age_edt);
         genderSpinner = findViewById(R.id.signup_gender_spinner);
-        DOBButton = findViewById(R.id.signup_birthday_btn);
+        dobEditText = findViewById(R.id.signup_dob_edt);
         loginButton = findViewById(R.id.signup_login_btn);    // link to login button in the Signup activity XML
         signupButton = findViewById(R.id.signup_signup_btn);  // link to signup button in the Signup activity XML
         homeButton = findViewById(R.id.signup_home_btn);
@@ -100,35 +101,6 @@ public class SignupActivity extends AppCompatActivity {
         });
 
 
-        // Create a date set listener
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener()  {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                Calendar calendar = Calendar.getInstance();
-                calendar.set(year, month, dayOfMonth);
-
-                // Save the selected birthday
-                birthday = calendar.getTime();
-
-                // Format the date to a string and set it as the button text
-                SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
-                DOBButton.setText(df.format(birthday));
-            }
-        };
-
-        // Show the date picker dialog when the birthday button is clicked
-        DOBButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Calendar calendar = Calendar.getInstance();
-                new DatePickerDialog(SignupActivity.this, dateSetListener,
-                        calendar.get(Calendar.YEAR),
-                        calendar.get(Calendar.MONTH),
-                        calendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,8 +123,18 @@ public class SignupActivity extends AppCompatActivity {
                 String confirm = confirmEditText.getText().toString();
                 String email = emailAccountEditText.getText().toString();
                 String ageString = ageEditText.getText().toString();
+                String dob = dobEditText.getText().toString();
                 int age = Integer.parseInt(ageString);
 
+                SimpleDateFormat df = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+                try {
+                    birthday = df.parse(dob);
+                }catch (ParseException e) {
+                    e.printStackTrace();
+                    // Handle the exception
+                    Toast.makeText(SignupActivity.this, "Plesase, provide the correct form of DOB", Toast.LENGTH_SHORT).show();
+
+                }
                 //check if user didn't left the blank
                 if(username.isEmpty()){
                     Toast.makeText(SignupActivity.this, "Please, provide your username", Toast.LENGTH_SHORT).show();
@@ -170,7 +152,7 @@ public class SignupActivity extends AppCompatActivity {
                     Toast.makeText(SignupActivity.this, "Please, provide your confirm password.", Toast.LENGTH_SHORT).show();
                     return;
 
-                }else if(birthday == null){
+                }else if(dob.isEmpty()){
                     Toast.makeText(SignupActivity.this, "Please, provide your date of birth.", Toast.LENGTH_SHORT).show();
                     return;
 
