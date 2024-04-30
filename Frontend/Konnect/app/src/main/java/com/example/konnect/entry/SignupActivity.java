@@ -119,6 +119,8 @@ public class SignupActivity extends AppCompatActivity {
                 String dobString = dobEditText.getText().toString();
                 String gender = genderEditText.getText().toString();
 
+                Log.d("Debug", "Username: " + username);
+
                 int age = Integer.parseInt(ageString);
 
                 //check if user didn't left the blank
