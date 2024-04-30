@@ -42,6 +42,7 @@ public class RequestJson {
                                   .setBio(response.getString("userBio"))
                                   .setGender(response.getString("gender"))
                                   .setBirthday(response.getString("birthday"))
+                                  .setJoinDate(response.getString("joiningDate"))
                                   .setAge(response.getString("age"));
             } catch (JSONException error) { User.dialogError(context, error.toString()); }
         }, error -> User.dialogError(context, error.toString()));

@@ -38,7 +38,7 @@ public class ProfileFragment extends Fragment {
         profileName.setText(User.getInstance().getName());
         profileUsername.setText(User.getInstance().getUsername());
         profileEmail.setText(User.getInstance().getEmail());
- //       profileBio.setText(User.getInstance().getBio());
+        profileBio.setText(User.getInstance().getBio());
         profileGender.setText(User.getInstance().getGender());
         profileBirthday.setText(User.getInstance().getBirthday());
         profileJoinDate.setText(User.getInstance().getJoinDate());
