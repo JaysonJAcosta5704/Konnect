@@ -164,7 +164,7 @@ public class SignupActivity extends AppCompatActivity {
                 String dobISO = df.format(dob);
 
 
-                String url = "http://10.0.2.2:8080/users/";
+                String url = "http://coms-309-001.class.las.iastate.edu:8080/users/";
                 JSONObject params = new JSONObject();
                 try {
                     params.put("name", name);

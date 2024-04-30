@@ -26,7 +26,6 @@ import java.util.List;
 public class FlashcardFragment extends Fragment {
     private int currentUserIndex = 0;
     private List<FlashUser> users;
-    private int userID;
 
     String idString = User.getInstance().getID();
     int id = Integer.parseInt(idString);
