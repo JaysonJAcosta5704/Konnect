@@ -72,9 +72,12 @@ public class RequestJson {
         return new JsonObjectRequest(Request.Method.POST, url, params, response -> {
             try { Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show(); }
             catch (JSONException e) { throw new RuntimeException(e); }
-        }, error -> {
-            Log.e("Volley", error.toString());
-            error.printStackTrace();
-        });
+        }, error -> Log.e("Volley", error.toString()));
+    }
+
+    public static synchronized JsonObjectRequest updateScoreboard(Activity activity, Context context, JSONObject params, String game){
+        String url = String.format("%s%s/", ServerURLs.getServerUrl(), game);
+
+        return new JsonObjectRequest(Request.Method.POST, url, params, response -> { activity.finish(); }, error -> Log.e("Volley", error.toString()));
     }
 }

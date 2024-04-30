@@ -68,7 +68,7 @@ public class ServerURLs {
     /**
      * Sets the URL for user information with the provided ID.
      */
-    public static void setURL_USERINFO(){ USERINFO_URL = SERVER_URL + "users/" + User.getInstance().getUsername(); }
+    public static void setURL_USERINFO(){ USERINFO_URL = SERVER_URL + "users/u/" + User.getInstance().getUsername(); }
 
     /**
      * Gets the URL for user information.

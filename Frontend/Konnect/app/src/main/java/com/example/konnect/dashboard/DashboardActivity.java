@@ -27,7 +27,7 @@ public class DashboardActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.flashcards) { selectedFragment = new Fragment(); }
         else if (item.getItemId() == R.id.profile) { selectedFragment = new ProfileFragment(); }
         else if (item.getItemId() == R.id.friends) { selectedFragment = new FriendsFragment(); }
-        else if (item.getItemId() == R.id.minigames) { selectedFragment = new Fragment(); }
+        else if (item.getItemId() == R.id.minigames) { selectedFragment = new MinigamesFragment(); }
         else if (item.getItemId() == R.id.settings) { selectedFragment = new SettingsFragment(); }
 
         return loadFragment(selectedFragment);

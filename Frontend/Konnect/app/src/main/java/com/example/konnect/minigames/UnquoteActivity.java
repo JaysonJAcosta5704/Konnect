@@ -46,9 +46,8 @@ public class UnquoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_unquote);
+        setContentView(R.layout.minigame_unquote_activity);
 
-        // Initialize all Views with respective ID
         ivMainQuestionImage = findViewById(R.id.iv_main_question_image);
         tvMainQuestionTitle = findViewById(R.id.tv_main_question_title);
         tvMainQuestionsRemainingCount = findViewById(R.id.tv_main_questions_remaining_count);
@@ -58,14 +57,12 @@ public class UnquoteActivity extends AppCompatActivity {
         btnMainAnswer2 = findViewById(R.id.btn_main_answer_2);
         btnMainAnswer3 = findViewById(R.id.btn_main_answer_3);
 
-        // Set OnClickListeners for each of the buttons
         btnMainAnswer0.setOnClickListener(view -> onAnswerSelected(0));
         btnMainAnswer1.setOnClickListener(view -> onAnswerSelected(1));
         btnMainAnswer2.setOnClickListener(view -> onAnswerSelected(2));
         btnMainAnswer3.setOnClickListener(view -> onAnswerSelected(3));
         btnMainSubmitAnswer.setOnClickListener(view -> onAnswerSubmission());
 
-        // Starts the game
         startNewGame();
 
         JsonObjectRequest jsonObjectRequest = getJsonObjectRequest(totalCorrect);
