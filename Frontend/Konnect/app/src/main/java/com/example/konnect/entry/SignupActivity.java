@@ -19,7 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.konnect.SettingsActivity;
+import com.example.konnect.dashboard.SettingsFragment;
 import com.example.konnect.R;
 
 import org.json.JSONException;
@@ -206,7 +206,7 @@ public class SignupActivity extends AppCompatActivity {
                                             Toast.makeText(SignupActivity.this, "Signup successful!", Toast.LENGTH_SHORT).show();
 
                                             // Start SettingsActivity
-                                            Intent intent = new Intent(SignupActivity.this, SettingsActivity.class);
+                                            Intent intent = new Intent(SignupActivity.this, SettingsFragment.class);
                                             startActivity(intent);
                                         } else {
                                             // Display failure message
