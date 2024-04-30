@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface GameResultRepository extends JpaRepository<GameResult, Long> {
-    List<GameResult> findByUser(User user);
+
 }

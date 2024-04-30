@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/tictactoe")
 public class TicTacToeController {
-
-    private TicTacToeService ticTacToeService;
+    private final TicTacToeService ticTacToeService;
 
     @Autowired
     public TicTacToeController(TicTacToeService ticTacToeService) {
@@ -23,9 +22,9 @@ public class TicTacToeController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/scoreboard/{username}")
-    public ResponseEntity<List<GameResult>> getUserScoreboard(@PathVariable String username) {
-        List<GameResult> scoreboard = ticTacToeService.getUserScoreboard(username);
-        return ResponseEntity.ok(scoreboard);
+    @GetMapping("/leaderboard")
+    public ResponseEntity<Map<String, Integer>> getLeaderboard() {
+        Map<String, Integer> leaderboard = ticTacToeService.getLeaderboard();
+        return ResponseEntity.ok(leaderboard);
     }
 }

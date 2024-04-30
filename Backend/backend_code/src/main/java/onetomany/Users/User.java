@@ -44,7 +44,8 @@ public class User {
     private String UserBio;
     private int viewCount= 1;
     private int acceptanceCount=1;
-    private String UserImagePath;
+    @Lob
+    private byte[] profileImage;
     @ElementCollection
     private List<Integer> UserHobbiesLists;
 
@@ -266,7 +267,13 @@ public class User {
 
         return list1;
     }
+    public byte[] getProfileImage() {
+        return profileImage;
+    }
 
+    public void setProfileImage(byte[] profileImage) {
+        this.profileImage = profileImage;
+    }
     public void removeReport(Reports reports){
         this.userReports.remove(reports);
     }

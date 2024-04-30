@@ -3,7 +3,7 @@ package onetomany.Users;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+import org.springframework.http.MediaType;
 import onetomany.AdminActivityReport.adminActivityReport;
 import onetomany.AdminActivityReport.adminActivityReportRepository;
 import onetomany.WebSocketAdminNot.Message;
@@ -12,8 +12,8 @@ import onetomany.WebSocketAdminNot.adminChat;
 import onetomany.adminUser.adminUser;
 import onetomany.adminUser.adminUserRepository;
 import org.springframework.http.ResponseEntity;
-
-
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
 import onetomany.Reports.Reports;
 import onetomany.Reports.ReportsRepository;
 import onetomany.hobbies.Hobbies;
@@ -29,8 +29,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
-
+import org.springframework.web.bind.annotation.RequestParam;
+import java.io.IOException;
 
 /**
  *
@@ -230,6 +230,46 @@ public class UserController {
 
         return success;
     }
+    @PostMapping("/users/{username}/profile-image")
+    public String uploadProfileImage(@PathVariable String username, @RequestParam("image") MultipartFile imageFile) {
+        User user = userRepository.findByUsername(username);
+        if (user == null) {
+            return "User not found";
+        }
+
+        try {
+            user.setProfileImage(imageFile.getBytes());
+            userRepository.save(user);
+            return "Profile image uploaded successfully";
+        } catch (IOException e) {
+            return "Failed to upload profile image";
+        }
+    }
+
+    @GetMapping("/users/{username}/profile-image")
+    public ResponseEntity<byte[]> getProfileImage(@PathVariable String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null || user.getProfileImage() == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(user.getProfileImage());
+    }
+
+    @DeleteMapping("/users/{username}/profile-image")
+    public String deleteProfileImage(@PathVariable String username) {
+        User user = userRepository.findByUsername(username);
+        if (user == null || user.getProfileImage() == null) {
+            return "User not found or profile image not set";
+        }
+
+        user.setProfileImage(null);
+        userRepository.save(user);
+        return "Profile image deleted successfully";
+    }
+
 
 }
 

@@ -1,29 +1,24 @@
 package onetomany.tictactoe;
 
 import jakarta.persistence.*;
-import onetomany.Users.User;
 
 @Entity
 @Table(name = "game_results")
 public class GameResult {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Column(nullable = false)
+    private String username;
 
     private String result;
-
-    // Constructors, getters, and setters
 
     public GameResult() {
     }
 
-    public GameResult(User user, String result) {
-        this.user = user;
+    public GameResult(String username, String result) {
+        this.username = username;
         this.result = result;
     }
 
@@ -35,12 +30,12 @@ public class GameResult {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getResult() {

@@ -3,35 +3,44 @@ package onetomany.tictactoe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import onetomany.Users.User;
-import onetomany.Users.UserRepository;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class TicTacToeService {
-
-    private GameResultRepository gameResultRepository;
-    private UserRepository userRepository;
+    private final GameResultRepository gameResultRepository;
 
     @Autowired
-    public TicTacToeService(GameResultRepository gameResultRepository, UserRepository userRepository) {
+    public TicTacToeService(GameResultRepository gameResultRepository) {
         this.gameResultRepository = gameResultRepository;
-        this.userRepository = userRepository;
     }
 
     public void saveGameResult(String username, String result) {
-        User user = userRepository.findByUsername(username);
-        if (user != null) {
-            GameResult gameResult = new GameResult(user, result);
-            gameResultRepository.save(gameResult);
-        }
+        GameResult gameResult = new GameResult(username, result);
+        gameResultRepository.save(gameResult);
     }
 
-    public List<GameResult> getUserScoreboard(String username) {
-        User user = userRepository.findByUsername(username);
-        if (user != null) {
-            return gameResultRepository.findByUser(user);
+    public List<GameResult> getAllGameResults() {
+        return gameResultRepository.findAll();
+    }
+
+    public Map<String, Integer> getLeaderboard() {
+        List<GameResult> allResults = getAllGameResults();
+        Map<String, Integer> leaderboard = new HashMap<>();
+
+        for (GameResult result : allResults) {
+            String username = result.getUsername();
+            int score = leaderboard.getOrDefault(username, 0);
+            if (result.getResult().equalsIgnoreCase("win")) {
+                score++;
+            }
+            leaderboard.put(username, score);
         }
-        return List.of();
+
+        return leaderboard.entrySet().stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 }
