@@ -54,6 +54,12 @@ public class User implements Serializable {
     private String ID;
 
     /**
+     * The int value id of the user
+     */
+
+    private int int_id;
+
+    /**
      * The birthday of the user.
      */
     private String birthday;
@@ -124,6 +130,7 @@ public class User implements Serializable {
      * @param ID The ID to be set.
      */
     public User setID(String ID) { this.ID = ID; return instance;}
+
 
     /**
      * Sets the password of the user.
