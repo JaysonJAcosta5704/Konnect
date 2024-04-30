@@ -24,7 +24,7 @@ public class DashboardActivity extends AppCompatActivity {
     private final NavigationBarView.OnItemSelectedListener navListener = item -> {
         Fragment selectedFragment = null;
 
-        if (item.getItemId() == R.id.flashcards) { selectedFragment = new Fragment(); }
+        if (item.getItemId() == R.id.flashcards) { selectedFragment = new FlashcardFragment(); }
         else if (item.getItemId() == R.id.profile) { selectedFragment = new ProfileFragment(); }
         else if (item.getItemId() == R.id.friends) { selectedFragment = new FriendsFragment(); }
         else if (item.getItemId() == R.id.minigames) { selectedFragment = new MinigamesFragment(); }
