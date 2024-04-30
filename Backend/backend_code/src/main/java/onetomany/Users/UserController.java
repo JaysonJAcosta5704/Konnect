@@ -72,7 +72,7 @@ public class UserController {
     private String success = "{\"message\":\"success\"}";
     private String failure = "{\"message\":\"failure\"}";
 
-    @GetMapping(path = "/usersss")
+    @GetMapping(path = "/users")
     List<User> getAllUsersss(){
         for (User useer:userRepository.findAll()) {
             useer.setLastLoggin();
@@ -82,8 +82,14 @@ public class UserController {
     }
     @GetMapping(path = "/users/{id}")
     User getAllUser(@PathVariable int id){
-        User test= userRepository.findById(id);
+
+
         return  userRepository.findById(id);
+    }
+
+    @GetMapping(path = "/users/u/{username}")
+    User getUser (@PathVariable String username){
+      return userRepository.findByUsername(username);
     }
 
 
@@ -192,6 +198,19 @@ public class UserController {
         adminChatt.broadcast(tempUser.getUsername() +"has made a new report on user " + tempUser2.getUsername());
         adminChatt.sendMessageToPArticularUser(temp.getUsername(),"You have been assigned a new Admin assignment, with user report" + reportId);
             return success;
+    }
+
+    @DeleteMapping(path = "/users/{id}/removeHobbie")
+    String deleteHobbie(@PathVariable int id, @RequestBody Hobbies hoobie){
+        User tempUser= userRepository.findById(id);
+        Hobbies hobbieTemp= hobbiesRepository.findByName(hoobie.getName());
+        if(tempUser==null || hobbieTemp==null || !tempUser.getHobbies().contains(hobbieTemp))
+            return failure;
+        hobbieTemp.removeUser(tempUser);
+        tempUser.removeHobbie(hobbieTemp);
+        hobbiesRepository.save(hobbieTemp);
+        userRepository.save(tempUser);
+        return success;
     }
 
 

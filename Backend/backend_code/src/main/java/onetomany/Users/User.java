@@ -42,8 +42,8 @@ public class User {
     )
     private Set<Hobbies> hobbies = new HashSet<>();
     private String UserBio;
-    private int viewCount;
-    private int acceptanceCount;
+    private int viewCount= 1;
+    private int acceptanceCount=1;
     private String UserImagePath;
     @ElementCollection
     private List<Integer> UserHobbiesLists;
@@ -231,6 +231,8 @@ public class User {
         this.viewCount++;
     }
     public int getRate(){
+        if(this.acceptanceCount ==0 || this.viewCount ==0 )
+            return 1;
         return this.acceptanceCount/this.viewCount;
     }
 
@@ -269,6 +271,15 @@ public class User {
 
 
         return list1;
+    }
+
+    public void removeHobbie(Hobbies hobbie){
+        this.hobbies.remove(hobbie);
+    }
+
+    public User getUser(User user){
+        User temp = new User();
+        return temp;
     }
 
 
