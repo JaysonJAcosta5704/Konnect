@@ -10,7 +10,6 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.example.konnect.R;
-import com.example.konnect.minigames.GomokuActivity;
 import com.example.konnect.minigames.TicTacToeActivity;
 import com.example.konnect.minigames.UnquoteActivity;
 
@@ -22,11 +21,9 @@ public class MinigamesFragment extends Fragment {
 
         Button unquoteButton = view.findViewById(R.id.Unquote_Button);
         Button tttButton = view.findViewById(R.id.TTT_Button);
-        Button gomokuButton = view.findViewById(R.id.Gomoku_Button);
 
         unquoteButton.setOnClickListener(v -> startActivity(new Intent(view.getContext(), UnquoteActivity.class)));
-        tttButton.setOnClickListener(v -> startActivity(new Intent(view.getContext(), TicTacToeActivity.class)));;
-        gomokuButton.setOnClickListener(v -> startActivity(new Intent(view.getContext(), GomokuActivity.class)));;
+        tttButton.setOnClickListener(v -> startActivity(new Intent(view.getContext(), TicTacToeActivity.class)));
 
         return view;
     }

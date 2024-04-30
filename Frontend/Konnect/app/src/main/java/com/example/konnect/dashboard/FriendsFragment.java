@@ -2,6 +2,7 @@ package com.example.konnect.dashboard;
 
 import static com.example.konnect.helper.RequestJson.friendRequestStatusUpdate;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -21,6 +22,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.konnect.ChatActivity;
 import com.example.konnect.R;
 import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.User;
@@ -119,7 +121,8 @@ public class FriendsFragment extends Fragment {
                             }
                             break;
                         case "ACCEPTED":
-                            containerF.addView(createFLayout(senderUsername, senderUsername, id));
+                            if(!User.getInstance().getUsername().equalsIgnoreCase(senderUsername)) { containerF.addView(createFLayout(senderUsername, senderUsername, id));}
+                            else { containerF.addView(createFLayout(item.getString("receiverUsername"), item.getString("receiverUsername"), id)); }
                             break;
                     }
                 }
@@ -310,6 +313,10 @@ public class FriendsFragment extends Fragment {
         constraintSet.connect(name.getId(), ConstraintSet.TOP, username.getId(), ConstraintSet.BOTTOM);
 
         constraintSet.applyTo(constraintLayout);
+
+        Intent intent = new Intent(view.getContext(), ChatActivity.class);
+        intent.putExtra("user", userUsername);
+        constraintLayout.setOnClickListener(v -> startActivity(intent));
 
         return constraintLayout;
     }

@@ -1,6 +1,5 @@
 package com.example.konnect.dashboard;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
-import com.example.konnect.ProfileEditActivity;
 import com.example.konnect.R;
 import com.example.konnect.helper.User;
 
@@ -45,7 +43,6 @@ public class ProfileFragment extends Fragment {
 
         /* Initialize and set onClick listener for edit button*/
         Button editButton = view.findViewById(R.id.Edit_Button);
-        editButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
 
         return view;
     }

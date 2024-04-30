@@ -35,21 +35,18 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
         imageButton.setOnClickListener(v -> finish());
 
         ImageView sendButton = findViewById(R.id.Send_Message);
-        ImageView connectButton = findViewById(R.id.Connect_Chat);
 
         EditText messageText = findViewById(R.id.Chat_Message);
-        EditText usernameText = findViewById(R.id.Chat_username);
 
-
-        connectButton.setOnClickListener(v -> {
-            String wsURL = "ws://coms-309-001.class.las.iastate.edu:8080/admin/chat/" + User.getInstance().getUsername();
-            WebSocketManager.getInstance().connectWebSocket(wsURL);
-            WebSocketManager.getInstance().setWebSocketListener(this);
-        });
+        String wsURL = "ws://coms-309-001.class.las.iastate.edu:8080/dm/" + User.getInstance().getUsername();
+        WebSocketManager.getInstance().connectWebSocket(wsURL);
+        WebSocketManager.getInstance().setWebSocketListener(this);
 
         sendButton.setOnClickListener(v -> {
             try {
-                WebSocketManager.getInstance().sendMessage(messageText.getText().toString());
+                Bundle extras = getIntent().getExtras();
+                String user = extras.getString("user");
+                WebSocketManager.getInstance().sendMessage("@" + user + messageText.getText().toString());
                 messageText.setText("");
             }
             catch (Exception e) { Log.d("ExceptionSendMessage:", e.toString()); }

@@ -144,7 +144,7 @@ public class User implements Serializable {
      *
      * @param age The age to be set.
      */
-    public void setAge(String age) { this.age = age; }
+    public User setAge(String age) { this.age = age; return instance; }
 
     /**
      * Sets the Join date of the user.

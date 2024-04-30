@@ -11,7 +11,6 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.example.konnect.ChoosehobbiesActivity;
-import com.example.konnect.ProfileEditActivity;
 import com.example.konnect.R;
 import com.example.konnect.ReportActivity;
 import com.example.konnect.entry.MainActivity;
@@ -26,7 +25,6 @@ public class SettingsFragment extends Fragment {
         Button reportButton = view.findViewById(R.id.Report_Button);
         Button logoutButton = view.findViewById(R.id.Logout_Button);
 
-        editProfileButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ProfileEditActivity.class)));
         chooseHobbiesButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChoosehobbiesActivity.class)));
         reportButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ReportActivity.class)));
         logoutButton.setOnClickListener(v -> {
