@@ -30,6 +30,10 @@ public class ServerURLs {
      */
     private static String FRIENDREQUEST_URL;
 
+    /**
+     * The URL for profile pictures
+     */
+    private static String PFP_URL;
     /*---------------------------------------------- SERVER URL ----------------------------------------------*/
 
     /**
@@ -56,19 +60,22 @@ public class ServerURLs {
     public static void setURL_FR(){ FRIENDREQUEST_URL = SERVER_URL + "friend-requests/list/" + User.getInstance().getUsername(); }
 
     /**
+     * Sets the URL for user information with the provided ID.
+     */
+    public static void setURL_USERINFO(){ USERINFO_URL = SERVER_URL + "users/u/" + User.getInstance().getUsername(); }
+
+    /**
+     * Sets the URL for Profile Pictures
+     */
+    public static void setURL_PFP(){ PFP_URL = SERVER_URL + "users/" + User.getInstance().getUsername() + "/profile-image"; }
+    /*-------------------------------------------- USER INFORMATION --------------------------------------------*/
+
+    /**
      * Gets the URL for user login.
      *
      * @return The URL for user login.
      */
     public static String getURL_USERLOGIN(){ return USERLOGIN_URL; }
-
-
-
-    /*-------------------------------------------- USER INFORMATION --------------------------------------------*/
-    /**
-     * Sets the URL for user information with the provided ID.
-     */
-    public static void setURL_USERINFO(){ USERINFO_URL = SERVER_URL + "users/u/" + User.getInstance().getUsername(); }
 
     /**
      * Gets the URL for user information.
@@ -79,6 +86,8 @@ public class ServerURLs {
 
 
     public static String getURL_FR(){ return FRIENDREQUEST_URL; }
+
+    public static String getURL_PFP(){ return PFP_URL; }
 
     /*---------------------------------------------- WEBSOCKETS ----------------------------------------------*/
     /**

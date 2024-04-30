@@ -4,7 +4,6 @@ import static com.example.konnect.helper.RequestJson.friendRequestStatusUpdate;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,7 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.konnect.R;
 import com.example.konnect.helper.RequestJson;
@@ -91,20 +91,11 @@ public class FriendsFragment extends Fragment {
         EditText sendToUsername = view.findViewById(R.id.Send_FR_username);
         ImageView sendFr = view.findViewById(R.id.Send_FR);
         sendFr.setOnClickListener(v -> {
-
-            try {
-                JSONObject params = new JSONObject();
-                params.put("senderUsername", User.getInstance().getUsername());
-                params.put("receiverUsername", sendToUsername.getText().toString());
-                JsonObjectRequest jsonObjectRequest = RequestJson.sendFriendRequest(view.getContext(), params);
-                RequestQueue queue = Volley.newRequestQueue(view.getContext());
-                queue.add(jsonObjectRequest);
-            } catch (JSONException e) {
-                User.dialogError(view.getContext(), e.toString());
-                Log.e("Error", e.toString());
-            }
-
-
+            String receiverUsername = sendToUsername.getText().toString();
+            StringRequest stringRequest = RequestJson.sendFriendRequest(view.getContext(), receiverUsername);
+            RequestQueue queue = Volley.newRequestQueue(view.getContext());
+            queue.add(stringRequest);
+            containerP.addView(createFRLayout(containerP, containerF, receiverUsername, receiverUsername, 0, true));
         });
 
 

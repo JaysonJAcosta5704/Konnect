@@ -12,73 +12,126 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.example.konnect.dashboard.DashboardActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RequestJson {
 
     /*---------------------------------------------- GET REQUESTS ----------------------------------------------*/
 
-    public static synchronized JsonObjectRequest login(Activity activity, Context context, RequestQueue queue, ProgressBar progressBar){
+    public static synchronized JsonObjectRequest login(Activity activity, Context context, RequestQueue queue, ProgressBar progressBar) {
         return new JsonObjectRequest(Request.Method.GET, ServerURLs.getURL_USERLOGIN(), null, response -> {
             try {
                 User.getInstance().setID(response.getString("id"))
-                                  .setEmail(response.getString("email"))
-                                  .setUsername(response.getString("userName"));
+                        .setEmail(response.getString("email"))
+                        .setUsername(response.getString("userName"));
+            } catch (JSONException error) {
+                User.dialogError(context, error.toString());
             }
-            catch (JSONException error) { User.dialogError(context, error.toString());}
-                queue.add(viewProfile(context));
-                queue.add(friendRequests(activity, context, progressBar));
-        }, error -> {User.dialogError(context, error.toString()); progressBar.setVisibility(View.GONE);});
+            queue.add(viewProfile(context));
+            queue.add(friendRequests(activity, context, progressBar));
+        }, error -> {
+            User.dialogError(context, error.toString());
+            progressBar.setVisibility(View.GONE);
+        });
     }
 
-    public static synchronized JsonObjectRequest viewProfile(Context context){
+    public static synchronized JsonObjectRequest viewProfile(Context context) {
         ServerURLs.setURL_USERINFO();
         return new JsonObjectRequest(Request.Method.GET, ServerURLs.getURL_USERINFO(), null, response -> {
             try {
                 User.getInstance().setName(response.getString("name"))
-                                  .setBio(response.getString("userBio"))
-                                  .setGender(response.getString("gender"))
-                                  .setBirthday(response.getString("birthday"))
-                                  .setJoinDate(response.getString("joiningDate"))
-                                  .setAge(response.getString("age"));
-            } catch (JSONException error) { User.dialogError(context, error.toString()); }
+                        .setBio(response.getString("userBio"))
+                        .setGender(response.getString("gender"))
+                        .setBirthday(response.getString("birthday"))
+                        .setJoinDate(response.getString("joiningDate"))
+                        .setAge(response.getString("age"));
+            } catch (JSONException error) {
+                User.dialogError(context, error.toString());
+            }
         }, error -> User.dialogError(context, error.toString()));
     }
 
-    public static synchronized JsonArrayRequest friendRequests(Activity activity, Context context, ProgressBar progressBar){
+    public static synchronized JsonArrayRequest friendRequests(Activity activity, Context context, ProgressBar progressBar) {
         ServerURLs.setURL_FR();
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ServerURLs.getURL_FR(), null, response -> User.getInstance().setFriendRequests(response), error -> {User.dialogError(context, error.toString()); progressBar.setVisibility(View.GONE);});
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, ServerURLs.getURL_FR(), null, response -> User.getInstance().setFriendRequests(response), error -> {
+            User.dialogError(context, error.toString());
+            progressBar.setVisibility(View.GONE);
+        });
         progressBar.setVisibility(View.GONE);
         activity.startActivity(new Intent(context, DashboardActivity.class));
         activity.finish();
-        return jsonArrayRequest;}
+        return jsonArrayRequest;
+    }
 
     /*---------------------------------------------- POST REQUESTS ---------------------------------------------*/
 
-    public static synchronized JsonObjectRequest friendRequestStatusUpdate(Context context, JSONObject params, String path, int id){
+    public static synchronized JsonObjectRequest friendRequestStatusUpdate(Context context, JSONObject params, String path, int id) {
         String url = String.format("%sfriend-requests/%s/%s", ServerURLs.getServerUrl(), path, id);
-
-        return new JsonObjectRequest(Request.Method.POST, url, params, response -> {
-            try { Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show(); }
-            catch (JSONException e) { throw new RuntimeException(e); }
-        }, error -> {});
+        return new JsonObjectRequest(Request.Method.POST, url, params, response -> Toast.makeText(context, "Friend request sent successfully", Toast.LENGTH_SHORT).show(), error -> {});
     }
 
-    public static synchronized JsonObjectRequest sendFriendRequest(Context context, JSONObject params){
+//    public static synchronized JsonObjectRequest sendFriendRequest(Context context, JSONObject params) {
+//        String url = String.format("%sfriend-requests/send", ServerURLs.getServerUrl());
+//
+//        return new JsonObjectRequest(Request.Method.POST, url, params, response -> {
+//            try {
+//                Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show();
+//            } catch (JSONException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }, error -> Log.e("Volley", error.toString()));
+//    }
+
+    public static synchronized StringRequest sendFriendRequest(Context context, String receiverUsername) {
         String url = String.format("%sfriend-requests/send", ServerURLs.getServerUrl());
 
-        return new JsonObjectRequest(Request.Method.POST, url, params, response -> {
-            try { Toast.makeText(context, response.getString("message"), Toast.LENGTH_SHORT).show(); }
-            catch (JSONException e) { throw new RuntimeException(e); }
-        }, error -> Log.e("Volley", error.toString()));
+        return new StringRequest(Request.Method.POST, url, response -> Toast.makeText(context, response, Toast.LENGTH_SHORT).show() , error -> Log.e("Volley", error.toString())){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("senderUsername", User.getInstance().getUsername());
+                params.put("receiverUsername", receiverUsername);
+                return params;
+            }
+        };
+    }
+//    public static synchronized JsonObjectRequest updateScoreboard(Activity activity, Context context, JSONObject params, String game) {
+//        String url = String.format("%s%s", ServerURLs.getServerUrl(), game);
+//
+//        return new JsonObjectRequest(Request.Method.POST, url, params, response -> {
+//            activity.finish();
+//        }, error -> {
+//            Log.e("Volley", error.toString());
+//            activity.finish();
+//        });
+//    }
+
+    public static synchronized StringRequest updateScoreBoard(Activity activity, Context context, String game, int score) {
+        String url = String.format("%s%s", ServerURLs.getServerUrl(), game);
+
+        return new StringRequest(Request.Method.POST, url, response -> activity.finish(), error -> {
+            Log.e("Volley", error.toString());
+            activity.finish();
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("username", User.getInstance().getUsername());
+                params.put("result", "" + Math.max(score, 0));
+                return params;
+            }
+        };
     }
 
-    public static synchronized JsonObjectRequest updateScoreboard(Activity activity, Context context, JSONObject params, String game){
-        String url = String.format("%s%s/", ServerURLs.getServerUrl(), game);
-
-        return new JsonObjectRequest(Request.Method.POST, url, params, response -> { activity.finish(); }, error -> { Log.e("Volley", error.toString()); activity.finish(); });
-    }
+//    public static synchronized ImageRequest getProfilePicture(Context context){
+//        String url = String.format("%s%s", ServerURLs.getURL_USERINFO(),"/profile-image" );
+//        return new ImageRequest()
+//    }
 }

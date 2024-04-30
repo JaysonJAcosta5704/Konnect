@@ -9,14 +9,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.konnect.R;
 import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.User;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -150,14 +147,9 @@ public class TicTacToeActivity extends AppCompatActivity {
     }
 
     private void finishActivity(){
-        try {
-            JSONObject params = new JSONObject();
-            params.put("username", User.getInstance().getUsername());
-            params.put("score", Math.max(score, 0));
-            JsonObjectRequest jsonObjectRequest = RequestJson.updateScoreboard(this, this, params, "/api/tictactoe/results");
-            RequestQueue queue = Volley.newRequestQueue(this);
-            queue.add(jsonObjectRequest);
-        } catch (JSONException ignored) {}
+        StringRequest stringRequest = RequestJson.updateScoreBoard(this, this, "api/tictactoe/results", score);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(stringRequest);
     }
 
     private List<Integer> getAvailableBoxes() {
