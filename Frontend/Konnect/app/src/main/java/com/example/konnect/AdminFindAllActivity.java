@@ -1,5 +1,6 @@
 package com.example.konnect;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
@@ -30,6 +31,9 @@ public class AdminFindAllActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private List<OtherUser> userList;
+    Intent intent = getIntent();
+    String adm_email;
+    String adm_pw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +44,9 @@ public class AdminFindAllActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url = "http://coms-309-001.class.las.iastate.edu:8080/adminUser/getUsers/email/password/";
+        adm_email = intent.getStringExtra("AD_EMAIL");
+        adm_pw = intent.getStringExtra("AD_PW");
+        String url = "http://coms-309-001.class.las.iastate.edu:8080/adminUser/getUsers/" + adm_email + "/" + adm_pw + "/";
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
