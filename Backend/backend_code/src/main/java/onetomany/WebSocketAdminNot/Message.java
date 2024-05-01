@@ -43,6 +43,10 @@ public class Message {
         this.content = content;
     }
 
+    public Message(String username, String message, int groupId) {
+        this.groupID=groupId;
+    }
+
     public Long getId() {
         return id;
     }

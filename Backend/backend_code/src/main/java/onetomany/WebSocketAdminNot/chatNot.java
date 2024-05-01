@@ -30,6 +30,8 @@ public class chatNot {
     // method
     private static MessageRepository msgRepo;
 
+    private static GroupRepository groupRepository;
+
     /*
      * Grabs the MessageRepository singleton from the Spring Application
      * Context.  This works because of the @Controller annotation on this
@@ -42,11 +44,14 @@ public class chatNot {
         msgRepo = repo;  // we are setting the static variable
     }
     @Autowired
-    GroupRepository groupRepository;
+    public void setGruopRepository(GroupRepository groupRepo) {
+        groupRepository = groupRepo;  // we are setting the static variable
+    }
 
     // Store all socket session and their corresponding username.
     private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
     private static Map<String, Session> usernameSessionMap = new Hashtable<>();
+    private static Map<Session, Integer> sessionGroupIdMap = new Hashtable<>();
 
     private final Logger logger = LoggerFactory.getLogger(chatSocket.class);
 
@@ -56,13 +61,19 @@ public class chatNot {
 
         logger.info("Entered into Open");
 
-        // store connecting user information
+        Group group = groupRepository.findById(id);
+        if (group == null) {
+            // Group not found, handle error or send appropriate message
+            logger.error("Group with ID {} not found", id);
+            return;
+        }
+
+        // Store connecting user information
         sessionUsernameMap.put(session, username);
         usernameSessionMap.put(username, session);
-        Map<Session,String> sesionusername= new Hashtable<>();
-        for(User user: groupRepository.findById(id).getUsers() ){
-            sesionusername.put(session,user.getUsername());
-        }
+        sessionGroupIdMap.put(session, id); // Store groupId for the session
+
+
 
         //Send chat history to the newly connected user
         sendMessageToPArticularUser(username, getChatHistory(id));
@@ -76,25 +87,17 @@ public class chatNot {
     @OnMessage
     public void onMessage(Session session, String message) throws IOException {
 
-        // Handle new messages
         logger.info("Entered into Message: Got Message:" + message);
         String username = sessionUsernameMap.get(session);
+        int groupId = sessionGroupIdMap.get(session); // Get groupId for the session
 
-        // Direct message to a user using the format "@username <message>"
-        if (message.startsWith("@")) {
-            String destUsername = message.split(" ")[0].substring(1);
+        // Handle messages here...
 
-            // send the message to the sender and receiver
-            sendMessageToPArticularUser(destUsername, "[DM] " + username + ": " + message);
-            sendMessageToPArticularUser(username, "[DM] " + username + ": " + message);
-
-        }
-        else { // broadcast
-            broadcast(username + ": " + message);
-        }
+        // Broadcast message to the same group
+        broadcastToGroup(username + ": " + message, groupId);
 
         // Saving chat history to repository
-        msgRepo.save(new Message(username, message));
+        msgRepo.save(new Message(username, message, groupId));
     }
 
 
@@ -160,6 +163,18 @@ public class chatNot {
             }
         }
         return sb.toString();
+    }
+    private void broadcastToGroup(String message, int groupId) {
+        sessionGroupIdMap.forEach((session, group) -> {
+            if (group == groupId) { // Check if the session belongs to the same group
+                try {
+                    session.getBasicRemote().sendText(message);
+                } catch (IOException e) {
+                    // Handle exception
+                    logger.error("Error broadcasting message to group {}", groupId, e);
+                }
+            }
+        });
     }
 
 }
