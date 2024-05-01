@@ -2,6 +2,10 @@ package onetomany.WebSocketAdminNot;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MessageRepository extends JpaRepository<onetomany.WebSocketAdminNot.Message, Long>{
+import java.util.List;
 
+public interface MessageRepository extends JpaRepository<onetomany.WebSocketAdminNot.Message, Long>{
+        Message getMessagesByGroupID(int id);
+
+        List<Message> findByGroupID(int id);
 }

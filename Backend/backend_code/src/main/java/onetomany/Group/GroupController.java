@@ -5,6 +5,8 @@ import onetomany.Users.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,42 +21,44 @@ public class GroupController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping("/create")
-    public ResponseEntity<String> createGroup(@RequestParam String groupName) {
-        Group group = new Group();
-        group.setName(groupName);
+
+    @GetMapping(path = "/getGroups")
+    public List<Group> getGroup(){
+        return groupRepository.findAll();
+    }
+    @PostMapping(path = "/create/{groupName}")
+    public ResponseEntity<String> createGroup(@PathVariable String groupName) {
+        Group group = new Group(groupName);
         groupRepository.save(group);
         return ResponseEntity.ok("{\"message\":\"Group created successfully\"}");
     }
 
-    @PostMapping("/add-user")
-    public ResponseEntity<String> addUserToGroup(@RequestParam int groupId, @RequestParam String username) {
-        Optional<Group> groupOpt = groupRepository.findById(groupId);
-        User user = userRepository.findUserByUsername(username);
-
-        if (!groupOpt.isPresent() || user == null) {
+    @PostMapping(path = "/group/add-user/{id}/{username}")
+    public ResponseEntity<String> addUserToGroup(@PathVariable int id, @PathVariable String username) {
+        Group tempGroup = groupRepository.findById(id);
+        User tmepUser= userRepository.findByUsername(username);
+        if ( tempGroup==null || tmepUser == null) {
             return ResponseEntity.badRequest().body("{\"message\":\"Group or user not found\"}");
         }
+        tempGroup.addUsers(tmepUser);
+        groupRepository.save(tempGroup);
+        tmepUser.addGroup(groupRepository.findById(id));
+        userRepository.save(tmepUser);
 
-        Group group = groupOpt.get();
-        group.getUsers().add(user);
-        groupRepository.save(group);
         return ResponseEntity.ok("{\"message\":\"User added to group successfully\"}");
     }
 
-    @GetMapping("/list/{username}")
-    public ResponseEntity<List<GroupDto>> listGroups(@PathVariable String username) {
-        User user = userRepository.findUserByUsername(username);
-        if (user == null) {
-            return ResponseEntity.badRequest().body(null);
+    @GetMapping(path = "/list/{username}")
+    public List<Group> listGroups(@PathVariable String username) {
+        List<Group> gropusRet= new ArrayList<>();
+        User temp= userRepository.findByUsername(username);
+        if(temp==null)
+            return null;
+        for (Group group: groupRepository.findAll()){
+            if(group.getUsers().contains(temp))
+                gropusRet.add(group);
         }
-
-        List<Group> groups = groupRepository.findAll();
-        List<GroupDto> dtos = groups.stream()
-                .filter(group -> group.getUsers().contains(user))
-                .map(group -> new GroupDto(group.getId(), group.getName()))
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(dtos);
+        return gropusRet;
     }
+
 }

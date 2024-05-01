@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
- * @author Vivek Bengre
+ * @author Daniel Pinilla
  *
  */
 

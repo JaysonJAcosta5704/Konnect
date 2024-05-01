@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 
+import onetomany.Group.Group;
 import onetomany.Reports.Reports;
 import onetomany.hobbies.Hobbies;
 import onetomany.userLogIn.userLogin;
@@ -60,6 +61,8 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     userLogin  userLogin;
 
+    @ManyToMany()
+    List<Group> userGropus;
 
 
 
@@ -282,10 +285,23 @@ public class User {
         this.hobbies.remove(hobbie);
     }
 
+    public void addGroup(Group group){
+        this.userGropus.add(group);
+    }
+
     public User getUser(User user){
         User temp = new User();
         return temp;
     }
 
+    public List<Group> getUserGropus() {
+        return userGropus;
+    }
 
+    public onetomany.userLogIn.userLogin getUserLogin() {
+        return userLogin;
+    }
+    public void removeGroup(Group group){
+        this.userGropus.remove(group);
+    }
 }

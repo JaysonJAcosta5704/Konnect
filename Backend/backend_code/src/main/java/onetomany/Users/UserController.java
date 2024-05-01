@@ -3,6 +3,9 @@ package onetomany.Users;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import onetomany.Group.Group;
+import onetomany.Group.GroupRepository;
 import org.springframework.http.MediaType;
 import onetomany.AdminActivityReport.adminActivityReport;
 import onetomany.AdminActivityReport.adminActivityReportRepository;
@@ -66,6 +69,9 @@ public class UserController {
 
     @Autowired
     adminActivityReportRepository adminActivityReportRepository;
+
+    @Autowired
+    GroupRepository groupRepository;
 
 
     private String success = "{\"message\":\"success\"}";
@@ -244,6 +250,20 @@ public class UserController {
         } catch (IOException e) {
             return "Failed to upload profile image";
         }
+    }
+
+    @PostMapping("/users/addGroup/{id}/{groupId}")
+    public String addGroup(@PathVariable int id, @PathVariable int groupId ){
+        User temp= userRepository.findById(id);
+        Group tempGr= groupRepository.findById(groupId);
+        if(tempGr ==null || temp== null){
+            return failure;
+        }
+        tempGr.addUsers(temp);
+        groupRepository.save(tempGr);
+        temp.addGroup(groupRepository.findById(id));
+        userRepository.save(temp);
+        return success;
     }
 
     @GetMapping("/users/{username}/profile-image")

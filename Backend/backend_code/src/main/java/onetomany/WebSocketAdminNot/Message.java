@@ -25,6 +25,9 @@ public class Message {
     @Column
     private String userName;
 
+    @Column
+    private int groupID;
+
     @Lob
     private String content;
 
@@ -72,5 +75,11 @@ public class Message {
         this.sent = sent;
     }
 
+    public int getGroupID() {
+        return groupID;
+    }
 
+    public void setGroupID(int groupID) {
+        this.groupID = groupID;
+    }
 }

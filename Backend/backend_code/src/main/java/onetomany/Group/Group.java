@@ -22,6 +22,14 @@ public class Group {
     )
     private Set<User> users = new HashSet<>();
 
+    public Group (String groupName){
+        this.name= groupName;
+    }
+
+    public Group() {
+
+    }
+
     // Getters and setters
     public int getId() {
         return id;
@@ -45,5 +53,12 @@ public class Group {
 
     public void setUsers(Set<User> users) {
         this.users = users;
+    }
+    public void addUsers(User user){
+        this.users.add(user);
+    }
+
+    public void removeUser(User user){
+        this.users.remove(user);
     }
 }

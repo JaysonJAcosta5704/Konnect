@@ -13,13 +13,17 @@ import jakarta.websocket.Session;
 import jakarta.websocket.server.PathParam;
 import jakarta.websocket.server.ServerEndpoint;
 
+import onetomany.Group.Group;
+import onetomany.Group.GroupRepository;
+import onetomany.Users.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller      // this is needed for this to be an endpoint to springboot
-@ServerEndpoint(value = "/chat/{username}")  // this is Websocket url
+@ServerEndpoint(value = "/chat/{id}/{username}")  // this is Websocket url
 public class chatNot {
 
     // cannot autowire static directly (instead we do it by the below
@@ -37,6 +41,8 @@ public class chatNot {
     public void setMessageRepository(MessageRepository repo) {
         msgRepo = repo;  // we are setting the static variable
     }
+    @Autowired
+    GroupRepository groupRepository;
 
     // Store all socket session and their corresponding username.
     private static Map<Session, String> sessionUsernameMap = new Hashtable<>();
@@ -45,7 +51,7 @@ public class chatNot {
     private final Logger logger = LoggerFactory.getLogger(chatSocket.class);
 
     @OnOpen
-    public void onOpen(Session session, @PathParam("username") String username)
+    public void onOpen(Session session, @PathParam("username") String username, @PathParam("id") int id)
             throws IOException {
 
         logger.info("Entered into Open");
@@ -53,9 +59,13 @@ public class chatNot {
         // store connecting user information
         sessionUsernameMap.put(session, username);
         usernameSessionMap.put(username, session);
+        Map<Session,String> sesionusername= new Hashtable<>();
+        for(User user: groupRepository.findById(id).getUsers() ){
+            sesionusername.put(session,user.getUsername());
+        }
 
         //Send chat history to the newly connected user
-        sendMessageToPArticularUser(username, getChatHistory());
+        sendMessageToPArticularUser(username, getChatHistory(id));
 
         // broadcast that new user joined
         String message = "User:" + username + " has Joined the Chat";
@@ -137,9 +147,10 @@ public class chatNot {
     }
 
 
+
     // Gets the Chat history from the repository
-    private String getChatHistory() {
-        List<Message> messages = msgRepo.findAll();
+    private String getChatHistory(int id) {
+        List<Message> messages = msgRepo.findByGroupID(id);
 
         // convert the list to a string
         StringBuilder sb = new StringBuilder();
