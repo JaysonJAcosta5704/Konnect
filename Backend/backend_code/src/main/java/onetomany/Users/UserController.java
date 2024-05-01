@@ -252,10 +252,10 @@ public class UserController {
         }
     }
 
-    @PostMapping("/users/addGroup/{id}/{groupId}")
-    public String addGroup(@PathVariable int id, @PathVariable int groupId ){
+    @PostMapping("/users/addGroup/{id}/{groupName}")
+    public String addGroup(@PathVariable int id, @PathVariable String groupName ){
         User temp= userRepository.findById(id);
-        Group tempGr= groupRepository.findById(groupId);
+        Group tempGr= groupRepository.findByName(groupName);
         if(tempGr ==null || temp== null){
             return failure;
         }
