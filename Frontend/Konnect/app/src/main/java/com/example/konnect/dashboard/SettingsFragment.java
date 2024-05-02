@@ -16,6 +16,8 @@ import com.example.konnect.ReportActivity;
 import com.example.konnect.entry.MainActivity;
 import com.example.konnect.AdminUserActivity;
 import com.google.android.material.circularreveal.CircularRevealHelper;
+import com.example.konnect.helper.User;
+import com.example.konnect.AdminFindActivity;
 
 public class SettingsFragment extends Fragment {
     @SuppressLint("ApplySharedPref")
@@ -28,9 +30,30 @@ public class SettingsFragment extends Fragment {
         Button logoutButton = view.findViewById(R.id.Logout_Button);
         Button AdminButton = view.findViewById(R.id.Admin_Button);
 
+        String userType = User.getInstance().getType();
+        String userName = User.getInstance().getName();
+        String userEmail = User.getInstance().getEmail();
+        String userPw = User.getInstance().getPassword();
+
         chooseHobbiesButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChoosehobbiesActivity.class)));
         reportButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ReportActivity.class)));
-        AdminButton.setOnClickListener(v-> startActivity(new Intent(v.getContext(), AdminUserActivity.class)));
+        AdminButton.setOnClickListener(v -> {
+            Intent intent;
+            if ("n".equals(userType)) {
+                intent = new Intent(v.getContext(), AdminUserActivity.class);
+
+            } else if ("A".equals(userType)) {
+                intent = new Intent(v.getContext(), AdminFindActivity.class);
+                intent.putExtra("AD_USERNAME", userName);
+                intent.putExtra("AD_EMAIL", userEmail);
+                intent.putExtra("AD_PW", userPw);
+            } else {
+                // Handle other cases if necessary
+                return;
+            }
+            startActivity(intent);
+        });
+
         logoutButton.setOnClickListener(v -> {
             v.getContext().getSharedPreferences("USERDATA", 0).edit().clear().commit();
             startActivity(new Intent(v.getContext(), MainActivity.class));

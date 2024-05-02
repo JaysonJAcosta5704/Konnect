@@ -84,13 +84,20 @@ public class AdminSignupActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Signing up", Toast.LENGTH_LONG).show();
 
 
+                    Log.d("adminsignup", "Variable value: " + name);
+                    Log.d("adminsignup", "Variable value: " + username);
+                    Log.d("adminsignup", "Variable value: " + email);
+                    Log.d("adminsignup", "Variable value: " + password);
+
                     String url = "http://coms-309-001.class.las.iastate.edu:8080/adminUser/309";
                     JSONObject params = new JSONObject();
                     try {
                         params.put("name", name);
-                        params.put("username", username);
                         params.put("emailId", email);
                         params.put("adminPassword", password);
+                        params.put("username", username);
+
+
                     } catch (JSONException e) {
                         e.printStackTrace();
                         Log.e("Error",e.toString());

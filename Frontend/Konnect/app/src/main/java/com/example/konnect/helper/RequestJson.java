@@ -30,7 +30,8 @@ public class RequestJson {
             try {
                 User.getInstance().setID(response.getString("id"))
                         .setEmail(response.getString("email"))
-                        .setUsername(response.getString("userName"));
+                        .setUsername(response.getString("userName"))
+                        .setType(response.getString("type"));
             } catch (JSONException error) {
                 User.dialogError(context, error.toString());
             }

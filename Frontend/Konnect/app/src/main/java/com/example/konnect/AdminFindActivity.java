@@ -2,6 +2,7 @@ package com.example.konnect;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import com.example.konnect.AdminUserActivity;
 
 public class AdminFindActivity extends AppCompatActivity {
 
-    Intent intent = getIntent();
+
     String adm_username;
     String adm_email;
     String adm_pw;
@@ -25,6 +26,12 @@ public class AdminFindActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adfindusers);
+        Intent intent = getIntent();
+        if (intent != null) {
+            String value = intent.getStringExtra("key");
+            // rest of your code
+        }
+
 
         TextView adminName = findViewById(R.id.find_Name);
         TextView adminEmail = findViewById(R.id.find_Email);
@@ -38,16 +45,18 @@ public class AdminFindActivity extends AppCompatActivity {
         adm_username = intent.getStringExtra("AD_USERNAME");
         adm_email = intent.getStringExtra("AD_EMAIL");
         String pw = confirmpw.getText().toString();
+        Log.d("admin_confirm_pw", "confirm pw: " + pw);
+        Log.d("admin_pw", "admin_pw: " + adm_pw);
 
         findAll.setOnClickListener(v -> {
             if (pw.equals(adm_pw)) {
                 //startActivity(new Intent(v.getContext(), AdminFindAllActivity.class));
                 // Start AdminFindAllActivity
-                Intent intent = new Intent(AdminFindActivity.this, AdminFindAllActivity.class);
-                intent.putExtra("AD_USERNAME", adm_username);
-                intent.putExtra("AD_EMAIL", adm_email);
-                intent.putExtra("AD_PW", adm_pw);
-                startActivity(intent);
+                Intent intent1 = new Intent(AdminFindActivity.this, AdminFindAllActivity.class);
+                intent1.putExtra("AD_USERNAME", adm_username);
+                intent1.putExtra("AD_EMAIL", adm_email);
+                intent1.putExtra("AD_PW", adm_pw);
+                startActivity(intent1);
             } else {
                 Toast.makeText(AdminFindActivity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
             }
@@ -56,11 +65,11 @@ public class AdminFindActivity extends AppCompatActivity {
         findOne.setOnClickListener(v -> {
             if (pw.equals(adm_pw)) {
                 //startActivity(new Intent(v.getContext(), AdminfindbyidActivity.class));
-                Intent intent = new Intent(AdminFindActivity.this, AdminfindbyidActivity.class);
-                intent.putExtra("AD_USERNAME", adm_username);
-                intent.putExtra("AD_EMAIL", adm_email);
-                intent.putExtra("AD_PW", adm_pw);
-                startActivity(intent);
+                Intent intent2 = new Intent(AdminFindActivity.this, AdminfindbyidActivity.class);
+                intent2.putExtra("AD_USERNAME", adm_username);
+                intent2.putExtra("AD_EMAIL", adm_email);
+                intent2.putExtra("AD_PW", adm_pw);
+                startActivity(intent2);
             } else {
                 Toast.makeText(AdminFindActivity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
             }

@@ -57,7 +57,7 @@ public class User implements Serializable {
      * The int value id of the user
      */
 
-    private int int_id;
+    private String type;
 
     /**
      * The birthday of the user.
@@ -181,6 +181,13 @@ public class User implements Serializable {
      */
     public User setBirthday(String birthday) { this.birthday = birthday; return instance;}
 
+    /**
+     *
+     * @param type
+     * @return
+     */
+    public User setType(String type){ this.type = type;return instance;}
+
     /** Sets the friend requests of the user
      *
      * @param friendRequests friend requests the user has received/sent
@@ -257,6 +264,12 @@ public class User implements Serializable {
      * @return The birthday of the user.
      */
     public String getBirthday() { return birthday; }
+
+    /**
+     *
+     * @return
+     */
+    public String getType(){return type;}
 
     public JSONArray getFriendRequests() { return friendRequests; }
 
