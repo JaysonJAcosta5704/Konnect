@@ -23,7 +23,7 @@ public class AdminfindbyidActivity extends AppCompatActivity {
 
     private EditText editTextId;
     private TextView textViewName, textViewUsername;
-    Intent intent = getIntent();
+
     String adm_email;
     String adm_pw;
 
@@ -31,6 +31,8 @@ public class AdminfindbyidActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_find_by_id);
+
+        Intent intent = getIntent();
 
         editTextId = findViewById(R.id.edit_text_id);
         textViewName = findViewById(R.id.text_view_name);

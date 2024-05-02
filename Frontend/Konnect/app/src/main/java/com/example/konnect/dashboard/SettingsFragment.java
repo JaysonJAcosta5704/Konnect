@@ -3,6 +3,7 @@ package com.example.konnect.dashboard;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class SettingsFragment extends Fragment {
                 intent.putExtra("AD_USERNAME", userName);
                 intent.putExtra("AD_EMAIL", userEmail);
                 intent.putExtra("AD_PW", userPw);
+
             } else {
                 // Handle other cases if necessary
                 return;

@@ -49,7 +49,7 @@ public class AdminFindActivity extends AppCompatActivity {
         Log.d("admin_pw", "admin_pw: " + adm_pw);
 
         findAll.setOnClickListener(v -> {
-            if (pw.equals(adm_pw)) {
+
                 //startActivity(new Intent(v.getContext(), AdminFindAllActivity.class));
                 // Start AdminFindAllActivity
                 Intent intent1 = new Intent(AdminFindActivity.this, AdminFindAllActivity.class);
@@ -57,22 +57,18 @@ public class AdminFindActivity extends AppCompatActivity {
                 intent1.putExtra("AD_EMAIL", adm_email);
                 intent1.putExtra("AD_PW", adm_pw);
                 startActivity(intent1);
-            } else {
-                Toast.makeText(AdminFindActivity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
-            }
+
         });
 
         findOne.setOnClickListener(v -> {
-            if (pw.equals(adm_pw)) {
+
                 //startActivity(new Intent(v.getContext(), AdminfindbyidActivity.class));
                 Intent intent2 = new Intent(AdminFindActivity.this, AdminfindbyidActivity.class);
                 intent2.putExtra("AD_USERNAME", adm_username);
                 intent2.putExtra("AD_EMAIL", adm_email);
                 intent2.putExtra("AD_PW", adm_pw);
                 startActivity(intent2);
-            } else {
-                Toast.makeText(AdminFindActivity.this, "Incorrect password", Toast.LENGTH_SHORT).show();
-            }
+
         });
 
 
