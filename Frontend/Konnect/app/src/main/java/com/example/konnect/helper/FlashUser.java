@@ -8,14 +8,16 @@ public class FlashUser {
     private Date dob;
     private String gender;
     private List<String> hobbies;
+    private String profileImage;
 
 
-    public FlashUser(String name, Date dob, String gender, List<String> hobbies) {
+    public FlashUser(String name, Date dob, String gender, List<String> hobbies, String profileImage) {
         this.name = name;
 
         this.dob = dob;
         this.gender = gender;
         this.hobbies = hobbies;
+        this.profileImage = profileImage;
     }
 
     public String getName() {
@@ -49,4 +51,6 @@ public class FlashUser {
     public void setHobbies(List<String> hobbies) {
         this.hobbies = hobbies;
     }
+    public String getProfileImage() {return profileImage;}
+    public void setProfileImage(){this.profileImage = profileImage;}
 }

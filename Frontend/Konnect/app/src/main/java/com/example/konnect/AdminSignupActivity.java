@@ -28,6 +28,9 @@ public class AdminSignupActivity extends AppCompatActivity {
     private EditText confirmEditText;   // define confirm edittext variable
     private EditText emailAccountEditText; // define emailAccount edittext variable
     private String name;
+    private String username;
+    private String password;
+    private String email;
 
     private Button signup_btn;
 
@@ -50,10 +53,10 @@ public class AdminSignupActivity extends AppCompatActivity {
 
                 /* grab strings from user inputs */
 
-                String username = usernameEditText.getText().toString();
-                String password = passwordEditText.getText().toString();
+                username = usernameEditText.getText().toString();
+                password = passwordEditText.getText().toString();
                 String confirm = confirmEditText.getText().toString();
-                String email = emailAccountEditText.getText().toString();
+                email = emailAccountEditText.getText().toString();
 
                 //check if user didn't left the blank
                 if(username.isEmpty()){

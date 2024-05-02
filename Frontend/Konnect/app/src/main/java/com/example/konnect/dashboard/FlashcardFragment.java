@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.example.konnect.R;
 import com.example.konnect.helper.FlashUser;
 import com.google.gson.Gson;
@@ -21,7 +23,9 @@ import com.google.gson.reflect.TypeToken;
 import com.example.konnect.helper.User;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class FlashcardFragment extends Fragment {
     private int currentUserIndex = 0;
@@ -38,6 +42,7 @@ public class FlashcardFragment extends Fragment {
         TextView dobTextView = view.findViewById(R.id.dobTextView);
         TextView genderTextView = view.findViewById(R.id.genderTextView);
         TextView hobbiesTextView = view.findViewById(R.id.hobbiesTextView);
+        ImageView profileImageView = view.findViewById(R.id.profileImageView); // New ImageView for profile image
 
         Button nextButton = view.findViewById(R.id.nextButton);
         nextButton.setOnClickListener(v -> {
@@ -46,16 +51,16 @@ public class FlashcardFragment extends Fragment {
                 currentUserIndex = 0; // Loop back to the first user
             }
             FlashUser nextUser = users.get(currentUserIndex);
-            updateViews(nextUser, nameTextView, dobTextView, genderTextView, hobbiesTextView);
+            updateViews(nextUser, nameTextView, dobTextView, genderTextView, hobbiesTextView, profileImageView); // Pass the ImageView to updateViews
         });
 
         // Call the method to fetch users
-        fetchUsers(nameTextView, dobTextView, genderTextView, hobbiesTextView);
+        fetchUsers(nameTextView, dobTextView, genderTextView, hobbiesTextView, profileImageView); // Pass the ImageView to fetchUsers
 
         return view;
     }
 
-    private void fetchUsers(TextView nameTextView, TextView dobTextView, TextView genderTextView, TextView hobbiesTextView) {
+    private void fetchUsers(TextView nameTextView, TextView dobTextView, TextView genderTextView, TextView hobbiesTextView, ImageView profileImageView) {
         String url = "http://coms-309-001.class.las.iastate.edu:8080/users/"+ id + "/getFlashcards";
 
         // Request a string response from the provided URL.
@@ -71,7 +76,7 @@ public class FlashcardFragment extends Fragment {
                         // Then update your UI (TextViews, etc.) with the new data
                         if (!users.isEmpty()) {
                             FlashUser firstUser = users.get(0);
-                            updateViews(firstUser, nameTextView, dobTextView, genderTextView, hobbiesTextView);
+                            updateViews(firstUser, nameTextView, dobTextView, genderTextView, hobbiesTextView, profileImageView); // Pass the ImageView to updateViews
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -85,10 +90,37 @@ public class FlashcardFragment extends Fragment {
         Volley.newRequestQueue(getContext()).add(stringRequest);
     }
 
-    private void updateViews(FlashUser user, TextView nameTextView, TextView dobTextView, TextView genderTextView, TextView hobbiesTextView) {
+    private void updateViews(FlashUser user, TextView nameTextView, TextView dobTextView, TextView genderTextView, TextView hobbiesTextView, ImageView profileImageView) {
         nameTextView.setText(user.getName());
-        dobTextView.setText(user.getDateOfBirth().toString());
+
+        // Format the Date object into a string
+        if (user.getDateOfBirth() != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            String formattedDate = sdf.format(user.getDateOfBirth());
+            dobTextView.setText(formattedDate);
+        } else {
+            dobTextView.setText("Hidden by User");
+        }
+
         genderTextView.setText(user.getGender());
-        hobbiesTextView.setText(user.getHobbies().toString());
+
+        // Check if hobbies list is null before calling toString
+        if (user.getHobbies() != null) {
+            hobbiesTextView.setText(user.getHobbies().toString());
+        } else {
+            hobbiesTextView.setText("Soccer");
+        }
+
+        // Load the profile image from the server into the ImageView
+        if (user.getProfileImage() != null && !user.getProfileImage().isEmpty()) {
+            Glide.with(this)
+                    .load(user.getProfileImage())
+                    .into(profileImageView);
+        } else {
+            // Load a default image
+            Glide.with(this)
+                    .load(R.drawable.default_pfp)
+                    .into(profileImageView);
+        }
     }
 }

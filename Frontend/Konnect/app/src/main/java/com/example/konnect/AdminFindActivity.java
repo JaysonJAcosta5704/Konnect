@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.konnect.helper.User;
+import com.example.konnect.AdminUserActivity;
+
 
 public class AdminFindActivity extends AppCompatActivity {
 
@@ -24,9 +26,9 @@ public class AdminFindActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adfindusers);
 
-        TextView adminName = findViewById(R.id.Admin_Name);
-        TextView adminEmail = findViewById(R.id.Admin_Email);
-        TextView adminID = findViewById(R.id.Admin_id);
+        TextView adminName = findViewById(R.id.find_Name);
+        TextView adminEmail = findViewById(R.id.find_Email);
+        TextView adminID = findViewById(R.id.find_id);
 
         Button findAll = findViewById(R.id.findAll_btn);
         Button findOne = findViewById(R.id.find_user_btn);
