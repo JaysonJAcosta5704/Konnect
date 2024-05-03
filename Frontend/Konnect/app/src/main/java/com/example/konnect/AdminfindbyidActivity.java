@@ -23,6 +23,8 @@ public class AdminfindbyidActivity extends AppCompatActivity {
 
     private EditText editTextId;
     private TextView textViewName, textViewUsername;
+    // Add more TextViews for other user details
+    private TextView textViewEmail, textViewJoiningDate, textViewGender, textViewAge, textViewLastLogin, textViewAppearances, textViewViewCount, textViewProfileImage, textViewUserBio;
 
     String adm_email;
     String adm_pw;
@@ -37,6 +39,16 @@ public class AdminfindbyidActivity extends AppCompatActivity {
         editTextId = findViewById(R.id.edit_text_id);
         textViewName = findViewById(R.id.text_view_name);
         textViewUsername = findViewById(R.id.text_view_username);
+        // Initialize more TextViews for other user details
+        textViewEmail = findViewById(R.id.text_view_email);
+        textViewJoiningDate = findViewById(R.id.text_view_joining_date);
+        textViewGender = findViewById(R.id.text_view_gender);
+        textViewAge = findViewById(R.id.text_view_age);
+        textViewLastLogin = findViewById(R.id.text_view_last_login);
+        textViewAppearances = findViewById(R.id.text_view_appearances);
+        textViewViewCount = findViewById(R.id.text_view_view_count);
+        textViewProfileImage = findViewById(R.id.text_view_profile_image);
+        textViewUserBio = findViewById(R.id.text_view_user_bio);
 
         adm_email = intent.getStringExtra("AD_EMAIL");
         adm_pw = intent.getStringExtra("AD_PW");
@@ -52,10 +64,30 @@ public class AdminfindbyidActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(JSONObject response) {
                                 try {
-                                    String name = response.getString("name");
-                                    String username = response.getString("userName");
+                                    String name = "Name: " + response.getString("name");
+                                    String username = "Username: " + response.getString("username");
+                                    String email = "Email: " + response.getString("emailId");
+                                    String joiningDate = "Joining Date: " + response.getString("joiningDate");
+                                    String gender = "Gender: " + response.getString("gender");
+                                    String age = "Age: " + response.getInt("age");
+                                    String lastLogin = "Last Login: " + response.getString("lastLoggin");
+                                    String appearances = "Appearances: " + response.getInt("appearences");
+                                    String viewCount = "View Count: " + response.getInt("viewCount");
+                                    String profileImage = "Profile Image: " + response.optString("profileImage", "No image"); // Use optString for potential null values
+                                    String userBio = "User Bio: " + response.optString("userBio", "No bio"); // Use optString for potential null values
+
                                     textViewName.setText(name);
                                     textViewUsername.setText(username);
+                                    textViewEmail.setText(email);
+                                    textViewJoiningDate.setText(joiningDate);
+                                    textViewGender.setText(gender);
+                                    textViewAge.setText(String.valueOf(age));
+                                    textViewLastLogin.setText(lastLogin);
+                                    textViewAppearances.setText(String.valueOf(appearances));
+                                    textViewViewCount.setText(String.valueOf(viewCount));
+                                    textViewProfileImage.setText(profileImage);
+                                    textViewUserBio.setText(userBio);
+
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -63,7 +95,7 @@ public class AdminfindbyidActivity extends AppCompatActivity {
                         }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        // Handle error
                     }
                 });
 
@@ -73,4 +105,3 @@ public class AdminfindbyidActivity extends AppCompatActivity {
         });
     }
 }
-
