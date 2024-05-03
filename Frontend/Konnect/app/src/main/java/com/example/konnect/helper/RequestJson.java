@@ -32,6 +32,8 @@ public class RequestJson {
                         .setEmail(response.getString("email"))
                         .setUsername(response.getString("userName"))
                         .setType(response.getString("type"));
+                        //.setType(response.getString("name"));
+
             } catch (JSONException error) {
                 User.dialogError(context, error.toString());
             }

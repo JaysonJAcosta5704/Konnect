@@ -37,6 +37,9 @@ public class SettingsFragment extends Fragment {
 
         //Log.d("Settings a-type username", "userName: " + userName);
 
+        //String name = User.getInstance().getName();
+        //Log.d("Settings a-type name", "name: " + name);
+
 
 
         chooseHobbiesButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChoosehobbiesActivity.class)));
