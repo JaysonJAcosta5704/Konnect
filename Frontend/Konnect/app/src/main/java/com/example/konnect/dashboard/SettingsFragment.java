@@ -3,6 +3,7 @@ package com.example.konnect.dashboard;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,9 +31,13 @@ public class SettingsFragment extends Fragment {
         Button AdminButton = view.findViewById(R.id.Admin_Button);
 
         String userType = User.getInstance().getType();
-        String userName = User.getInstance().getName();
+        String userName = User.getInstance().getUsername();
         String userEmail = User.getInstance().getEmail();
         String userPw = User.getInstance().getPassword();
+
+        //Log.d("Settings a-type username", "userName: " + userName);
+
+
 
         chooseHobbiesButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ChoosehobbiesActivity.class)));
         reportButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), ReportActivity.class)));
@@ -43,6 +48,7 @@ public class SettingsFragment extends Fragment {
 
             } else if ("A".equals(userType)) {
                 intent = new Intent(v.getContext(), AdminFindActivity.class);
+
                 intent.putExtra("AD_USERNAME", userName);
                 intent.putExtra("AD_EMAIL", userEmail);
                 intent.putExtra("AD_PW", userPw);
