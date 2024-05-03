@@ -1,4 +1,4 @@
-package com.example.konnect;
+package com.example.konnect.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,12 +6,11 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.konnect.R;
 import com.example.konnect.helper.User;
-import com.example.konnect.AdminUserActivity;
 
 
 public class AdminFindActivity extends AppCompatActivity {
@@ -25,7 +24,7 @@ public class AdminFindActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adfindusers);
+        setContentView(R.layout.admin_activity_adfindusers);
         Intent intent = getIntent();
         if (intent != null) {
             String value = intent.getStringExtra("key");

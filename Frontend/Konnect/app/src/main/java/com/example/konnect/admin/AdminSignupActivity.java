@@ -1,4 +1,4 @@
-package com.example.konnect;
+package com.example.konnect.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.konnect.R;
 import com.example.konnect.helper.User;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,7 +37,7 @@ public class AdminSignupActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adminsignup);
+        setContentView(R.layout.admin_activity_adminsignup);
 
 
         usernameEditText = findViewById(R.id.admin_username_edt);  // link to username edtext in the Signup activity XML

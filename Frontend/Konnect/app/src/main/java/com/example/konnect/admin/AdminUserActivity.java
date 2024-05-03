@@ -1,4 +1,4 @@
-package com.example.konnect;
+package com.example.konnect.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,13 +7,14 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.konnect.R;
 import com.example.konnect.helper.User;
 
 public class AdminUserActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adminuser);
+        setContentView(R.layout.admin_activity_adminuser);
 
         TextView adminName = findViewById(R.id.Admin_Name);
         TextView adminEmail = findViewById(R.id.Admin_Email);

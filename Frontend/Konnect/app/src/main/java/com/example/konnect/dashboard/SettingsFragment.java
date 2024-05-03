@@ -3,7 +3,6 @@ package com.example.konnect.dashboard;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,10 +14,9 @@ import com.example.konnect.ChoosehobbiesActivity;
 import com.example.konnect.R;
 import com.example.konnect.ReportActivity;
 import com.example.konnect.entry.MainActivity;
-import com.example.konnect.AdminUserActivity;
-import com.google.android.material.circularreveal.CircularRevealHelper;
+import com.example.konnect.admin.AdminUserActivity;
 import com.example.konnect.helper.User;
-import com.example.konnect.AdminFindActivity;
+import com.example.konnect.admin.AdminFindActivity;
 
 public class SettingsFragment extends Fragment {
     @SuppressLint("ApplySharedPref")

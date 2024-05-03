@@ -1,8 +1,7 @@
-package com.example.konnect;
+package com.example.konnect.admin;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,11 +14,11 @@ import com.android.volley.VolleyError;
 
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.konnect.R;
+import com.example.konnect.UserAdapter;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
@@ -38,7 +37,7 @@ public class AdminFindAllActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_find_all);
+        setContentView(R.layout.admin_activity_admin_find_all);
         Intent intent = getIntent();
 
         recyclerView = findViewById(R.id.recycler_view);

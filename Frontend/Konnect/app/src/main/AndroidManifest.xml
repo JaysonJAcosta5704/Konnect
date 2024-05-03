@@ -141,22 +141,14 @@
         </activity>
 
         <activity
-            android:name=".AdminUserActivity"
+            android:name=".admin.AdminUserActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".AdminSignupActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
-        </activity>
-
-        <activity
-            android:name=".AdminFindActivity"
+            android:name=".admin.AdminSignupActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -164,14 +156,22 @@
         </activity>
 
         <activity
-            android:name=".AdminFindAllActivity"
+            android:name=".admin.AdminFindActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".admin.AdminFindAllActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".AdminfindbyidActivity"
+            android:name=".admin.AdminfindbyidActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
