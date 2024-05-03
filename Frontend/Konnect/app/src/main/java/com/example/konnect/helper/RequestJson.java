@@ -37,6 +37,7 @@ public class RequestJson {
             }
             queue.add(viewProfile(context));
             queue.add(friendRequests(activity, context, progressBar));
+            queue.add(getScoreBoard(context));
         }, error -> {
             User.dialogError(context, error.toString());
             progressBar.setVisibility(View.GONE);
@@ -129,6 +130,11 @@ public class RequestJson {
                 return params;
             }
         };
+    }
+
+    public static synchronized JsonObjectRequest getScoreBoard(Context context){
+        String url = ServerURLs.getServerUrl() + "api/tictactoe/leaderboard";
+        return new JsonObjectRequest(Request.Method.GET, url, null, response -> User.getInstance().setLeaderboardData(response), error -> Log.e("Volley LB error",error.toString()));
     }
 
 //    public static synchronized ImageRequest getProfilePicture(Context context){

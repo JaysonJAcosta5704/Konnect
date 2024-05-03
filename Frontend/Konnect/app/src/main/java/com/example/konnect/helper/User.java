@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -78,6 +79,11 @@ public class User implements Serializable {
      * The friend requests of the user, regardless of the status
      */
     private JSONArray friendRequests;
+
+    /**
+     * The Leaderboard Data for Tic Tac Toe
+     */
+    private JSONObject leaderboardData;
 
     /*---------------------------------------------- USER INSTANCE ----------------------------------------------*/
 
@@ -183,8 +189,8 @@ public class User implements Serializable {
 
     /**
      *
-     * @param type
-     * @return
+     * @param type the type of user
+     *
      */
     public User setType(String type){ this.type = type;return instance;}
 
@@ -193,6 +199,12 @@ public class User implements Serializable {
      * @param friendRequests friend requests the user has received/sent
      */
     public void setFriendRequests(JSONArray friendRequests) { this.friendRequests = friendRequests;}
+
+    /** Sets the Tic Tac Toe Leaderboard data
+     *
+     * @param leaderboardData the data from the leaderboard
+     */
+    public void setLeaderboardData(JSONObject leaderboardData) { this.leaderboardData = leaderboardData; }
 
     /*---------------------------------------------- GETTER METHODS ----------------------------------------------*/
 
@@ -267,11 +279,13 @@ public class User implements Serializable {
 
     /**
      *
-     * @return
+     * @return Type type of user
      */
     public String getType(){return type;}
 
     public JSONArray getFriendRequests() { return friendRequests; }
+
+    public JSONObject getLeaderboardData() { return leaderboardData; }
 
     /*---------------------------------------------- SCREEN POPUPS ----------------------------------------------*/
 //    /**

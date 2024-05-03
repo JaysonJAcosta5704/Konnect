@@ -55,7 +55,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".minigames.GomokuActivity"
+            android:name=".minigames.LeaderboardActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

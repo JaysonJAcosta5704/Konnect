@@ -45,6 +45,7 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
         sendButton.setOnClickListener(v -> {
             try {
                 Bundle extras = getIntent().getExtras();
+                assert extras != null;
                 String user = extras.getString("user");
                 WebSocketManager.getInstance().sendMessage("@" + user + messageText.getText().toString());
                 messageText.setText("");
