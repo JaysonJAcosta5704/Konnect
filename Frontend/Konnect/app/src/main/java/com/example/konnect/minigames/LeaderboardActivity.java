@@ -17,10 +17,9 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import com.example.konnect.R;
 import com.example.konnect.helper.User;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.Iterator;
 
 public class LeaderboardActivity extends AppCompatActivity {
     @Override
@@ -32,16 +31,17 @@ public class LeaderboardActivity extends AppCompatActivity {
         backButton.setOnClickListener(v -> finish());
 
         LinearLayout containerLB = findViewById(R.id.Container_LB);
-            try {
-                JSONObject data = User.getInstance().getLeaderboardData();
-                for (Iterator<String> iterator = data.keys(); iterator.hasNext(); ) {
-                    String username = iterator.next();
-                    int score = data.getInt(username);
-                    containerLB.addView(createLeaderboardLayout(username, 10, score));
-                }
-
+        try {
+            JSONArray data = User.getInstance().getLeaderboardData();
+            for (int i = 0; i < data.length(); i++) {
+                JSONObject item = data.getJSONObject(i);
+                int id = item.getInt("id");
+                String username = item.getString("username");
+                int score = item.getInt("score");
+                containerLB.addView(createLeaderboardLayout(username, id, score));
             }
-            catch (JSONException | NullPointerException e) { User.dialogError(this, e.toString()); }
+        }
+        catch (JSONException | NullPointerException e) { User.dialogError(this, e.toString()); }
     }
 
     @SuppressLint("SetTextI18n")

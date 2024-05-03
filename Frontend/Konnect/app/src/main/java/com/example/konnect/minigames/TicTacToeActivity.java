@@ -108,10 +108,7 @@ public class TicTacToeActivity extends AppCompatActivity {
         for (int i = 0; i < combinationList.size(); i++){
             final int[] combination = combinationList.get(i);
 
-            if (boxPositions[combination[0]] == playerTurn && boxPositions[combination[1]] == playerTurn &&
-                    boxPositions[combination[2]] == playerTurn) {
-                response = true;
-            }
+            if (boxPositions[combination[0]] == playerTurn && boxPositions[combination[1]] == playerTurn && boxPositions[combination[2]] == playerTurn) { response = true; }
         }
         return response;
     }
@@ -119,7 +116,7 @@ public class TicTacToeActivity extends AppCompatActivity {
     private boolean isBoxSelectable(int boxPosition) { return boxPositions[boxPosition] == 0; }
 
     private void restartMatch(){
-        boxPositions = new int[] {0,0,0,0,0,0,0,0,0}; //9 zero
+        boxPositions = new int[] {0,0,0,0,0,0,0,0,0};
         playerTurn = 1;
         totalSelectedBoxes = 1;
 
@@ -147,9 +144,11 @@ public class TicTacToeActivity extends AppCompatActivity {
     }
 
     private void finishActivity(){
-        StringRequest stringRequest = RequestJson.updateScoreBoard(this, this, "api/tictactoe/results", score);
         RequestQueue queue = Volley.newRequestQueue(this);
-        queue.add(stringRequest);
+        for(int i = 0; i < score; i++){
+            StringRequest stringRequest = RequestJson.updateScoreBoard(this, this, "api/tictactoe/results");
+            queue.add(stringRequest);
+        }
     }
 
     private List<Integer> getAvailableBoxes() {

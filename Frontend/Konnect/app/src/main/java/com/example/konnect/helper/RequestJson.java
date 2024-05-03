@@ -117,7 +117,7 @@ public class RequestJson {
 //        });
 //    }
 
-    public static synchronized StringRequest updateScoreBoard(Activity activity, Context context, String game, int score) {
+    public static synchronized StringRequest updateScoreBoard(Activity activity, Context context, String game) {
         String url = String.format("%s%s", ServerURLs.getServerUrl(), game);
 
         return new StringRequest(Request.Method.POST, url, response -> activity.finish(), error -> {
@@ -128,15 +128,15 @@ public class RequestJson {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("username", User.getInstance().getUsername());
-                params.put("result", "" + Math.max(score, 0));
+                params.put("result", "win");
                 return params;
             }
         };
     }
 
-    public static synchronized JsonObjectRequest getScoreBoard(Context context){
+    public static synchronized JsonArrayRequest getScoreBoard(Context context){
         String url = ServerURLs.getServerUrl() + "api/tictactoe/leaderboard";
-        return new JsonObjectRequest(Request.Method.GET, url, null, response -> User.getInstance().setLeaderboardData(response), error -> Log.e("Volley LB error",error.toString()));
+        return new JsonArrayRequest(Request.Method.GET, url, null, response -> User.getInstance().setLeaderboardData(response), error -> Log.e("Volley LB error",error.toString()));
     }
 
 //    public static synchronized ImageRequest getProfilePicture(Context context){

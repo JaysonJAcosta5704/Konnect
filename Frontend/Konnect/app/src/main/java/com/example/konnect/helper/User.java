@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.Objects;
@@ -83,7 +82,7 @@ public class User implements Serializable {
     /**
      * The Leaderboard Data for Tic Tac Toe
      */
-    private JSONObject leaderboardData;
+    private JSONArray leaderboardData;
 
     /*---------------------------------------------- USER INSTANCE ----------------------------------------------*/
 
@@ -204,7 +203,7 @@ public class User implements Serializable {
      *
      * @param leaderboardData the data from the leaderboard
      */
-    public void setLeaderboardData(JSONObject leaderboardData) { this.leaderboardData = leaderboardData; }
+    public void setLeaderboardData(JSONArray leaderboardData) { this.leaderboardData = leaderboardData; }
 
     /*---------------------------------------------- GETTER METHODS ----------------------------------------------*/
 
@@ -285,7 +284,7 @@ public class User implements Serializable {
 
     public JSONArray getFriendRequests() { return friendRequests; }
 
-    public JSONObject getLeaderboardData() { return leaderboardData; }
+    public JSONArray getLeaderboardData() { return leaderboardData; }
 
     /*---------------------------------------------- SCREEN POPUPS ----------------------------------------------*/
 //    /**
