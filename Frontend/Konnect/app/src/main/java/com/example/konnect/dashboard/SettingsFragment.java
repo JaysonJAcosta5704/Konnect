@@ -3,7 +3,6 @@ package com.example.konnect.dashboard;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,10 +13,11 @@ import androidx.fragment.app.Fragment;
 import com.example.konnect.ChoosehobbiesActivity;
 import com.example.konnect.R;
 import com.example.konnect.ReportActivity;
-import com.example.konnect.entry.MainActivity;
-import com.example.konnect.admin.AdminUserActivity;
-import com.example.konnect.helper.User;
 import com.example.konnect.admin.AdminFindActivity;
+import com.example.konnect.admin.AdminUserActivity;
+import com.example.konnect.entry.MainActivity;
+import com.example.konnect.friendsandgroups.GroupsActivity;
+import com.example.konnect.helper.User;
 
 public class SettingsFragment extends Fragment {
     @SuppressLint("ApplySharedPref")
@@ -29,16 +29,10 @@ public class SettingsFragment extends Fragment {
         Button reportButton = view.findViewById(R.id.Report_Button);
         Button logoutButton = view.findViewById(R.id.Logout_Button);
         Button AdminButton = view.findViewById(R.id.Admin_Button);
+        Button groupButton = view.findViewById(R.id.Group_Button);
 
         String userType = User.getInstance().getType();
-        String userName = User.getInstance().getUsername();
-        String userEmail = User.getInstance().getEmail();
-        String userPw = User.getInstance().getPassword();
 
-        //Log.d("Settings a-type username", "userName: " + userName);
-
-        //String name = User.getInstance().getName();
-        //Log.d("Settings a-type name", "name: " + name);
 
 
 
@@ -52,9 +46,9 @@ public class SettingsFragment extends Fragment {
             } else if ("A".equals(userType)) {
                 intent = new Intent(v.getContext(), AdminFindActivity.class);
 
-                intent.putExtra("AD_USERNAME", userName);
-                intent.putExtra("AD_EMAIL", userEmail);
-                intent.putExtra("AD_PW", userPw);
+                intent.putExtra("AD_USERNAME", User.getInstance().getUsername());
+                intent.putExtra("AD_EMAIL", User.getInstance().getEmail());
+                intent.putExtra("AD_PW", User.getInstance().getEmail());
 
             } else {
                 // Handle other cases if necessary
@@ -62,7 +56,7 @@ public class SettingsFragment extends Fragment {
             }
             startActivity(intent);
         });
-
+        groupButton.setOnClickListener(v -> startActivity(new Intent(v.getContext(), GroupsActivity.class)));
         logoutButton.setOnClickListener(v -> {
             v.getContext().getSharedPreferences("USERDATA", 0).edit().clear().commit();
             startActivity(new Intent(v.getContext(), MainActivity.class));
