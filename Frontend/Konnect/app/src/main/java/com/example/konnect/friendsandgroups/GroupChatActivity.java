@@ -1,4 +1,4 @@
-package com.example.konnect;
+package com.example.konnect.friendsandgroups;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.konnect.R;
 import com.example.konnect.helper.User;
 import com.example.konnect.helper.WebSocketListener;
 import com.example.konnect.helper.WebSocketManager;

@@ -1,4 +1,4 @@
-package com.example.konnect;
+package com.example.konnect.friendsandgroups;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.konnect.R;
 import com.example.konnect.helper.User;
 import com.example.konnect.helper.WebSocketListener;
 import com.example.konnect.helper.WebSocketManager;
@@ -85,13 +86,7 @@ public class ChatActivity extends AppCompatActivity implements WebSocketListener
      * @param remote A flag indicating whether the connection was closed by the remote server or locally.
      */
     @Override
-    public void onWebSocketClose(int code, String reason, boolean remote) {
-        String closedBy = remote ? "server" : "local";
-        runOnUiThread(() -> {
-            String s = chatReceive.getText().toString();
-            chatReceive.setText(String.format("%s---\nconnection closed by %s\nreason: %s", s, closedBy, reason));
-        });
-    }
+    public void onWebSocketClose(int code, String reason, boolean remote) { Log.e("Websocket Closed", reason); }
 
     /**
      * This method is called when an error occurs in the WebSocket connection.

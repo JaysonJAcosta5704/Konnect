@@ -84,7 +84,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ChatActivity"
+            android:name=".friendsandgroups.ChatActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -93,7 +93,7 @@
         </activity>
 
         <activity
-            android:name=".GroupChatActivity"
+            android:name=".friendsandgroups.GroupChatActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

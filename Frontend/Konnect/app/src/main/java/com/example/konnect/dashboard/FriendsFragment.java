@@ -22,8 +22,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.konnect.ChatActivity;
+import com.example.konnect.friendsandgroups.ChatActivity;
 import com.example.konnect.R;
+import com.example.konnect.friendsandgroups.GroupChatActivity;
 import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.User;
 
@@ -139,7 +140,7 @@ public class FriendsFragment extends Fragment {
      * @param num ID of the user friend request
      * @return Constraint layout to be added to screen
      */
-    public ConstraintLayout createFRLayout(LinearLayout container1, LinearLayout container2, String userUsername, String userName, int num, Boolean hideAcceptButton){
+    private ConstraintLayout createFRLayout(LinearLayout container1, LinearLayout container2, String userUsername, String userName, int num, Boolean hideAcceptButton){
 
         /* Set Layout */
         ConstraintLayout constraintLayout = new ConstraintLayout(view.getContext());
@@ -260,7 +261,7 @@ public class FriendsFragment extends Fragment {
      * @param num ID of the user friend request
      * @return Constraint layout to be added to screen
      */
-    public ConstraintLayout createFLayout(String userUsername, String userName, int num){
+    private ConstraintLayout createFLayout(String userUsername, String userName, int num){
 
         /* Set Layout */
         ConstraintLayout constraintLayout = new ConstraintLayout(view.getContext());
@@ -327,7 +328,7 @@ public class FriendsFragment extends Fragment {
      * @param num id of the group
      * @return Constraint layout to be added to screen
      */
-    public ConstraintLayout createGLayout(String groupName, int num){
+    private ConstraintLayout createGLayout(String groupName, int num){
 
         /* Set Layout */
         ConstraintLayout constraintLayout = new ConstraintLayout(view.getContext());
@@ -371,6 +372,10 @@ public class FriendsFragment extends Fragment {
         constraintSet.connect(group.getId(), ConstraintSet.BOTTOM, constraintLayout.getId(), ConstraintSet.BOTTOM);
 
         constraintSet.applyTo(constraintLayout);
+
+        Intent intent = new Intent(view.getContext(), GroupChatActivity.class);
+        intent.putExtra("groupName", groupName);
+        constraintLayout.setOnClickListener(v -> startActivity(intent));
 
         return constraintLayout;
     }

@@ -139,6 +139,20 @@ public class RequestJson {
         return new JsonArrayRequest(Request.Method.GET, url, null, response -> User.getInstance().setLeaderboardData(response), error -> Log.e("Volley LB error",error.toString()));
     }
 
+    public static synchronized StringRequest createGroup(Context context, String name) {
+        String url = String.format("%sgroups/create/%s", ServerURLs.getServerUrl(), name);
+
+        return new StringRequest(Request.Method.POST, url, response -> Toast.makeText(context, response, Toast.LENGTH_SHORT).show(), error -> Log.e("Volley", error.toString()));
+    }
+
+    public static synchronized StringRequest addUser(Context context, String name, String user) {
+        String url = String.format("%sgroups/addUser/%s/%s", ServerURLs.getServerUrl(), user, name);
+
+        return new StringRequest(Request.Method.POST, url, response -> Toast.makeText(context, response, Toast.LENGTH_SHORT).show(), error -> Log.e("Volley", error.toString()));
+    }
+
+
+
 //    public static synchronized ImageRequest getProfilePicture(Context context){
 //        String url = String.format("%s%s", ServerURLs.getURL_USERINFO(),"/profile-image" );
 //        return new ImageRequest()
