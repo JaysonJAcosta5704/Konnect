@@ -26,6 +26,7 @@ public class Group {
         this.name= groupName;
     }
 
+
     public Group() {
 
     }

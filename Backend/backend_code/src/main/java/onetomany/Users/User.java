@@ -61,7 +61,8 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL)
     userLogin  userLogin;
 
-    @ManyToMany()
+    @ManyToMany(mappedBy = "users")
+    @JsonIgnore
     List<Group> userGropus;
 
 

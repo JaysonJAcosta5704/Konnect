@@ -24,7 +24,12 @@ public class GroupController {
 
     @GetMapping(path = "/getGroups")
     public List<Group> getGroup(){
-        return groupRepository.findAll();
+        List<Group> temp= groupRepository.findAll();
+        return temp;
+    }
+    @GetMapping(path = "/{name}")
+    public Group getGroups(@PathVariable String name){
+        return groupRepository.findByName(name);
     }
     @PostMapping(path = "/create/{groupName}")
     public ResponseEntity<String> createGroup(@PathVariable String groupName) {
@@ -47,6 +52,15 @@ public class GroupController {
 
         return ResponseEntity.ok("{\"message\":\"User added to group successfully\"}");
     }
+    @PutMapping(path = "/{id}")
+    public void putGroup(@PathVariable int id, @RequestBody Group group){
+        Group temp= groupRepository.findById(id);
+        if(temp== null)
+            return;
+        temp= group;
+        groupRepository.save(temp);
+
+    }
 
     @GetMapping(path = "/list/{username}")
     public List<Group> listGroups(@PathVariable String username) {
@@ -60,5 +74,23 @@ public class GroupController {
         }
         return gropusRet;
     }
+
+    @DeleteMapping(path = "/{groupname}")
+    public String removeGroup(@PathVariable String groupname){
+        Group temp= groupRepository.findByName(groupname);
+        if (temp==null)
+            return "group not found";
+
+        for( User user: temp.getUsers()){
+            user.removeGroup(temp);
+            userRepository.save(user);
+            temp.removeUser(user);
+            groupRepository.save(temp);
+        }
+        groupRepository.delete(temp);
+        return null;
+
+    }
+
 
 }
