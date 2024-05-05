@@ -227,10 +227,30 @@ public class UserController {
         for(Hobbies hobbie: temp.getHobbies()){
             hobbie.removeUser(temp);
             temp.removeHobbie(hobbie);
+            hobbiesRepository.save(hobbie);
+            userRepository.save(temp);
         }
         for(Reports report: temp.getReports()){
             report.deleteUSer();
             reportsRepository.delete(report);
+        }
+        for(Reports report: reportsRepository.findByUser2(temp)){
+            report.deleteUSer();
+            reportsRepository.delete(report);
+        }
+        for (Group group: temp.getUserGropus()){
+                group.removeUser(temp);
+                temp.removeGroup(group);
+                groupRepository.save(group);
+                userRepository.save(temp);
+        }
+        for (Group group: groupRepository.findAll()){
+            if(group.getUsers().contains(temp)) {
+                group.removeUser(temp);
+                temp.removeGroup(group);
+                groupRepository.save(group);
+                userRepository.save(temp);
+            }
         }
         userRepository.delete(temp);
 
@@ -252,17 +272,17 @@ public class UserController {
         }
     }
 
-    @PostMapping("/users/addGroup/{id}/{groupName}")
-    public String addGroup(@PathVariable int id, @PathVariable String groupName ){
-        User temp= userRepository.findById(id);
+    @PostMapping("/users/addGroup/{username}/{groupName}")
+    public String addGroup(@PathVariable String username, @PathVariable String groupName ){
+        User temp= userRepository.findByUsername(username);
         Group tempGr= groupRepository.findByName(groupName);
         if(tempGr ==null || temp== null){
             return failure;
         }
+        temp.addGroup(tempGr);
         tempGr.addUsers(temp);
-        groupRepository.save(tempGr);
-        temp.addGroup(groupRepository.findById(id));
         userRepository.save(temp);
+        groupRepository.save(tempGr);
         return success;
     }
 
@@ -289,6 +309,7 @@ public class UserController {
         userRepository.save(user);
         return "Profile image deleted successfully";
     }
+    //test
 
 
 }
