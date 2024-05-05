@@ -5,6 +5,7 @@ import static com.example.konnect.helper.RequestJson.friendRequestStatusUpdate;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +19,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -28,6 +32,7 @@ import com.example.konnect.friendsandgroups.GroupChatActivity;
 import com.example.konnect.helper.RequestJson;
 import com.example.konnect.helper.User;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -89,7 +94,43 @@ public class FriendsFragment extends Fragment {
         });
 
         containerG.addView(createGLayout("ComS-309 Group", 906));
-        containerG.addView(createGLayout("Admin Group", 101));
+        //containerG.addView(createGLayout("Admin Group", 101));
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue1 = Volley.newRequestQueue(getContext());
+        String url = "http://coms-309-001.class.las.iastate.edu:8080/groups/list/" + User.getInstance().getUsername();
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest1 = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Parse the response to get the list of group names.
+                        try {
+                            JSONArray jsonArray = new JSONArray(response);
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject groupObject = jsonArray.getJSONObject(i);
+                                String groupName = groupObject.getString("name");
+                                int groupId = groupObject.getInt("id");
+
+                                // Add the group to the containerG view.
+                                containerG.addView(createGLayout(groupName, groupId));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("GroupRequest", "Error: " + error.getMessage());
+
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue1.add(stringRequest1);
+
 
         EditText sendToUsername = view.findViewById(R.id.Send_FR_username);
         ImageView sendFr = view.findViewById(R.id.Send_FR);
